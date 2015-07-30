@@ -1,223 +1,221 @@
-<p>{
+{
 "title" : "Event Listeners e Subscribers no Symfony 2",
 "author":"Royopa",
 "date":"25-09-2014",
 "tag":"doctrine, php, symfony, listeners",
 "slug" : "events-listeners-e-subscribers-no-symfony-2",
 "category":"PHP"
-}</p>
+}
 
-<p>Doctrine packages a rich event system that fires events when almost anything
+Doctrine packages a rich event system that fires events when almost anything
 happens inside the system. For you, this means that you can create arbitrary
-:doc:<code>services &lt;/book/service_container&gt;</code> and tell Doctrine to notify those
-objects whenever a certain action (e.g. <code>prePersist</code>) happens within Doctrine.
+:doc:`services </book/service_container>` and tell Doctrine to notify those
+objects whenever a certain action (e.g. ``prePersist``) happens within Doctrine.
 This could be useful, for example, to create an independent search index
-whenever an object in your database is saved.</p>
+whenever an object in your database is saved.
 
-<p>Doctrine defines two types of objects that can listen to Doctrine events:
+Doctrine defines two types of objects that can listen to Doctrine events:
 listeners and subscribers. Both are very similar, but listeners are a bit
-more straightforward. For more, see <code>The Event System</code>_ on Doctrine's website.</p>
+more straightforward. For more, see `The Event System`_ on Doctrine's website.
 
-<p>The Doctrine website also explains all existing events that can be listened to.</p>
+The Doctrine website also explains all existing events that can be listened to.
 
-<h2 id="configuring-the-listener%2Fsubscriber">Configuring the Listener/Subscriber</h2>
+Configuring the Listener/Subscriber
+-----------------------------------
 
-<p>To register a service to act as an event listener or subscriber you just have
-to :ref:<code>tag &lt;book-service-container-tags&gt;</code> it with the appropriate name. Depending
+To register a service to act as an event listener or subscriber you just have
+to :ref:`tag <book-service-container-tags>` it with the appropriate name. Depending
 on your use-case, you can hook a listener into every DBAL connection and ORM
 entity manager or just into one specific DBAL connection and all the entity
-managers that use this connection.</p>
+managers that use this connection.
 
-<p>.. configuration-block::</p>
+.. configuration-block::
 
-<pre><code>.. code-block:: yaml
+    .. code-block:: yaml
 
-    doctrine:
-        dbal:
-            default_connection: default
-            connections:
-                default:
-                    driver: pdo_sqlite
-                    memory: true
+        doctrine:
+            dbal:
+                default_connection: default
+                connections:
+                    default:
+                        driver: pdo_sqlite
+                        memory: true
 
-    services:
-        my.listener:
-            class: Acme\SearchBundle\EventListener\SearchIndexer
-            tags:
-                - { name: doctrine.event_listener, event: postPersist }
-        my.listener2:
-            class: Acme\SearchBundle\EventListener\SearchIndexer2
-            tags:
-                - { name: doctrine.event_listener, event: postPersist, connection: default }
-        my.subscriber:
-            class: Acme\SearchBundle\EventListener\SearchIndexerSubscriber
-            tags:
-                - { name: doctrine.event_subscriber, connection: default }
+        services:
+            my.listener:
+                class: Acme\SearchBundle\EventListener\SearchIndexer
+                tags:
+                    - { name: doctrine.event_listener, event: postPersist }
+            my.listener2:
+                class: Acme\SearchBundle\EventListener\SearchIndexer2
+                tags:
+                    - { name: doctrine.event_listener, event: postPersist, connection: default }
+            my.subscriber:
+                class: Acme\SearchBundle\EventListener\SearchIndexerSubscriber
+                tags:
+                    - { name: doctrine.event_subscriber, connection: default }
 
-.. code-block:: xml
+    .. code-block:: xml
 
-    &lt;?xml version="1.0" ?&gt;
-    &lt;container xmlns="http://symfony.com/schema/dic/services"
-        xmlns:doctrine="http://symfony.com/schema/dic/doctrine"&gt;
+        <?xml version="1.0" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:doctrine="http://symfony.com/schema/dic/doctrine">
 
-        &lt;doctrine:config&gt;
-            &lt;doctrine:dbal default-connection="default"&gt;
-                &lt;doctrine:connection driver="pdo_sqlite" memory="true" /&gt;
-            &lt;/doctrine:dbal&gt;
-        &lt;/doctrine:config&gt;
+            <doctrine:config>
+                <doctrine:dbal default-connection="default">
+                    <doctrine:connection driver="pdo_sqlite" memory="true" />
+                </doctrine:dbal>
+            </doctrine:config>
 
-        &lt;services&gt;
-            &lt;service id="my.listener" class="Acme\SearchBundle\EventListener\SearchIndexer"&gt;
-                &lt;tag name="doctrine.event_listener" event="postPersist" /&gt;
-            &lt;/service&gt;
-            &lt;service id="my.listener2" class="Acme\SearchBundle\EventListener\SearchIndexer2"&gt;
-                &lt;tag name="doctrine.event_listener" event="postPersist" connection="default" /&gt;
-            &lt;/service&gt;
-            &lt;service id="my.subscriber" class="Acme\SearchBundle\EventListener\SearchIndexerSubscriber"&gt;
-                &lt;tag name="doctrine.event_subscriber" connection="default" /&gt;
-            &lt;/service&gt;
-        &lt;/services&gt;
-    &lt;/container&gt;
+            <services>
+                <service id="my.listener" class="Acme\SearchBundle\EventListener\SearchIndexer">
+                    <tag name="doctrine.event_listener" event="postPersist" />
+                </service>
+                <service id="my.listener2" class="Acme\SearchBundle\EventListener\SearchIndexer2">
+                    <tag name="doctrine.event_listener" event="postPersist" connection="default" />
+                </service>
+                <service id="my.subscriber" class="Acme\SearchBundle\EventListener\SearchIndexerSubscriber">
+                    <tag name="doctrine.event_subscriber" connection="default" />
+                </service>
+            </services>
+        </container>
 
-.. code-block:: php
+    .. code-block:: php
 
-    use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Definition;
 
-    $container-&gt;loadFromExtension('doctrine', array(
-        'dbal' =&gt; array(
-            'default_connection' =&gt; 'default',
-            'connections' =&gt; array(
-                'default' =&gt; array(
-                    'driver' =&gt; 'pdo_sqlite',
-                    'memory' =&gt; true,
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'default_connection' => 'default',
+                'connections' => array(
+                    'default' => array(
+                        'driver' => 'pdo_sqlite',
+                        'memory' => true,
+                    ),
                 ),
             ),
-        ),
-    ));
+        ));
 
-    $container
-        -&gt;setDefinition(
-            'my.listener',
-            new Definition('Acme\SearchBundle\EventListener\SearchIndexer')
-        )
-        -&gt;addTag('doctrine.event_listener', array('event' =&gt; 'postPersist'))
-    ;
-    $container
-        -&gt;setDefinition(
-            'my.listener2',
-            new Definition('Acme\SearchBundle\EventListener\SearchIndexer2')
-        )
-        -&gt;addTag('doctrine.event_listener', array('event' =&gt; 'postPersist', 'connection' =&gt; 'default'))
-    ;
-    $container
-        -&gt;setDefinition(
-            'my.subscriber',
-            new Definition('Acme\SearchBundle\EventListener\SearchIndexerSubscriber')
-        )
-        -&gt;addTag('doctrine.event_subscriber', array('connection' =&gt; 'default'))
-    ;
-</code></pre>
+        $container
+            ->setDefinition(
+                'my.listener',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexer')
+            )
+            ->addTag('doctrine.event_listener', array('event' => 'postPersist'))
+        ;
+        $container
+            ->setDefinition(
+                'my.listener2',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexer2')
+            )
+            ->addTag('doctrine.event_listener', array('event' => 'postPersist', 'connection' => 'default'))
+        ;
+        $container
+            ->setDefinition(
+                'my.subscriber',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexerSubscriber')
+            )
+            ->addTag('doctrine.event_subscriber', array('connection' => 'default'))
+        ;
 
-<h2 id="creating-the-listener-class">Creating the Listener Class</h2>
+Creating the Listener Class
+---------------------------
 
-<p>In the previous example, a service <code>my.listener</code> was configured as a Doctrine
-listener on the event <code>postPersist</code>. The class behind that service must have
-a <code>postPersist</code> method, which will be called when the event is dispatched::</p>
+In the previous example, a service ``my.listener`` was configured as a Doctrine
+listener on the event ``postPersist``. The class behind that service must have
+a ``postPersist`` method, which will be called when the event is dispatched::
 
-<pre><code>// src/Acme/SearchBundle/EventListener/SearchIndexer.php
-namespace Acme\SearchBundle\EventListener;
+    // src/Acme/SearchBundle/EventListener/SearchIndexer.php
+    namespace Acme\SearchBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Acme\StoreBundle\Entity\Product;
+    use Doctrine\ORM\Event\LifecycleEventArgs;
+    use Acme\StoreBundle\Entity\Product;
 
-class SearchIndexer
-{
-    public function postPersist(LifecycleEventArgs $args)
+    class SearchIndexer
     {
-        $entity = $args-&gt;getEntity();
-        $entityManager = $args-&gt;getEntityManager();
+        public function postPersist(LifecycleEventArgs $args)
+        {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-        // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof Product) {
-            // ... do something with the Product
+            // perhaps you only want to act on some "Product" entity
+            if ($entity instanceof Product) {
+                // ... do something with the Product
+            }
         }
     }
-}
-</code></pre>
 
-<p>In each event, you have access to a <code>LifecycleEventArgs</code> object, which
+In each event, you have access to a ``LifecycleEventArgs`` object, which
 gives you access to both the entity object of the event and the entity manager
-itself.</p>
+itself.
 
-<p>One important thing to notice is that a listener will be listening for <em>all</em>
+One important thing to notice is that a listener will be listening for *all*
 entities in your application. So, if you're interested in only handling a
-specific type of entity (e.g. a <code>Product</code> entity but not a <code>BlogPost</code>
+specific type of entity (e.g. a ``Product`` entity but not a ``BlogPost``
 entity), you should check for the entity's class type in your method
-(as shown above).</p>
+(as shown above).
 
-<p>.. tip::</p>
+.. tip::
 
-<pre><code>In Doctrine 2.4, a feature called Entity Listeners was introduced.
-It is a lifecycle listener class used for an entity. You can read
-about it in `the Doctrine Documentation`_.
-</code></pre>
+    In Doctrine 2.4, a feature called Entity Listeners was introduced.
+    It is a lifecycle listener class used for an entity. You can read
+    about it in `the Doctrine Documentation`_.
 
-<h2 id="creating-the-subscriber-class">Creating the Subscriber Class</h2>
+Creating the Subscriber Class
+-----------------------------
 
-<p>A Doctrine event subscriber must implement the <code>Doctrine\Common\EventSubscriber</code>
-interface and have an event method for each event it subscribes to::</p>
+A Doctrine event subscriber must implement the ``Doctrine\Common\EventSubscriber``
+interface and have an event method for each event it subscribes to::
 
-<pre><code>// src/Acme/SearchBundle/EventListener/SearchIndexerSubscriber.php
-namespace Acme\SearchBundle\EventListener;
+    // src/Acme/SearchBundle/EventListener/SearchIndexerSubscriber.php
+    namespace Acme\SearchBundle\EventListener;
 
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-// for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Acme\StoreBundle\Entity\Product;
+    use Doctrine\Common\EventSubscriber;
+    use Doctrine\ORM\Event\LifecycleEventArgs;
+    // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+    use Acme\StoreBundle\Entity\Product;
 
-class SearchIndexerSubscriber implements EventSubscriber
-{
-    public function getSubscribedEvents()
+    class SearchIndexerSubscriber implements EventSubscriber
     {
-        return array(
-            'postPersist',
-            'postUpdate',
-        );
-    }
+        public function getSubscribedEvents()
+        {
+            return array(
+                'postPersist',
+                'postUpdate',
+            );
+        }
 
-    public function postUpdate(LifecycleEventArgs $args)
-    {
-        $this-&gt;index($args);
-    }
+        public function postUpdate(LifecycleEventArgs $args)
+        {
+            $this->index($args);
+        }
 
-    public function postPersist(LifecycleEventArgs $args)
-    {
-        $this-&gt;index($args);
-    }
+        public function postPersist(LifecycleEventArgs $args)
+        {
+            $this->index($args);
+        }
 
-    public function index(LifecycleEventArgs $args)
-    {
-        $entity = $args-&gt;getEntity();
-        $entityManager = $args-&gt;getEntityManager();
+        public function index(LifecycleEventArgs $args)
+        {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-        // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof Product) {
-            // ... do something with the Product
+            // perhaps you only want to act on some "Product" entity
+            if ($entity instanceof Product) {
+                // ... do something with the Product
+            }
         }
     }
-}
-</code></pre>
 
-<p>.. tip::</p>
+.. tip::
 
-<pre><code>Doctrine event subscribers can not return a flexible array of methods to
-call for the events like the :ref:`Symfony event subscriber &lt;event_dispatcher-using-event-subscribers&gt;`
-can. Doctrine event subscribers must return a simple array of the event
-names they subscribe to. Doctrine will then expect methods on the subscriber
-with the same name as each subscribed event, just as when using an event listener.
-</code></pre>
+    Doctrine event subscribers can not return a flexible array of methods to
+    call for the events like the :ref:`Symfony event subscriber <event_dispatcher-using-event-subscribers>`
+    can. Doctrine event subscribers must return a simple array of the event
+    names they subscribe to. Doctrine will then expect methods on the subscriber
+    with the same name as each subscribed event, just as when using an event listener.
 
-<p>For a full reference, see chapter <code>The Event System</code>_ in the Doctrine documentation.</p>
+For a full reference, see chapter `The Event System`_ in the Doctrine documentation.
 
-<p>.. _<code>The Event System</code>: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html
-.. _<code>the Doctrine Documentation</code>: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners</p>
+.. _`The Event System`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html
+.. _`the Doctrine Documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners

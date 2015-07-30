@@ -1,26 +1,26 @@
-<p>{
+{
 "title" : "O esquema DRI – Digital Repository Interface",
 "author":"Royopa",
 "date":"07-07-2014",
 "tag":"DSpace, DRI",
 "slug" : "o-esquema-dri-digital-repository-interface",
 "category":"DSpace"
-}</p>
+}
 
-<p>Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em <a href="http://royopa.wordpress.com/2014/07/07/o-esquema-dri-digital-repository-interface/">Wordpress</a>.</p>
+Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em [Wordpress](http://royopa.wordpress.com/2014/07/07/o-esquema-dri-digital-repository-interface/).
 
-<p>O esquema DRI – Digital Repository Interface</p>
+O esquema DRI – Digital Repository Interface
 
-<p>Tradução da página</p>
+Tradução da página
 
-<p>https://wiki.duraspace.org/display/DSDOC4x/DRI+Schema+Reference</p>
+https://wiki.duraspace.org/display/DSDOC4x/DRI+Schema+Reference
 
-<p>Referência de esquema DRI</p>
+Referência de esquema DRI
 
-<p>O DRI (Digital Repository Interface) é um esquema que rege a estrutura de uma página DSpace Manakin quando codificada como um documento XML. Ela determina quais os elementos podem estar presentes no documento e a relação entre os elementos. Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.
-Índice:</p>
+O DRI (Digital Repository Interface) é um esquema que rege a estrutura de uma página DSpace Manakin quando codificada como um documento XML. Ela determina quais os elementos podem estar presentes no documento e a relação entre os elementos. Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.
+Índice:
 
-<p>1 Introdução
+1 Introdução
 1.1 A finalidade da DRI
 1.2 O Desenvolvimento da DRI
 2 DRI em tangará
@@ -64,107 +64,111 @@
 7.27 userMeta
 7.28 value
 7.29 xref
-INTRODUÇÃO</p>
+INTRODUÇÃO
 
-<p>Este manual descreve o Digital Repository Interface (DRI) que se aplica ao repositório digital DSpace e na interface baseada em XMLUI Manakin.O XMLUI DSpace é um sistema de UI (User Interface) abrangente. É centralizada e genérica, permitindo-lhe ser aplicada a todas as páginas DSpace, sendo eficaz para substituir o sistema de interface baseado em JSP. Sua capacidade de aplicar estilos específicos para arbitrariamente grandes conjuntos de páginas DSpace facilita significativamente a tarefa de adaptar o “look and feel” do DSpace. Isso também permite vários níveis de marcação, gerando credibilidade institucional para o repositório e coleções.</p>
+Este manual descreve o Digital Repository Interface (DRI) que se aplica ao repositório digital DSpace e na interface baseada em XMLUI Manakin.O XMLUI DSpace é um sistema de UI (User Interface) abrangente. É centralizada e genérica, permitindo-lhe ser aplicada a todas as páginas DSpace, sendo eficaz para substituir o sistema de interface baseado em JSP. Sua capacidade de aplicar estilos específicos para arbitrariamente grandes conjuntos de páginas DSpace facilita significativamente a tarefa de adaptar o “look and feel” do DSpace. Isso também permite vários níveis de marcação, gerando credibilidade institucional para o repositório e coleções.
 
-<p>O Manakin, a segunda versão do DSpace XML UI, é composto por vários componentes, escritos usando Java, XML e XSL, e é implementado em Cocoon. O centro da interface é o documento XML, que é uma representação semântica de uma página DSpace. No Manakin, o documento XML adere a um esquema chamado de Digital Repository Interface (DRI), que foi desenvolvido em conjunto com o Manakin e é o assunto deste guia. Para o restante deste guia, os termos do documento XML, documento DRI e documento serão usados de forma intercambiável.</p>
+O Manakin, a segunda versão do DSpace XML UI, é composto por vários componentes, escritos usando Java, XML e XSL, e é implementado em Cocoon. O centro da interface é o documento XML, que é uma representação semântica de uma página DSpace. No Manakin, o documento XML adere a um esquema chamado de Digital Repository Interface (DRI), que foi desenvolvido em conjunto com o Manakin e é o assunto deste guia. Para o restante deste guia, os termos do documento XML, documento DRI e documento serão usados de forma intercambiável.
 
-<p>Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.</p>
+Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.
 
-<p>O PROPÓSITO DO ESQUEMA DRI</p>
+O PROPÓSITO DO ESQUEMA DRI
 
-<p>DRI é um esquema que comanda a estrutura do documento XML. Ela determina os elementos que podem estar presentes no documento e a relação dos elementos uns com os outros. Uma vez que todos os componentes Manakin geram documentos XML que aderem ao esquema DRI, o documento XML serve como camada de abstração. Dois componentes: temas e aspectos são essenciais para o funcionamento do Manakin e são brevementes descritos neste manual.</p>
+DRI é um esquema que comanda a estrutura do documento XML. Ela determina os elementos que podem estar presentes no documento e a relação dos elementos uns com os outros. Uma vez que todos os componentes Manakin geram documentos XML que aderem ao esquema DRI, o documento XML serve como camada de abstração. Dois componentes: temas e aspectos são essenciais para o funcionamento do Manakin e são brevementes descritos neste manual.
 
-<p>O DESENVOLVIMENTO DO ESQUEMA DRI</p>
+O DESENVOLVIMENTO DO ESQUEMA DRI
 
-<p>O esquema DRI foi desenvolvido para uso no Manakin. A escolha para desenvolver o nosso próprio esquema, em vez de adaptar um já existente veio depois de uma análise cuidadosa do propósito do esquema, bem como as lições aprendidas a partir de tentativas anteriores de personalização da interface DSpace. Uma vez que cada página DSpace no Manakin existe como um documento XML em algum ponto do processo, o esquema que descreve este documento tinha de ser capaz de representar estruturalmente todo o conteúdo, metadados e relações entre diferentes partes de uma página DSpace. Tinha que ser preciso o suficiente para evitar a perda de qualquer informação estrutural e ainda genérico o suficiente para permitir Temas com um certo grau de liberdade para expressar essa informação em um formato legível.</p>
+O esquema DRI foi desenvolvido para uso no Manakin. A escolha para desenvolver o nosso próprio esquema, em vez de adaptar um já existente veio depois de uma análise cuidadosa do propósito do esquema, bem como as lições aprendidas a partir de tentativas anteriores de personalização da interface DSpace. Uma vez que cada página DSpace no Manakin existe como um documento XML em algum ponto do processo, o esquema que descreve este documento tinha de ser capaz de representar estruturalmente todo o conteúdo, metadados e relações entre diferentes partes de uma página DSpace. Tinha que ser preciso o suficiente para evitar a perda de qualquer informação estrutural e ainda genérico o suficiente para permitir Temas com um certo grau de liberdade para expressar essa informação em um formato legível.
 
-<p>Esquemas populares como XHTML sofrem com o problema de não relacionar elementos em conjunto de forma explicita. Por exemplo, se um título precede um parágrafo, o título está relacionado com o parágrafo não porque ele é codificado como tal, mas porque ele precede o elemento parágrafo. Quando tenta-se traduzir essas estruturas dentro de formatos onde esses tipos de relacionamentos são explícitos, a tradução torna-se tediosa e potencialmente problemática. Esquemas mais estruturados, como TEI ou DocBook, são de domínio específico (muito parecido com o próprio DRI) e, portanto, não é adequado para nossos propósitos.</p>
+Esquemas populares como XHTML sofrem com o problema de não relacionar elementos em conjunto de forma explicita. Por exemplo, se um título precede um parágrafo, o título está relacionado com o parágrafo não porque ele é codificado como tal, mas porque ele precede o elemento parágrafo. Quando tenta-se traduzir essas estruturas dentro de formatos onde esses tipos de relacionamentos são explícitos, a tradução torna-se tediosa e potencialmente problemática. Esquemas mais estruturados, como TEI ou DocBook, são de domínio específico (muito parecido com o próprio DRI) e, portanto, não é adequado para nossos propósitos.
 
-<p>Decidimos também que o esquema deve suportar nativamente um padrão de metadados para a codificação de artefatos. Ao invés de codificar metadados de artefatos em elementos estruturais, como tabelas ou listas, o esquema incluiria artefatos como objetos codificados em um padrão particular. A inclusão de metadados em formato nativo permitiria que o Tema escolhesse o melhor método para exibir o artefato sem estar amarrado a uma estrutura particular.</p>
+Decidimos também que o esquema deve suportar nativamente um padrão de metadados para a codificação de artefatos. Ao invés de codificar metadados de artefatos em elementos estruturais, como tabelas ou listas, o esquema incluiria artefatos como objetos codificados em um padrão particular. A inclusão de metadados em formato nativo permitiria que o Tema escolhesse o melhor método para exibir o artefato sem estar amarrado a uma estrutura particular.
 
-<p>Em última análise, optamos por desenvolver o nosso próprio esquema. Nós construímos o esquema DRI através da incorporação de outras normas, quando apropriado, como o esquema i18n do Cocoon para internacionalização, Dublin Core da DCMI e a o esquema METS da Library of Congress’s. O projeto de elementos estruturais derivou fundamentalmente do TEI , com alguns dos padrões de design de outras normas existentes, como DocBook e XHTML. Enquanto os elementos estruturais foram projetados para serem facilmente traduzidos em XHTML, eles preservam as relações semânticas para uso em linguagens mais expressivas.</p>
+Em última análise, optamos por desenvolver o nosso próprio esquema. Nós construímos o esquema DRI através da incorporação de outras normas, quando apropriado, como o esquema i18n do Cocoon para internacionalização, Dublin Core da DCMI e a o esquema METS da Library of Congress’s. O projeto de elementos estruturais derivou fundamentalmente do TEI , com alguns dos padrões de design de outras normas existentes, como DocBook e XHTML. Enquanto os elementos estruturais foram projetados para serem facilmente traduzidos em XHTML, eles preservam as relações semânticas para uso em linguagens mais expressivas.
 
-<p>DRI NO MANAKIN</p>
+DRI NO MANAKIN
 
-<p>O processo geral para o tratamento de uma requisição no DSpace XMLUI consiste em duas partes. A primeira parte constrói o documento XML e a segunda parte estiliza o Documento para a saída. No Manakin, as duas partes não são discretas, então são embrulhadas dentro de dois processos: Content Generation, que constrói uma representação XML da página, e Application Style, que estiliza o documento resultante. Content Generation é realizado pelo Aspect chaining, enquanto o Application Style é realizado por um tema.</p>
+O processo geral para o tratamento de uma requisição no DSpace XMLUI consiste em duas partes. A primeira parte constrói o documento XML e a segunda parte estiliza o Documento para a saída. No Manakin, as duas partes não são discretas, então são embrulhadas dentro de dois processos: Content Generation, que constrói uma representação XML da página, e Application Style, que estiliza o documento resultante. Content Generation é realizado pelo Aspect chaining, enquanto o Application Style é realizado por um tema.
 
-<p>TEMAS</p>
+TEMAS
 
-<p>Um tema é uma coleção de folhas de estilo XSL e arquivos de suporte, como imagens, estilos CSS, traduções e documentos de ajuda. As folhas de estilo XSL são aplicadas ao documento DRI para convertê-lo em um formato legível e dar-lhe estrutura e formatação visual. Os arquivos de suporte são usados ​​para fornecer a página um específico look and feel, inserir imagens e outros meios de comunicação, traduzir o conteúdo e executar outras tarefas. O formato de saída usado atualmente é XHTML e os arquivos de suporte são geralmente limitados a CSS, imagens e JavaScript. Mais formatos de saída, como PDF ou SVG podem ser adicionados no futuro.</p>
+Um tema é uma coleção de folhas de estilo XSL e arquivos de suporte, como imagens, estilos CSS, traduções e documentos de ajuda. As folhas de estilo XSL são aplicadas ao documento DRI para convertê-lo em um formato legível e dar-lhe estrutura e formatação visual. Os arquivos de suporte são usados ​​para fornecer a página um específico look and feel, inserir imagens e outros meios de comunicação, traduzir o conteúdo e executar outras tarefas. O formato de saída usado atualmente é XHTML e os arquivos de suporte são geralmente limitados a CSS, imagens e JavaScript. Mais formatos de saída, como PDF ou SVG podem ser adicionados no futuro.
 
-<p>A instalação DSpace manakin pode ter vários temas associados. Quando aplicado a uma página, um tema determina a maioria do look and fell. Diferentes temas podem ser aplicados a diferentes conjuntos de páginas DSpace permitindo tanto a variedade de estilos entre as séries de páginas e a consistência dentro desses conjuntos. O arquivo de configuração xmlui.xconf determina quais temas são aplicados para as páginas DSpace (veja a seção XMLUI Configuration and Customization seção para mais informações sobre como instalar e configurar temas). Os temas podem ser configurados para aplicar-se a todas as páginas de um tipo específico, como browse-by-title, a todas as páginas de uma determinada comunidade ou uma coleção ou conjuntos de comunidades e coleções, e qualquer mistura dos dois. Eles também podem ser configurados para se aplicar a um página arbitrária ou um handle.</p>
+A instalação DSpace manakin pode ter vários temas associados. Quando aplicado a uma página, um tema determina a maioria do look and fell. Diferentes temas podem ser aplicados a diferentes conjuntos de páginas DSpace permitindo tanto a variedade de estilos entre as séries de páginas e a consistência dentro desses conjuntos. O arquivo de configuração xmlui.xconf determina quais temas são aplicados para as páginas DSpace (veja a seção XMLUI Configuration and Customization seção para mais informações sobre como instalar e configurar temas). Os temas podem ser configurados para aplicar-se a todas as páginas de um tipo específico, como browse-by-title, a todas as páginas de uma determinada comunidade ou uma coleção ou conjuntos de comunidades e coleções, e qualquer mistura dos dois. Eles também podem ser configurados para se aplicar a um página arbitrária ou um handle.
 
-<p>CHAIN ASPECTS – CADEIA DE ASPECTOS</p>
+CHAIN ASPECTS – CADEIA DE ASPECTOS
 
-<p>Os Aspects Manakin são arranjos de componentes Cocoon (transformadores, ações, matchers, etc) que implementam um novo conjunto de recursos acoplados para o sistema. Estes aspectos são encadeados para formar todas as características do manakin. Cinco aspectos existem na instalação padrão do manakin, cada um lida com um determinado conjunto de características do DSpace, e muito mais pode ser adicionado ao implementar recursos extras. Todos os Aspectos tem um documento DRI como entrada e também geram um documento DRI como saída. Isso permite que os aspectos sejam unidos para formar uma cadeia de Aspect. Cada aspecto da cadeia leva um documento DRI como entrada, adiciona sua própria funcionalidade, e passa o documento modificado para o próximo Aspecto na cadeia.</p>
+Os Aspects Manakin são arranjos de componentes Cocoon (transformadores, ações, matchers, etc) que implementam um novo conjunto de recursos acoplados para o sistema. Estes aspectos são encadeados para formar todas as características do manakin. Cinco aspectos existem na instalação padrão do manakin, cada um lida com um determinado conjunto de características do DSpace, e muito mais pode ser adicionado ao implementar recursos extras. Todos os Aspectos tem um documento DRI como entrada e também geram um documento DRI como saída. Isso permite que os aspectos sejam unidos para formar uma cadeia de Aspect. Cada aspecto da cadeia leva um documento DRI como entrada, adiciona sua própria funcionalidade, e passa o documento modificado para o próximo Aspecto na cadeia.
 
-<p>DESIGN PATTERNS COMUNS</p>
+DESIGN PATTERNS COMUNS
 
-<p>Existem vários padrões de projeto utilizados de forma consistente dentro do esquema DRI. Esta seção identifica a necessidade e descreve a implementação desses padrões. Três padrões são discutidos: questões de linguagem e de internacionalização, o atributo trio padrão ( id , n , erend ), e o uso de marcação orientada a estrutura.</p>
+Existem vários padrões de projeto utilizados de forma consistente dentro do esquema DRI. Esta seção identifica a necessidade e descreve a implementação desses padrões. Três padrões são discutidos: questões de linguagem e de internacionalização, o atributo trio padrão ( id , n , erend ), e o uso de marcação orientada a estrutura.
 
-<p>LOCALIZAÇÃO E INTERNACIONALIZAÇÃO</p>
+LOCALIZAÇÃO E INTERNACIONALIZAÇÃO
 
-<p>Internacionalização é um componente muito importante do sistema de DRI. Ele permite que o conteúdo a ser oferecido em outras línguas com base na localidade do usuário e condicionada à disponibilidade de traduções, bem como datas atuais e moeda de forma localizada. Existem dois tipos de conteúdo: o conteúdo traduzido armazenado e exibido pelo próprio DSpace e conteúdo introduzido pelo processo de styling DRI nas transformações XSL. Ambos os tipos são tratados pelo transformador i18n do Cocoon sem levar em conta sua origem.</p>
+Internacionalização é um componente muito importante do sistema de DRI. Ele permite que o conteúdo a ser oferecido em outras línguas com base na localidade do usuário e condicionada à disponibilidade de traduções, bem como datas atuais e moeda de forma localizada. Existem dois tipos de conteúdo: o conteúdo traduzido armazenado e exibido pelo próprio DSpace e conteúdo introduzido pelo processo de styling DRI nas transformações XSL. Ambos os tipos são tratados pelo transformador i18n do Cocoon sem levar em conta sua origem.
 
-<p>Quando o processo de geração de conteúdo produz um documento DRI, algum do conteúdo textual pode ser marcado com i18n elementos para significar que as traduções estão disponíveis para esse conteúdo. Durante o processo de aplicação de estilo, o tema também pode introduzir um novo conteúdo textual, marcando-o com i18n tags. Como resultado, após modelos XSL do tema são aplicadas ao documento DRI, o resultado final consiste em uma página DSpace marcado no formato de apresentação escolhido (como XHTML) com i18n elementos de ambos DSpace e conteúdo XSL. Este documento final é enviado através de transformador de i18n do Cocoon que traduz o texto marcado.</p>
+Quando o processo de geração de conteúdo produz um documento DRI, algum do conteúdo textual pode ser marcado com i18n elementos para significar que as traduções estão disponíveis para esse conteúdo. Durante o processo de aplicação de estilo, o tema também pode introduzir um novo conteúdo textual, marcando-o com i18n tags. Como resultado, após modelos XSL do tema são aplicadas ao documento DRI, o resultado final consiste em uma página DSpace marcado no formato de apresentação escolhido (como XHTML) com i18n elementos de ambos DSpace e conteúdo XSL. Este documento final é enviado através de transformador de i18n do Cocoon que traduz o texto marcado.
 
-<p>STANDARD ATTRIBUTE TRIPLET – PADRÃO TRIO DE ATRIBUTOS</p>
+STANDARD ATTRIBUTE TRIPLET – PADRÃO TRIO DE ATRIBUTOS
 
-<p>Muitos elementos do sistema de DRI (todos os containers de nível superior, classes de caracteres e muitos outros) contém um ou vários dos três atributos padrão: id , n , e rend . Os atributos ID e n podem ser obrigatórios ou opcionais baseados no propósito do elemento, enquanto o atributo rend é sempre opcional. Os dois primeiros são usados ​​para fins de identificação, enquanto que o terceiro é utilizado como uma pitada de exibição para o passo de styling.</p>
+Muitos elementos do sistema de DRI (todos os containers de nível superior, classes de caracteres e muitos outros) contém um ou vários dos três atributos padrão: id , n , e rend . Os atributos ID e n podem ser obrigatórios ou opcionais baseados no propósito do elemento, enquanto o atributo rend é sempre opcional. Os dois primeiros são usados ​​para fins de identificação, enquanto que o terceiro é utilizado como uma pitada de exibição para o passo de styling.
 
-<p>A identificação é importante porque permite que elementos sejam separados de seus pares para a classificação, renderização em caso especial e outras tarefas. O primeiro atributo, ID , é o identificador global e é único para todo o documento. Qualquer elemento que contém um atributo ID pode, assim, ser referenciado exclusivamente por ele. O atributo ID de um elemento pode ser atribuído tanto explicitamente, ou gerado a partir da Java Class Path do objeto de origem se nenhum nome for dado. Embora todos os elementos que podem ser identificadas exclusivamente podem transportar o atributo ID, apenas aqueles que são independentes no seu contexto tem a necessidade de fazer isso. Por exemplo, as tabelas são obrigadas a terem uma identificação, pois precisam manter o significado independentemente da sua localização no documento, enquanto as linhas da tabela e células podem omitir o atributo já que seu significado depende do elemento pai.</p>
+A identificação é importante porque permite que elementos sejam separados de seus pares para a classificação, renderização em caso especial e outras tarefas. O primeiro atributo, ID , é o identificador global e é único para todo o documento. Qualquer elemento que contém um atributo ID pode, assim, ser referenciado exclusivamente por ele. O atributo ID de um elemento pode ser atribuído tanto explicitamente, ou gerado a partir da Java Class Path do objeto de origem se nenhum nome for dado. Embora todos os elementos que podem ser identificadas exclusivamente podem transportar o atributo ID, apenas aqueles que são independentes no seu contexto tem a necessidade de fazer isso. Por exemplo, as tabelas são obrigadas a terem uma identificação, pois precisam manter o significado independentemente da sua localização no documento, enquanto as linhas da tabela e células podem omitir o atributo já que seu significado depende do elemento pai.
 
-<p>O atributo n é simplesmente o nome atribuído ao elemento e que é utilizado para distinguir um elemento de seus pares imediatos. No exemplo de uma lista particular, todos os itens dessa lista terão nomes diferentes para distingui-los uns dos outros. Outras listas no documento, no entanto, também pode conter itens cujos nomes serão diferentes um do outro, mas idênticos aos da primeira lista. O atributo n de um elemento é, portanto, único apenas no âmbito do pai desse elemento e é usado principalmente para fins de classificação e prestação especial de uma certa classe de elementos, como, por exemplo, todos os primeiros itens em listas, ou todos os itens com o nome “browse”. O atributo n segue as mesmas regras como id para determinar se é ou não é exigido para um determinado elemento.</p>
+O atributo n é simplesmente o nome atribuído ao elemento e que é utilizado para distinguir um elemento de seus pares imediatos. No exemplo de uma lista particular, todos os itens dessa lista terão nomes diferentes para distingui-los uns dos outros. Outras listas no documento, no entanto, também pode conter itens cujos nomes serão diferentes um do outro, mas idênticos aos da primeira lista. O atributo n de um elemento é, portanto, único apenas no âmbito do pai desse elemento e é usado principalmente para fins de classificação e prestação especial de uma certa classe de elementos, como, por exemplo, todos os primeiros itens em listas, ou todos os itens com o nome “browse”. O atributo n segue as mesmas regras como id para determinar se é ou não é exigido para um determinado elemento.
 
-<p>O último atributo no padrão trio é o rend. Ao contrário do id e n , o atributo rend pode consistir de vários valores de espaços delimitados e é opcional para todos os elementos que podem contê-lo. Seu objetivo é fornecer uma dica de renderização da camada intermediária do componente para estilizar o tema. Há vários casos, onde o conteúdo do atributo rend é descrito em detalhes e seu uso é incentivado. Esses casos são os elementos de ênfase hi , o elemento de divisão div, e o elemento list. Por favor, consulte o manual de Referência de Elementos para obter mais detalhes sobre eles.</p>
+O último atributo no padrão trio é o rend. Ao contrário do id e n , o atributo rend pode consistir de vários valores de espaços delimitados e é opcional para todos os elementos que podem contê-lo. Seu objetivo é fornecer uma dica de renderização da camada intermediária do componente para estilizar o tema. Há vários casos, onde o conteúdo do atributo rend é descrito em detalhes e seu uso é incentivado. Esses casos são os elementos de ênfase hi , o elemento de divisão div, e o elemento list. Por favor, consulte o manual de Referência de Elementos para obter mais detalhes sobre eles.
 
-<p>MARCAÇÃO ORIENTADA A ESTRUTURA</p>
+MARCAÇÃO ORIENTADA A ESTRUTURA
 
-<p>O padrão de projeto final é o uso de marcação orientada a estrutura para o conteúdo transportado pelo documento XML. Uma vez gerado pela Cocoon, o documento contém dois tipos principais de informação: metadados sobre o repositório e seu conteúdo e o conteúdo real da página a ser exibida. Uma visão completa de metadados e marcação de conteúdo e sua relação com outros elementos é dada na próxima seção. Uma coisa importante a notar aqui, no entanto, é que a marcação do conteúdo é voltado para declarar explicitamente as relações estruturais entre os elementos ao invés de focar os aspectos de apresentação. Isso faz com que a marcação utilizada pelo documento seja mais semelhante ao TEI ou Docbook em vez de HTML. Por esta razão, templates XSL são utilizadas pelos temas para converter a marcação DRI estrutural para XHTML. Mesmo assim é feita uma tentativa para criar XHTML estrutural sempre que possível, deixando a apresentação inteiramente no CSS. Isso permite que o documento XML seja genérico o suficiente para representar qualquer página DSpace sem informar como ela deveria ser renderizada.</p>
+O padrão de projeto final é o uso de marcação orientada a estrutura para o conteúdo transportado pelo documento XML. Uma vez gerado pela Cocoon, o documento contém dois tipos principais de informação: metadados sobre o repositório e seu conteúdo e o conteúdo real da página a ser exibida. Uma visão completa de metadados e marcação de conteúdo e sua relação com outros elementos é dada na próxima seção. Uma coisa importante a notar aqui, no entanto, é que a marcação do conteúdo é voltado para declarar explicitamente as relações estruturais entre os elementos ao invés de focar os aspectos de apresentação. Isso faz com que a marcação utilizada pelo documento seja mais semelhante ao TEI ou Docbook em vez de HTML. Por esta razão, templates XSL são utilizadas pelos temas para converter a marcação DRI estrutural para XHTML. Mesmo assim é feita uma tentativa para criar XHTML estrutural sempre que possível, deixando a apresentação inteiramente no CSS. Isso permite que o documento XML seja genérico o suficiente para representar qualquer página DSpace sem informar como ela deveria ser renderizada.
 
-<p>VISÃO GERAL DO ESQUEMA</p>
+VISÃO GERAL DO ESQUEMA
 
-<p>O documento XML DRI consiste do elemento raiz document e três elementos de nível superior que contém dois tipos principais de elementos. Os três containers de nível superior são meta, body e options. Os dois tipos de elementos que eles contêm são metadados e conteúdo, levando metadados sobre a página e os conteúdos da página, respectivamente. A Figura 1 mostra a relação entre estes seis componentes.</p>
+O documento XML DRI consiste do elemento raiz document e três elementos de nível superior que contém dois tipos principais de elementos. Os três containers de nível superior são meta, body e options. Os dois tipos de elementos que eles contêm são metadados e conteúdo, levando metadados sobre a página e os conteúdos da página, respectivamente. A Figura 1 mostra a relação entre estes seis componentes.
 
-<p>Figura 1: Os dois tipos de conteúdo em três divisões principais de uma página DRI.</p>
 
-<p>O elemento document é a raiz de todas as páginas da DRI e contém todos os outros elementos. Ele tem apenas um atributo, versão, que contém o número da versão do sistema DRI e o esquema usado para validar o documento produzido. Na hora de escrever o número da versão de trabalho é “1.1”.</p>
 
-<p>O elemento meta é um elemento de nível superior com o número e contém todas as informações de metadados sobre a página, o usuário que a solicitou e o repositório que foi usado. Ele não contém elementos estruturais, pelo contrário, sendo o único container de elementos de metadados em um documento DRI. Os metadados armazenados pelo elemento meta é dividido em três grandes grupos: userMeta , pageMeta e objectMeta , cada um armazenando informação sobre o seu respectivo componente. Por favor, consulte as entradas de referência para mais informações sobre estes elementos.</p>
+Figura 1: Os dois tipos de conteúdo em três divisões principais de uma página DRI.
 
-<p>O elemento options é outro elemento de nível superior que contém todas as opções de navegação e de ação disponíveis para o usuário. As opções são armazenados como itens de elementos da lista, divididas pelo tipo de ação que executam. Os cinco tipos de ações são: navegação, pesquisa, seleção de idioma, as ações que estão sempre disponíveis, e as ações que são dependentes do contexto. Os dois tipos de ação também conter sub-listas que contêm as ações disponíveis para usuários de diferentes níveis de acesso ao sistema. O elemento options não contém elementos de metadados e só pode fazer uso de um pequeno conjunto de elementos estruturais, ou seja, os elementos list e de seus filhos.</p>
+O elemento document é a raiz de todas as páginas da DRI e contém todos os outros elementos. Ele tem apenas um atributo, versão, que contém o número da versão do sistema DRI e o esquema usado para validar o documento produzido. Na hora de escrever o número da versão de trabalho é “1.1”.
 
-<p>O último grande elemento superior é o elemento body. Ele contém todos os elementos estruturais em um documento DRI, incluindo as listas utilizadas pelo elemento options. Os elementos estruturais são usados ​​para construir uma representação genérica de uma página DSpace. Qualquer página DSpace pode ser representada com uma combinação de elementos estruturais, o que por sua vez, podem ser transformados pelos modelos XSL em outro formato. Este é o principal mecanismo que permite que o DSpace XMLUI aplique templates uniformes e regras de estilo para todas as páginas do DSpace e é a diferença fundamental entre a abordagem JSP usada pelo DSpace.</p>
+O elemento meta é um elemento de nível superior com o número e contém todas as informações de metadados sobre a página, o usuário que a solicitou e o repositório que foi usado. Ele não contém elementos estruturais, pelo contrário, sendo o único container de elementos de metadados em um documento DRI. Os metadados armazenados pelo elemento meta é dividido em três grandes grupos: userMeta , pageMeta e objectMeta , cada um armazenando informação sobre o seu respectivo componente. Por favor, consulte as entradas de referência para mais informações sobre estes elementos.
 
-<p>O elemento body contém diretamente apenas um tipo de elemento: div.O elemento div serve como uma grande divisão de conteúdo e qualquer número deles pode ser contido pelo corpo . Além disso, as divisões são recursivas, permitindo que divs possam conter outros divs . É dentro destes elementos que todos os outros elementos estruturais estão. Esses elementos incluem tabelas, elementos de parágrafo p, listas, assim como os seus diversos elementos filhos. Nos níveis mais baixos desta hierarquia encontram-se os elementos de character container. Esses elementos, parágrafos p, table cells, listas de items, e o elemento de ênfase hi, contém o conteúdo textual de uma página DSpace, opcionalmente modificada com links, figuras e ênfase. Se a divisão dentro do qual a classe de caracteres está contida é marcado como interativa (via atributo interactive), esses elementos também podem conter campos de formulário interativos. Divisões marcadas como interativas também devem fornecer os atributos method e action para que seus campos sejam utilizados.</p>
+O elemento options é outro elemento de nível superior que contém todas as opções de navegação e de ação disponíveis para o usuário. As opções são armazenados como itens de elementos da lista, divididas pelo tipo de ação que executam. Os cinco tipos de ações são: navegação, pesquisa, seleção de idioma, as ações que estão sempre disponíveis, e as ações que são dependentes do contexto. Os dois tipos de ação também conter sub-listas que contêm as ações disponíveis para usuários de diferentes níveis de acesso ao sistema. O elemento options não contém elementos de metadados e só pode fazer uso de um pequeno conjunto de elementos estruturais, ou seja, os elementos list e de seus filhos.
 
-<p>Figura 2: Todos os elementos no esquema DRI (versão 1.1).</p>
+O último grande elemento superior é o elemento body. Ele contém todos os elementos estruturais em um documento DRI, incluindo as listas utilizadas pelo elemento options. Os elementos estruturais são usados ​​para construir uma representação genérica de uma página DSpace. Qualquer página DSpace pode ser representada com uma combinação de elementos estruturais, o que por sua vez, podem ser transformados pelos modelos XSL em outro formato. Este é o principal mecanismo que permite que o DSpace XMLUI aplique templates uniformes e regras de estilo para todas as páginas do DSpace e é a diferença fundamental entre a abordagem JSP usada pelo DSpace.
 
-<p>MERGE DE DOCUMENTOS DRI</p>
+O elemento body contém diretamente apenas um tipo de elemento: div.O elemento div serve como uma grande divisão de conteúdo e qualquer número deles pode ser contido pelo corpo . Além disso, as divisões são recursivas, permitindo que divs possam conter outros divs . É dentro destes elementos que todos os outros elementos estruturais estão. Esses elementos incluem tabelas, elementos de parágrafo p, listas, assim como os seus diversos elementos filhos. Nos níveis mais baixos desta hierarquia encontram-se os elementos de character container. Esses elementos, parágrafos p, table cells, listas de items, e o elemento de ênfase hi, contém o conteúdo textual de uma página DSpace, opcionalmente modificada com links, figuras e ênfase. Se a divisão dentro do qual a classe de caracteres está contida é marcado como interativa (via atributo interactive), esses elementos também podem conter campos de formulário interativos. Divisões marcadas como interativas também devem fornecer os atributos method e action para que seus campos sejam utilizados.
 
-<p>Tendo descrito a estrutura do documento DRI, bem como sua função no Aspect chains do Manakin, voltaremos agora a nossa atenção para o último detalhe de seu uso: fazer merge de dois documentos em um só. Existem várias situações em que a necessidade de fundir dois documentos surge. No Manakin, por exemplo, cada aspecto é responsável por adicionar uma funcionalidade diferente para uma página DSpace. Uma vez que cada instância de uma página tem que ser um documento DRI completo, cada aspecto é confrontado com a tarefa de fundir o documento gerado com outro documento gerado (e fundido em um único documento) previamente pela execução dos aspectos. Por esta razão existem regras que descrevem os elementos que podem ser mesclados e o que acontece com seus dados e elementos filhos no processo.</p>
 
-<p>Ao mesclar dois documentos DRI, um é considerado o documento principal e o outro é um documento feeder que é adicionado dentro do principal. Os três container de nível superior (meta , body e options) de ambos os documentos são analisados ​​individualmente e mesclados. No caso dos elementos options e meta, as  tags filhas são pegas individualmente e são tratadas de forma diferente de seus irmãos.</p>
 
-<p>Os elementos body são os mais fáceis de fundir: seus respectivos div filhos são preservados, juntamente com ele mesmo e estão agrupados sob um mesmo elemento. Assim, a nova tag body conterá todos os divs do documento principal seguido por todos os divs do feeder. No entanto, se duas divs têm os mesmos atributos n e rend (e no caso de uma div interativa os mesmos atributos action e method), essas divs serão fundidas em uma só. A div resultante terá os atributos id , n , e rend da div do documento principal e conterá todas as divs do documento principal seguido por todas as divs do feeder. Este processo continua recursivamente até que todas as divs sejam fundidas. Deve notar-se que duas divisões com regras de paginação separadas não podem ser fundidas em conjunto.</p>
+Figura 2: Todos os elementos no esquema DRI (versão 1.1).
 
-<p>Merclar os elementos options é um pouco diferente. Primeiro, os elementos list sob options de ambos os documentos são comparados uns com os outros. Aqueles que forem únicos para ambos os documentos são simplesmente adicionados sob o novo elemento options, assim como divs sob o elemento body. Em caso de elementos duplicados, ou seja, elementos list que pertencem a ambos os documentos e tem o mesmo atributo n, as duas lists serão fundidas em uma só. O novo elemento list será composto do elemento head do documento principal, seguido dos pares label-item do documento principal, e finalmente, os pares label-item do feeder, desde que sejam diferentes daqueles do principal.</p>
+MERGE DE DOCUMENTOS DRI
 
-<p>Finalmente, os elementos meta são fundidos bem como os elementos sob o body. Os três filhos de meta – userMeta , pageMeta e objectMeta – são fundidos individualmente, adicionando o conteúdo do feeder após o conteúdo do principal.</p>
+Tendo descrito a estrutura do documento DRI, bem como sua função no Aspect chains do Manakin, voltaremos agora a nossa atenção para o último detalhe de seu uso: fazer merge de dois documentos em um só. Existem várias situações em que a necessidade de fundir dois documentos surge. No Manakin, por exemplo, cada aspecto é responsável por adicionar uma funcionalidade diferente para uma página DSpace. Uma vez que cada instância de uma página tem que ser um documento DRI completo, cada aspecto é confrontado com a tarefa de fundir o documento gerado com outro documento gerado (e fundido em um único documento) previamente pela execução dos aspectos. Por esta razão existem regras que descrevem os elementos que podem ser mesclados e o que acontece com seus dados e elementos filhos no processo.
 
-<p>ALTERAÇÃO DE VERSÕES</p>
+Ao mesclar dois documentos DRI, um é considerado o documento principal e o outro é um documento feeder que é adicionado dentro do principal. Os três container de nível superior (meta , body e options) de ambos os documentos são analisados ​​individualmente e mesclados. No caso dos elementos options e meta, as  tags filhas são pegas individualmente e são tratadas de forma diferente de seus irmãos.
 
-<p>O esquema DRI continuará a evoluir de acordo com as necessidades de design de interface. O atributo version do documento vai indicar qual a versão do esquema do documento está em conformidade. Na época o Manakin foi incorporado ao padrão de distribuição DSpace, a versão atual era “1.1”, porém as versões anteriores da interface Manakin podem usar a versão “1.0”.</p>
+Os elementos body são os mais fáceis de fundir: seus respectivos div filhos são preservados, juntamente com ele mesmo e estão agrupados sob um mesmo elemento. Assim, a nova tag body conterá todos os divs do documento principal seguido por todos os divs do feeder. No entanto, se duas divs têm os mesmos atributos n e rend (e no caso de uma div interativa os mesmos atributos action e method), essas divs serão fundidas em uma só. A div resultante terá os atributos id , n , e rend da div do documento principal e conterá todas as divs do documento principal seguido por todas as divs do feeder. Este processo continua recursivamente até que todas as divs sejam fundidas. Deve notar-se que duas divisões com regras de paginação separadas não podem ser fundidas em conjunto.
 
-<p>ALTERAÇÃO 1.0 – 1.1</p>
+Merclar os elementos options é um pouco diferente. Primeiro, os elementos list sob options de ambos os documentos são comparados uns com os outros. Aqueles que forem únicos para ambos os documentos são simplesmente adicionados sob o novo elemento options, assim como divs sob o elemento body. Em caso de elementos duplicados, ou seja, elementos list que pertencem a ambos os documentos e tem o mesmo atributo n, as duas lists serão fundidas em uma só. O novo elemento list será composto do elemento head do documento principal, seguido dos pares label-item do documento principal, e finalmente, os pares label-item do feeder, desde que sejam diferentes daqueles do principal.
 
-<p>Houveram grandes mudanças estruturais entre estes dois números de versão. Vários elementos foram removidos do esquema: includeSet, include, objectMeta, and object. Originalmente todos os metadados para objetos foram incluídos em linha com o documento DRI, este provou ter vários problemas e foi removido na versão 1.1 do esquema. Em vez de incluir metadados em linha, foram incluídas referências externas para os metadados. Assim um elemento reference foi adicionado juntamente com referenceSet . Estes novos elementos funcionam como suas contrapartes na versão anterior, exceto sobre referenciar metadados contidos no elemento objectMeta que se referem a metadados em arquivos externos. Os elementos repository e repositoryMeta também foram modificados de forma semelhante removendo metadados em linha e referenciando documentos de metadados externos.</p>
+Finalmente, os elementos meta são fundidos bem como os elementos sob o body. Os três filhos de meta – userMeta , pageMeta e objectMeta – são fundidos individualmente, adicionando o conteúdo do feeder após o conteúdo do principal.
 
-<p>REFERÊNCIA DE ELEMENTOS</p>
+ALTERAÇÃO DE VERSÕES
 
-<p>Element Attributes  Required?
+O esquema DRI continuará a evoluir de acordo com as necessidades de design de interface. O atributo version do documento vai indicar qual a versão do esquema do documento está em conformidade. Na época o Manakin foi incorporado ao padrão de distribuição DSpace, a versão atual era “1.1”, porém as versões anteriores da interface Manakin podem usar a versão “1.0”.
+
+ALTERAÇÃO 1.0 – 1.1
+
+Houveram grandes mudanças estruturais entre estes dois números de versão. Vários elementos foram removidos do esquema: includeSet, include, objectMeta, and object. Originalmente todos os metadados para objetos foram incluídos em linha com o documento DRI, este provou ter vários problemas e foi removido na versão 1.1 do esquema. Em vez de incluir metadados em linha, foram incluídas referências externas para os metadados. Assim um elemento reference foi adicionado juntamente com referenceSet . Estes novos elementos funcionam como suas contrapartes na versão anterior, exceto sobre referenciar metadados contidos no elemento objectMeta que se referem a metadados em arquivos externos. Os elementos repository e repositoryMeta também foram modificados de forma semelhante removendo metadados em linha e referenciando documentos de metadados externos.
+
+REFERÊNCIA DE ELEMENTOS
+
+Element Attributes  Required?
 BODY
 cell
     cols
@@ -274,21 +278,21 @@ value
     optionValue
     type    required
 xref    target  required
-BODY</p>
+BODY
 
-<p>Container de nível superior</p>
+Container de nível superior
 
-<p>O body é o principal elemento container para todo o conteúdo exibido para o usuário. Ele contém um conjunto de elementos div que agrupam o conteúdo em blocos de interação e exibição.</p>
+O body é o principal elemento container para todo o conteúdo exibido para o usuário. Ele contém um conjunto de elementos div que agrupam o conteúdo em blocos de interação e exibição.
 
-<p>Parent</p>
+Parent
 
-<p>document
-Children</p>
+document
+Children
 
-<p>div (qualquer)
-Atributos</p>
+div (qualquer)
+Atributos
 
-<p>Nenhum
+Nenhum
 <document version=1.0>
   <meta> ... </meta>
    <body>
@@ -305,32 +309,31 @@ Atributos</p>
    </body>
   <options> ... </options>
 </document>
-cell</p>
+cell
 
-<p>Rich Text Container</p>
+Rich Text Container
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O elemento cell contido em uma linha de uma tabela traz conteúdo para essa tabela. É um container de caracteres, como p, item, e hi e seu objetivo principal é exibir os dados textuais, possivelmente com com hyperlinks, blocos de enfatização de texto, imagens e campos de formulários. Cada cell pode ser anotada com uma role (sendo a mais comum “header” e “data”) e pode esticar em qualquer número de linhas e colunas. Como as cells não podem existir fora do seu container (row), seu atributo id é opcional.</p>
+O elemento cell contido em uma linha de uma tabela traz conteúdo para essa tabela. É um container de caracteres, como p, item, e hi e seu objetivo principal é exibir os dados textuais, possivelmente com com hyperlinks, blocos de enfatização de texto, imagens e campos de formulários. Cada cell pode ser anotada com uma role (sendo a mais comum “header” e “data”) e pode esticar em qualquer número de linhas e colunas. Como as cells não podem existir fora do seu container (row), seu atributo id é opcional.
 
-<p>Parent</p>
+Parent
 
-<p>row
-Children</p>
+row
+Children
 
-<p>hi (qualquer)
+hi (qualquer)
 xref (qualquer)
 figure (qualquer)
 field (qualquer)
-Atributos</p>
+Atributos
 
-<p>cols : (opcional) O número de colunas abrangidas pela célula.
+cols : (opcional) O número de colunas abrangidas pela célula.
 id : (opcional) Um identificador único do elemento.
 n : (opcional) Um identificador de local usado para diferenciar o elemento de seus irmãos.
 rend : (opcional) Uma dica de renderização usada para substituir o padrão de exibição do elemento.
 role : (opcional) Um atributo opcional para substituir as configurações da row onde a cell está contida.
-rows : (opcional) O número de linhas que a célula abrange.</p>
-
+rows : (opcional) O número de linhas que a célula abrange.
 <table n="table-example" id="XMLExample.table.table-example" rows="2"
     cols="3">
     <row role="head">
@@ -345,29 +348,28 @@ rows : (opcional) O número de linhas que a célula abrange.</p>
     </row>
     ...
 </table>
-
-<p>div</p>
-
-<p>Elemento estrutural</p>
-
-<p>O elemento div representa uma grande parte do conteúdo e pode conter uma grande variedade de elementos estruturais para apresentar conteúdo ao usuário. Ele pode conter parágrafos, tabelas e listas, bem como referências para informações armazenadas no artifactMeta, repositoryMeta, collections, and communities. O elemento div também é recursivo, permitindo-lhe ser ainda dividido em outros divs. As divs podem ser de dois tipos: interativas e estáticas. Os dois tipos são definidos através da utilização do atributo interactive e diferem na sua capacidade para conter o conteúdo interativo. Elementos filhos de divs marcadas como interativos podem conter campos do formulário, com atributos action e method da div que serve para resolver esses campos.</p>
-
-<p>Parent</p>
-
-<p>body
 div
-Children</p>
 
-<p>head (zero ou um)
+Elemento estrutural
+
+O elemento div representa uma grande parte do conteúdo e pode conter uma grande variedade de elementos estruturais para apresentar conteúdo ao usuário. Ele pode conter parágrafos, tabelas e listas, bem como referências para informações armazenadas no artifactMeta, repositoryMeta, collections, and communities. O elemento div também é recursivo, permitindo-lhe ser ainda dividido em outros divs. As divs podem ser de dois tipos: interativas e estáticas. Os dois tipos são definidos através da utilização do atributo interactive e diferem na sua capacidade para conter o conteúdo interativo. Elementos filhos de divs marcadas como interativos podem conter campos do formulário, com atributos action e method da div que serve para resolver esses campos.
+
+Parent
+
+body
+div
+Children
+
+head (zero ou um)
 pagination (zero ou um)
 table (qualquer)
 p (qualquer)
 referenceSet (qualquer)
 list (qualquer)
 div (qualquer)
-Atributos</p>
+Atributos
 
-<p>action : (necessário para interativo) O atributo action do formulário determina onde as informações do formulário deverão ser enviadas para processamento.
+action : (necessário para interativo) O atributo action do formulário determina onde as informações do formulário deverão ser enviadas para processamento.
 behavior : (opcional para interativo) As opções de comportamento aceitáveis ​​que podem ser usados ​​neste formulário. O único valor possível definidos neste momento é “ajax”, o que significa que o formulário pode ser apresentado várias vezes para cada campo individual neste formulário. Observe que, se o formulário for enviado várias vezes é melhor que o behaviorSensitiveFields seja atualizado.
 behaviorSensitiveFields : (opcional para interativo) Uma lista de nomes de campos separados por espaço são sensíveis ao behavior. Estes campos devem ser atualizadas cada vez que um formulário é enviado com uma atualização completa da página (ou seja, ajax).
 currentPage : (opcional) Por divs paginados, o atributo currentPage indica o índice da página atualmente exibida para este div.
@@ -406,25 +408,26 @@ rend : (opcional) Uma dica de renderização usada para substituir o padrão de 
       ...
      </div>
     ...
-</body></p>
+</body>
 
-<p>DOCUMENT</p>
 
-<p>Document Root</p>
+DOCUMENT
 
-<p>O elemento document é o container raiz de um documento XMLUI. Todos os outros elementos estão contidos dentro dele, direta ou indiretamente. O único atributo que ele tem é a versão do esquema que está sendo usado.</p>
+Document Root
 
-<p>Parent</p>
+O elemento document é o container raiz de um documento XMLUI. Todos os outros elementos estão contidos dentro dele, direta ou indiretamente. O único atributo que ele tem é a versão do esquema que está sendo usado.
 
-<p>nenhum
-Children</p>
+Parent
 
-<p>meta (um)
+nenhum
+Children
+
+meta (um)
 corpo (um)
 opções (um)
-Atributos</p>
+Atributos
 
-<p>versão : (obrigatório) Número da versão do esquema que o documento segue. No momento os únicos números de versão válidos são “1.0” ou “1.1”. Iterações futuras deste esquema podem incrementar o número da versão.
+versão : (obrigatório) Número da versão do esquema que o documento segue. No momento os únicos números de versão válidos são “1.0” ou “1.1”. Iterações futuras deste esquema podem incrementar o número da versão.
 <document
    version="1.1">
    <meta>
@@ -437,32 +440,32 @@ Atributos</p>
      ...
    </options>
 </document>
-field</p>
+field
 
-<p>Text Container</p>
+Text Container
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O elemento field é um container para todas as informações necessárias para criar um campo de formulário. O atributo type é orbigatório e determina o tipo do campo, enquanto as childrens tags possuem as informações sobre como construí-lo. Os fields só podem aparecer em divs “interativas”.</p>
+O elemento field é um container para todas as informações necessárias para criar um campo de formulário. O atributo type é orbigatório e determina o tipo do campo, enquanto as childrens tags possuem as informações sobre como construí-lo. Os fields só podem aparecer em divs “interativas”.
 
-<p>Parent</p>
+Parent
 
-<p>cell
+cell
 p
 hi
 item
-Childrens</p>
+Childrens
 
-<p>params (um)
+params (um)
 help (zero ou um)
 error (qualquer)
 option (qualquer – apenas com o tipo select)
 value (qualquer – apenas disponível nos campos do tipo: select, checkbox, ou rádio)
 field (um ou mais – só com o tipo de composite)
 ValueSet (qualquer)
-Atributos</p>
+Atributos
 
-<p>disabled : (opcional)  Valores aceitos são “yes” e “no”. Determina se o campo permite a entrada do usuário. A renderização de campos disabled podem variar de acordo com a mídia de implementação e de exibição.
+disabled : (opcional)  Valores aceitos são “yes” e “no”. Determina se o campo permite a entrada do usuário. A renderização de campos disabled podem variar de acordo com a mídia de implementação e de exibição.
 id : (obrigatório) Um identificador exclusivo para um elemento de campo.
 n : (obrigatório) Um identificador local não-exclusivo usado para diferenciar o elemento de seus irmãos dentro de uma divisão interativa. Este é o nome do campo de utilização, quando os dados são apresentados de volta para o servidor.
 rend : (opcional) Uma dica de renderização usada para substituir o padrão de exibição do elemento.
@@ -477,8 +480,7 @@ radio : um input booleano que pode ser selecionado pelo usuário. Vários campos
 select : um input de menu que permite ao usuário selecionar elementos a partir de uma lista de opções.
 text : um input de texto em única linha.
 textarea : um input de texto em multi-linha.
-composite : um input composto que vombina vários inputs em um único campo. Os  campos que podem ser colocados em conjunto são: checkbox, password, select, text, and textarea. Quando os campos são combinados eles podem possuir vários valores combinados.</p>
-
+composite : um input composto que vombina vários inputs em um único campo. Os  campos que podem ser colocados em conjunto são: checkbox, password, select, text, and textarea. Quando os campos são combinados eles podem possuir vários valores combinados.
 <p>
   <hi> ... </hi>
   <xref> ... </xref>
@@ -494,29 +496,29 @@ composite : um input composto que vombina vários inputs em um único campo. Os 
    </field>
 </p>
 
-<p>figure</p>
 
-<p>Text Container</p>
+figure
 
-<p>Elemento estrutural</p>
+Text Container
 
-<p>O elemento figure é utilizado para incorporar uma referência a uma imagem ou um elemento gráfico. Pode ser misturada livremente com o texto e qualquer texto no interior da própria tag será usado como um caption ou uma descrição alternativa.</p>
+Elemento estrutural
 
-<p>Parent</p>
+O elemento figure é utilizado para incorporar uma referência a uma imagem ou um elemento gráfico. Pode ser misturada livremente com o texto e qualquer texto no interior da própria tag será usado como um caption ou uma descrição alternativa.
 
-<p>cell
+Parent
+
+cell
 p
 hi
 item
-Children</p>
+Children
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
 fonte : (opcional) O source da imagem, usando uma URL ou uma entidade XML pré-definida.
-alvo : (opcional) Um target para uma imagem usada como um link, utilizando uma URL ou um id de um elemento existente como destino.</p>
-
+alvo : (opcional) Um target para uma imagem usada como um link, utilizando uma URL ou um id de um elemento existente como destino.
 <p>
     <hi> ... </hi>
     ...
@@ -532,32 +534,30 @@ alvo : (opcional) Um target para uma imagem usada como um link, utilizando uma U
     ...
 </p>
 
-<p>head</p>
 
-<p>Text Container</p>
+head
 
-<p>Elemento estrutural</p>
+Text Container
 
-<p>O elemento head é usado principalmente como um label associado ao seu elemento pai. A renderização é determinada pela tag pai, mas pode ser substituída pelo atributo rend. Uma vez que não pode ser apenas um elemento head associado com uma tag particularo, o atributo on não é necessário, e o atributo id é opcional.</p>
+Elemento estrutural
 
-<p>Parent</p>
+O elemento head é usado principalmente como um label associado ao seu elemento pai. A renderização é determinada pela tag pai, mas pode ser substituída pelo atributo rend. Uma vez que não pode ser apenas um elemento head associado com uma tag particularo, o atributo on não é necessário, e o atributo id é opcional.
 
-<p>div
+Parent
+
+div
 table
 list
 referenceSet
-Children</p>
+Children
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>id : (opcional) um identificador único do elemento
+id : (opcional) um identificador único do elemento
 n : (opcional) Um identificador de local usado para diferenciar o elemento de seus irmãos
-rend : (opcional) Um hint de renderização usado para substituir o padrão de exibição do elemento.</p>
-
-<p>&lt;</p>
-
-<p>div …>
+rend : (opcional) Um hint de renderização usado para substituir o padrão de exibição do elemento.
+<div …>
      <head> Este é um cabeçalho simples associado com o seu elemento div.
     </head>
     <div ...>
@@ -580,26 +580,26 @@ rend : (opcional) Um hint de renderização usado para substituir o padrão de e
       ...
     </list>
     ...
-</body></p>
+</body>
 
-<p>help</p>
 
-<p>Text Container</p>
+help
 
-<p>Elemento estrutural</p>
+Text Container
 
-<p>O elemento opcional help é usado para fornecer instruções de ajuda em texto simples e normalmente está dentro de um elemento field. O método usado para processar o texto de ajuda está no topo do tema.</p>
+Elemento estrutural
 
-<p>Parent</p>
+O elemento opcional help é usado para fornecer instruções de ajuda em texto simples e normalmente está dentro de um elemento field. O método usado para processar o texto de ajuda está no topo do tema.
 
-<p>field
-Children</p>
+Parent
 
-<p>nenhum
-Atributos</p>
+field
+Children
 
-<p>Nenhum</p>
+nenhum
+Atributos
 
+Nenhum
 <p>
     <hi> ... </hi>
     ...
@@ -615,172 +615,171 @@ Atributos</p>
     ...
 </p>
 
-<p>hi</p>
 
-<p>Rich Text Container</p>
+hi
 
-<p>Elemento estrutural</p>
+Rich Text Container
 
-<p>O elemento hi é usado para dar ênfase num texto e ocorre em containers de caracteres como p e list. Pode ser misturado livremente com o texto, e qualquer texto dentro da tag hi será realçada de uma maneira especificada pelo atributo rend. Além disso, o elemento hi é o único componente container de texto que tem um container rich text dentro dele, o que significa que pode conter outras tags além de texto simples. Isso permite que ele contenha outros container de texto, incluindo outras tags hi.</p>
+Elemento estrutural
 
-<p>Parent</p>
+O elemento hi é usado para dar ênfase num texto e ocorre em containers de caracteres como p e list. Pode ser misturado livremente com o texto, e qualquer texto dentro da tag hi será realçada de uma maneira especificada pelo atributo rend. Além disso, o elemento hi é o único componente container de texto que tem um container rich text dentro dele, o que significa que pode conter outras tags além de texto simples. Isso permite que ele contenha outros container de texto, incluindo outras tags hi.
 
-<p>cell
+Parent
+
+cell
 p
 item
 hi
-Childrens</p>
+Childrens
 
-<p>hi (qualquer)
+hi (qualquer)
 xref (qualquer)
 figure (qualquer)
 field (qualquer)
-Atributos</p>
+Atributos
 
-<p>rend : (obrigatório) Usado para especificar o tipo exato de ênfase para aplicar ao texto contido. Os valores mais comuns incluem, mas não estão limitados a “bold”, “italic”, “underline”, and “emph”.</p>
-
+rend : (obrigatório) Usado para especificar o tipo exato de ênfase para aplicar ao texto contido. Os valores mais comuns incluem, mas não estão limitados a “bold”, “italic”, “underline”, and “emph”.
 <p>
     This text is normal, while  <hi rend="bold">this text is bold and
     this text is <hi rend="italic">bold and
     italic.</hi></hi>
 </p>
+instância
 
-<p>instância</p>
+Elemento estrutural
 
-<p>Elemento estrutural</p>
+O exemplo elemento contém o valor associado a várias instâncias de um campo de formulário. Os campos codificados como uma instância também deve incluir os valores de cada instância como um campo oculto. O campo oculto deve ser anexado com o número de índice para a instância. Assim, se o campo é “nome” cada instância seria nomeado “firstName_1″, “firstName_2″, “firstName_3″, etc ..
 
-<p>O exemplo elemento contém o valor associado a várias instâncias de um campo de formulário. Os campos codificados como uma instância também deve incluir os valores de cada instância como um campo oculto. O campo oculto deve ser anexado com o número de índice para a instância. Assim, se o campo é “nome” cada instância seria nomeado “firstName_1″, “firstName_2″, “firstName_3″, etc ..</p>
+Parente
 
-<p>Parente</p>
+campo
+Crianças
 
-<p>campo
-Crianças</p>
+valor
+Atributos
 
-<p>valor
-Atributos</p>
-
-<p>Nenhum listado ainda.
+Nenhum listado ainda.
 Exemplo necessário.
-item</p>
+item
 
-<p>Rich Text Container</p>
+Rich Text Container
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O item de elemento é uma rica contêiner de texto usado para exibir dados textuais em uma lista. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.</p>
+O item de elemento é uma rica contêiner de texto usado para exibir dados textuais em uma lista. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.
 
-<p>O item de elemento pode ser associado com um rótulo que o precede directamente. O esquema exige que se um artigo em uma lista tem um associado rótulo , em seguida, todos os outros itens devem ter um também. Isso reduz o problema de conexões soltas entre os elementos que é comumente encontradas em XHTML, uma vez que cada item na lista particular tem a mesma estrutura.</p>
+O item de elemento pode ser associado com um rótulo que o precede directamente. O esquema exige que se um artigo em uma lista tem um associado rótulo , em seguida, todos os outros itens devem ter um também. Isso reduz o problema de conexões soltas entre os elementos que é comumente encontradas em XHTML, uma vez que cada item na lista particular tem a mesma estrutura.
 
-<p>Parente</p>
+Parente
 
-<p>lista
-Crianças</p>
+lista
+Crianças
 
-<p>oi (qualquer)
+oi (qualquer)
 xref (qualquer)
 figura (qualquer)
 campo (qualquer)
 lista (qualquer)
-Atributos</p>
+Atributos
 
-<p>ID : (opcional) um identificador único do elemento
+ID : (opcional) um identificador único do elemento
 n : (opcional) Um identificador de local não-exclusiva usada para diferenciar o elemento de seus irmãos
 rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
 <Lista de n = "lista-exemplo"
     id = "XMLExample.list.list-exemplo" >
-  <head> Lista Exemplo &lt;/ head>
+  <head> Lista Exemplo </ head>
    <item> Este é o primeiro item
-    &lt;/ Item> <item> Este é o segundo item com <hi ...> destaque texto &lt;/ oi>,
-    <xref ...> um link &lt;/ xref> e um <figura
-    ...> Imagem &lt;/ figure>. &lt;/ Item>
+    </ Item> <item> Este é o segundo item com <hi ...> destaque texto </ oi>,
+    <xref ...> um link </ xref> e um <figura
+    ...> Imagem </ figure>. </ Item>
   ...
   <Lista de n = "list-example2"
     id = "XMLExample.list.list-example2" >
-    <head> Lista Exemplo &lt;/ head>
-    ITEM <label> UM: &lt;/ label>
+    <head> Lista Exemplo </ head>
+    ITEM <label> UM: </ label>
      <item> Este é o primeiro item
-    &lt;/ Item>
-    ITEM <label> DOIS: &lt;/ label>
+    </ Item>
+    ITEM <label> DOIS: </ label>
      <item> Este é o segundo item com <hi ...> destaque
-    text &lt;/ oi>, <xref ...> um link &lt;/ xref> e um <figura
-    ...> Imagem &lt;/ figure>. &lt;/ Item>
-    ITEM <label> TRÊS: &lt;/ label>
-     <item> Este é o terceiro item com um <field ...> ... &lt;/ field>
-    &lt;/ Item>
+    text </ oi>, <xref ...> um link </ xref> e um <figura
+    ...> Imagem </ figure>. </ Item>
+    ITEM <label> TRÊS: </ label>
+     <item> Este é o terceiro item com um <field ...> ... </ field>
+    </ Item>
     ...
-  &lt;/ List>
+  </ List>
    <item> Este é o terceiro item na lista
-    &lt;/ Item>
+    </ Item>
   ...
-&lt;/ List>
-etiqueta</p>
+</ List>
+etiqueta
 
-<p>Container Texto</p>
+Container Texto
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O rótulo elemento é associado a um item e anota esse item com um número, uma descrição textual de algum tipo, ou uma bala simples.</p>
+O rótulo elemento é associado a um item e anota esse item com um número, uma descrição textual de algum tipo, ou uma bala simples.
 
-<p>Parente</p>
+Parente
 
-<p>item
-Crianças</p>
+item
+Crianças
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>ID : (opcional) um identificador único do elemento
+ID : (opcional) um identificador único do elemento
 n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos
 rend : (opcional) Um atributo rend opcional fornece uma dica sobre como o rótulo deve ser processado, independente do seu tipo.
 <Lista de n = "lista-exemplo"
     id = "XMLExample.list.list-exemplo" >
-  <head> Lista Exemplo &lt;/ head>
-   <label> 1 &lt;/ label>
-  <item> Este é o primeiro item &lt;/ item>
-   <label> 2 &lt;/ label>
-  <item> Este é o segundo item com <hi ...> destaque texto &lt;/ oi>,
-    <xref ...> um link &lt;/ xref> e um <figura
-    ...> Imagem &lt;/ figure>. &lt;/ Item>
+  <head> Lista Exemplo </ head>
+   <label> 1 </ label>
+  <item> Este é o primeiro item </ item>
+   <label> 2 </ label>
+  <item> Este é o segundo item com <hi ...> destaque texto </ oi>,
+    <xref ...> um link </ xref> e um <figura
+    ...> Imagem </ figure>. </ Item>
   ...
   <Lista de n = "list-example2"
     id = "XMLExample.list.list-example2" >
-    <head> Exemplo Sublist &lt;/ head>
+    <head> Exemplo Sublist </ head>
      ITEM <label>
-    UM: &lt;/ label>
-    <item> Este é o primeiro item &lt;/ item>
+    UM: </ label>
+    <item> Este é o primeiro item </ item>
      ITEM <label>
-    DOIS: &lt;/ label>
+    DOIS: </ label>
     <item> Este é o segundo item com <hi ...> destaque
-    text &lt;/ oi>, <xref ...> um link &lt;/ xref> e um <figura
-    ...> Imagem &lt;/ figure>. &lt;/ Item>
+    text </ oi>, <xref ...> um link </ xref> e um <figura
+    ...> Imagem </ figure>. </ Item>
      ITEM <label>
-    TRÊS: &lt;/ label>
-    <item> Este é o terceiro item com um <field ...> ... &lt;/ field>
-    &lt;/ Item>
+    TRÊS: </ label>
+    <item> Este é o terceiro item com um <field ...> ... </ field>
+    </ Item>
     ...
-  &lt;/ List>
-  <item> Este é o terceiro item da lista &lt;/ ​​item>
+  </ List>
+  <item> Este é o terceiro item da lista </ ​​item>
   ...
-&lt;/ List>
-lista</p>
-
-<p>Elemento estrutural</p>
-
-<p>A lista elemento é usado para exibir conjuntos de dados sequenciais. Ele contém um opcional cabeça elemento, bem como qualquer número deitens e lista elementos. itens contêm informações textuais, enquanto sublists conter outros itens ou lista elementos. Um artigo pode também ser associado com um rótulo elemento que anota um item com um número, uma descrição textual de algum tipo, ou um marcador simples. O tipo de lista (ordenada, com marcadores, brilho, etc) é então determinada tanto pelo conteúdo das etiquetas em itens ou por um valor explícito do tipode atributo. Note que, se os rótulos são usados ​​em conjunto com quaisquer itens em uma lista, todos os itens da lista devem ter um rótulo .Também é recomendado para evitar a mistura de etiqueta estilos menos que um tipo explícito é especificado.</p>
-
-<p>Parente</p>
-
-<p>div
+</ List>
 lista
-Crianças</p>
 
-<p>cabeça (zero ou um)
+Elemento estrutural
+
+A lista elemento é usado para exibir conjuntos de dados sequenciais. Ele contém um opcional cabeça elemento, bem como qualquer número deitens e lista elementos. itens contêm informações textuais, enquanto sublists conter outros itens ou lista elementos. Um artigo pode também ser associado com um rótulo elemento que anota um item com um número, uma descrição textual de algum tipo, ou um marcador simples. O tipo de lista (ordenada, com marcadores, brilho, etc) é então determinada tanto pelo conteúdo das etiquetas em itens ou por um valor explícito do tipode atributo. Note que, se os rótulos são usados ​​em conjunto com quaisquer itens em uma lista, todos os itens da lista devem ter um rótulo .Também é recomendado para evitar a mistura de etiqueta estilos menos que um tipo explícito é especificado.
+
+Parente
+
+div
+lista
+Crianças
+
+cabeça (zero ou um)
 rótulo (qualquer)
 item (qualquer)
 lista (qualquer)
-Atributos</p>
+Atributos
 
-<p>ID : (obrigatório) Um identificador exclusivo do elemento
+ID : (obrigatório) Um identificador exclusivo do elemento
 n : (obrigatório) Um identificador de local utilizado para diferenciar o elemento de seus irmãos
 rend : (opcional) Um atributo rend opcional fornece uma dica sobre como a lista deve ser processado, independente do seu tipo. Os valores mais comuns são, mas não se limitando a:
 alfabeto : A lista deve ser processado como um índice alfabético
@@ -796,326 +795,316 @@ marcadores : Utilizado para listas com os itens marcados de bala.
 gloss : Usado para as listas que consistem em um conjunto de termos técnicos, cada uma marcada com uma etiqueta de elemento e acompanhado pela definição marcado como um item de elemento.
 ordenou : Utilizado para listas com itens numerados ou com letras.
 progresso : Usado para listas constituídos por um conjunto de etapas sendo realizadas para realizar uma tarefa. Para este tipo de aplicação, cada ponto na lista deve representar um passo e ser acompanhado de uma etiqueta que contém o nome displayable para a etapa. O artigo contém uma referência externa que referencia o passo. Além disso, o rend atributo no item de elemento deve ser: “disponível” (ou seja, o usuário pode pular para o passo usando o fornecido xref ), “indisponível” (o usuário não atender aos requisitos para saltar para o passo), ou “corrente “(o usuário está atualmente no passo)
-simples : Utilizado para listas com itens não marcados com números ou marcadores.</p>
-
-<p>&lt;</p>
-
-<p>div ...>
+simples : Utilizado para listas com itens não marcados com números ou marcadores.
+<div ...>
   ...
    <Lista de n = "lista-exemplo"
     id = "XMLExample.list.list-exemplo" >
-    <head> Lista Exemplo &lt;/ head>
-    <item> ... &lt;/ item>
-    <item> ... &lt;/ item>
+    <head> Lista Exemplo </ head>
+    <item> ... </ item>
+    <item> ... </ item>
     ...
      <Lista de n = "list-example2"
     id = "XMLExample.list.list-example2" >
-      <head> Exemplo Sublist &lt;/ head>
-      <label> ... &lt;/ label>
-      <item> ... &lt;/ item>
-      <label> ... &lt;/ label>
-      <item> ... &lt;/ item>
-      <label> ... &lt;/ label>
-      <item> ... &lt;/ item>
+      <head> Exemplo Sublist </ head>
+      <label> ... </ label>
+      <item> ... </ item>
+      <label> ... </ label>
+      <item> ... </ item>
+      <label> ... </ label>
+      <item> ... </ item>
       ...
-     &lt;/ List>
-    <label> ... &lt;/ label>
-    <item> ... &lt;/ item>
+     </ List>
+    <label> ... </ label>
+    <item> ... </ item>
     ...
-   &lt;/ List>
-&lt;/ Div>
-META</p>
+   </ List>
+</ Div>
+META
 
-<p>Nível superior-Container</p>
+Nível superior-Container
 
-<p>A meta elemento é um elemento de nível superior e existe diretamente dentro do documento elemento. Ele serve como um elemento de recipiente para todos os metadados associados a um documento dividido em categorias, de acordo com o tipo de metadados que eles carregam.</p>
+A meta elemento é um elemento de nível superior e existe diretamente dentro do documento elemento. Ele serve como um elemento de recipiente para todos os metadados associados a um documento dividido em categorias, de acordo com o tipo de metadados que eles carregam.
 
-<p>Parente</p>
+Parente
 
-<p>documento
-Crianças</p>
+documento
+Crianças
 
-<p>userMeta (um)
+userMeta (um)
 pageMeta (um)
 repositoryMeta (um)
-Atributos</p>
+Atributos
 
-<p>Nenhum
-&lt;Versão do documento = 1.0 >
+Nenhum
+<Versão do documento = 1.0 >
    <meta>
-    <userMeta> ... &lt;/ userMeta>
-    <pageMeta> ... &lt;/ pageMeta>
-    <repositoryMeta> ... &lt;/ repositoryMeta>
-   &lt;/ Meta>
-  <body> ... &lt;/ body>
-  &lt;opções> ... &lt;/ Opções>
-&lt;/ Documento>
-metadados</p>
+    <userMeta> ... </ userMeta>
+    <pageMeta> ... </ pageMeta>
+    <repositoryMeta> ... </ repositoryMeta>
+   </ Meta>
+  <body> ... </ body>
+  <opções> ... </ Opções>
+</ Documento>
+metadados
 
-<p>Container Texto</p>
+Container Texto
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O metadados elemento carrega informações de metadados genérico na forma de um par atributo-valor. O tipo de informação que ele contém é determinada por dois atributos: elemento , que especifica o tipo geral de metadados armazenados, e um opcional qualificador atributo que restringe o tipo baixo. A representação padrão para esse par é element.qualifier. Os metadados real está contida no texto da etiqueta em si.Além disso, uma linguagem atributo pode ser utilizado para especificar o idioma utilizado para a entrada de metadados.</p>
+O metadados elemento carrega informações de metadados genérico na forma de um par atributo-valor. O tipo de informação que ele contém é determinada por dois atributos: elemento , que especifica o tipo geral de metadados armazenados, e um opcional qualificador atributo que restringe o tipo baixo. A representação padrão para esse par é element.qualifier. Os metadados real está contida no texto da etiqueta em si.Além disso, uma linguagem atributo pode ser utilizado para especificar o idioma utilizado para a entrada de metadados.
 
-<p>Parente</p>
+Parente
 
-<p>userMeta
+userMeta
 pageMeta
-Crianças</p>
+Crianças
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>elemento : (obrigatório) O nome de um campo de metadados.
+elemento : (obrigatório) O nome de um campo de metadados.
 língua : (opcional) Um atributo opcional para especificar o idioma utilizado na tag de metadados.
 qualificador : (opcional) Uma postfix opcional para o nome do campo usado para diferenciar os nomes.
 <meta>
   <userMeta>
      <Elemento de metadados = "identificador" qualificador = "nome" > Bob
-    &lt;/ Metadata> <elemento de metadados = "identificador" qualificador = "Sobrenome" > Jones
-    &lt;/ Metadata> <metadata ...> ...
-    &lt;/ Metadata>
+    </ Metadata> <elemento de metadados = "identificador" qualificador = "Sobrenome" > Jones
+    </ Metadata> <metadata ...> ...
+    </ Metadata>
     ...
-  &lt;/ UserMeta>
+  </ UserMeta>
   <pageMeta>
      <elemento de metadados = "direitos"
-    Qualificador = "accessRights" > usuário &lt;/ metadata> <metadata ...> ...
-    &lt;/ Metadata>
+    Qualificador = "accessRights" > usuário </ metadata> <metadata ...> ...
+    </ Metadata>
     ...
-  &lt;/ PageMeta>
-&lt;/ Meta>
-OPÇÕES</p>
+  </ PageMeta>
+</ Meta>
+OPÇÕES
 
-<p>Nível superior-Container</p>
+Nível superior-Container
 
-<p>O opções de elemento é o principal recipiente para todas as ações e opções de navegação disponíveis para o usuário. Ele consiste em um número qualquer de lista elementos cujos itens contêm informações e ações de navegação. Embora qualquer lista de opções de navegação pode ser contida neste elemento, sugere-se que, pelo menos, os seguintes cinco listas ser incluídos.</p>
+O opções de elemento é o principal recipiente para todas as ações e opções de navegação disponíveis para o usuário. Ele consiste em um número qualquer de lista elementos cujos itens contêm informações e ações de navegação. Embora qualquer lista de opções de navegação pode ser contida neste elemento, sugere-se que, pelo menos, os seguintes cinco listas ser incluídos.
 
-<p>Parente</p>
+Parente
 
-<p>documento
-Crianças</p>
+documento
+Crianças
 
-<p>lista (qualquer)
-Atributos</p>
+lista (qualquer)
+Atributos
 
-<p>Nenhum
-&lt;Versão do documento = 1.0 ></p>
+Nenhum
+<Versão do documento = 1.0 >
 
-<pre><code>&lt;meta&gt; ... &lt;/ meta&gt;
+    <meta> ... </ meta>
 
-&lt;body&gt; ... &lt;/ body&gt;
+    <body> ... </ body>
 
-&lt;opções&gt;
+    <opções>
 
-    &lt;Lista de n = "navegação à example1"
-id = "XMLExample.list.navigation-example1" &gt;
+        <Lista de n = "navegação à example1"
+    id = "XMLExample.list.navigation-example1" >
 
-        &lt;head&gt; Exemplo Lista de Navegação 1 &lt;/ head&gt;
+            <head> Exemplo Lista de Navegação 1 </ head>
 
-        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
-Um &lt;/ xref&gt; &lt;/ item&gt;
+            <item> <xref target = "/ link / to / opção" > Opção
+    Um </ xref> </ item>
 
-        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
-dois &lt;/ xref&gt; &lt;/ item&gt;
+            <item> <xref target = "/ link / to / opção" > Opção
+    dois </ xref> </ item>
+
+                ...
+
+        </ List>
+
+        <Lista de n = "navegação à example2"
+    id = "XMLExample.list.navigation-example2" >
+
+            <head> Exemplo Lista de Navegação 2 </ head>
+
+            <item> <xref target = "/ link / to / opção" > Opção
+    Um </ xref> </ item>
+
+            <item> <xref target = "/ link / to / opção" > Opção
+    dois </ xref> </ item>
 
             ...
 
-    &lt;/ List&gt;
-
-    &lt;Lista de n = "navegação à example2"
-id = "XMLExample.list.navigation-example2" &gt;
-
-        &lt;head&gt; Exemplo Lista de Navegação 2 &lt;/ head&gt;
-
-        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
-Um &lt;/ xref&gt; &lt;/ item&gt;
-
-        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
-dois &lt;/ xref&gt; &lt;/ item&gt;
+        </ List>
 
         ...
 
-    &lt;/ List&gt;
+    </ Opções>
 
-    ...
+</ Documento>
+p
 
-&lt;/ Opções&gt;
-</code></pre>
+Rich Text Container
 
-<p>&lt;/ Documento>
-p</p>
+Elemento estrutural
 
-<p>Rich Text Container</p>
+O p elemento é uma rica contêiner de texto usado por divs para exibir dados textuais em um formato de parágrafo. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.
 
-<p>Elemento estrutural</p>
+Parente
 
-<p>O p elemento é uma rica contêiner de texto usado por divs para exibir dados textuais em um formato de parágrafo. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.</p>
+div
+Crianças
 
-<p>Parente</p>
-
-<p>div
-Crianças</p>
-
-<p>oi (qualquer)
+oi (qualquer)
 xref (qualquer)
 figura (qualquer)
 campo (qualquer)
-Atributos</p>
+Atributos
 
-<p>ID : (opcional) um identificador único do elemento.
+ID : (opcional) um identificador único do elemento.
 n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos.
 rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
 <Div n = "divisão-exemplo"
-    id = "XMLExample.div.division-exemplo" ></p>
+    id = "XMLExample.div.division-exemplo" >
 
-<pre><code> &lt;p&gt; Este é um parágrafo normal.
-&lt;/ P&gt; Este texto é normal, enquanto &lt;oi rend = "bold" &gt; este texto está em negrito
-e este texto é &lt;oi rend = "italic" &gt; negrito e itálico. &lt;/ oi&gt; &lt;/ oi&gt;
-&lt;/ P&gt; Este parágrafo contém uma &lt;xref
-target = "/ link / target" &gt; link &lt;/ xref&gt;, uma estática &lt;figura
-source = "/ imagem.jpg" &gt; imagem &lt;/ figure&gt;, e &lt;figura target =
-"/ Link / target" source = "/ imagem.jpg" &gt; link da imagem. &lt;/ figure&gt;
-&lt;/ P&gt;
-</code></pre>
+     <p> Este é um parágrafo normal.
+    </ P> Este texto é normal, enquanto <oi rend = "bold" > este texto está em negrito
+    e este texto é <oi rend = "italic" > negrito e itálico. </ oi> </ oi>
+    </ P> Este parágrafo contém uma <xref
+    target = "/ link / target" > link </ xref>, uma estática <figura
+    source = "/ imagem.jpg" > imagem </ figure>, e <figura target =
+    "/ Link / target" source = "/ imagem.jpg" > link da imagem. </ figure>
+    </ P>
 
-<p>&lt;/ Div>
-pageMeta</p>
+</ Div>
+pageMeta
 
-<p>Metadados Elemento</p>
+Metadados Elemento
 
-<p>O pageMeta elemento contém metadados associados com o próprio documento. Ele contém genéricos metadados elementos para transportar o conteúdo, e qualquer número de trilha elementos para fornecer informações sobre a localização atual do usuário no sistema. Valores obrigatórios e sugeridos para metadados elementos contidos no pageMeta incluem, mas não estão limitados a:</p>
+O pageMeta elemento contém metadados associados com o próprio documento. Ele contém genéricos metadados elementos para transportar o conteúdo, e qualquer número de trilha elementos para fornecer informações sobre a localização atual do usuário no sistema. Valores obrigatórios e sugeridos para metadados elementos contidos no pageMeta incluem, mas não estão limitados a:
 
-<p>browser (sugerido): agente de navegação do usuário, como relatado para servidor na solicitação HTTP.
+browser (sugerido): agente de navegação do usuário, como relatado para servidor na solicitação HTTP.
 browser.type (sugerido): A família do navegador em geral como forma derivada do campo de metadados browser. Os valores possíveis podem incluir “MSIE” (para o Microsoft Internet Explorer), “Opera” (para o navegador Opera), “Apple” (para navegadores baseados kit web Apple), “Gecko” (no Netscape, Mozilla e navegadores baseados Firefox) , ou “Lynx” (para navegadores baseados em texto).
 browser.version (sugerido): A versão do navegador como relatado por solicitação HTTP.
 contextPath (obrigatório): A URL base do sistema Digital Repository.
 redirect.time (sugerido): O tempo que deve decorrer antes que a página é redirecionada para um endereço especificado pelo redirect.urlmetadados elemento.
 redirect.url (sugerido): O destino URL de uma página de redirecionamento
 título (obrigatório): O título do documento / página que o usuário navegando.
-Veja o metadados e trilha entradas tag para mais informações sobre a sua estrutura.</p>
+Veja o metadados e trilha entradas tag para mais informações sobre a sua estrutura.
 
-<p>Parente</p>
+Parente
 
-<p>meta
-Crianças</p>
+meta
+Crianças
 
-<p>metadados (qualquer)
+metadados (qualquer)
 trilha (qualquer)
-Atributos</p>
+Atributos
 
-<p>Nenhum
-<meta></p>
+Nenhum
+<meta>
 
-<pre><code>&lt;userMeta&gt; ... &lt;/ userMeta&gt;
+    <userMeta> ... </ userMeta>
 
- &lt;pageMeta&gt;
+     <pageMeta>
 
-    &lt;Elemento de metadados = "title" &gt; Exemplo DRI
-página &lt;/ metadata&gt;
+        <Elemento de metadados = "title" > Exemplo DRI
+    página </ metadata>
 
-    &lt;Metadados
-elemento = "contextPath" &gt; / XMLUI / &lt;/ metadata&gt;
+        <Metadados
+    elemento = "contextPath" > / XMLUI / </ metadata>
 
-    &lt;metadata ...&gt; ... &lt;/ metadata&gt;
+        <metadata ...> ... </ metadata>
 
-    ...
+        ...
 
-    &lt;Fonte trilha = "123456789/6" &gt; Um item de migalha de pão
-&lt;/ Trilha&gt;
+        <Fonte trilha = "123456789/6" > Um item de migalha de pão
+    </ Trilha>
 
-    &lt;trail ...&gt; ... &lt;/ trilha&gt;
+        <trail ...> ... </ trilha>
 
-    ...
+        ...
 
- &lt;/ PageMeta&gt;
-</code></pre>
+     </ PageMeta>
 
-<p>&lt;/ Meta>
-params</p>
+</ Meta>
+params
 
-<p>Componente estrutural</p>
+Componente estrutural
 
-<p>O params elemento identifica parâmetros extras usados ​​para construir um campo de formulário. Existem vários atributos que podem estar disponíveis para este elemento, dependendo do tipo de campo.</p>
+O params elemento identifica parâmetros extras usados ​​para construir um campo de formulário. Existem vários atributos que podem estar disponíveis para este elemento, dependendo do tipo de campo.
 
-<p>Parente</p>
+Parente
 
-<p>campo
-Crianças</p>
+campo
+Crianças
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>cols : (opcional) O número padrão de colunas que a área de texto deve espalhar. Isto aplica-se apenas aos tipos de campo textarea.
+cols : (opcional) O número padrão de colunas que a área de texto deve espalhar. Isto aplica-se apenas aos tipos de campo textarea.
 maxlength : (opcional) O comprimento máximo que o tema deve aceitar para a entrada de formulário. Isso se aplica a tipos de texto e de campo de senha.
 múltipla : (opcional) sim / não valor. Determine se o campo pode aceitar vários valores para o campo. Isso se aplica somente para selecionar listas.
 operações : (opcional) As operações possíveis que podem ser pré-formados sobre este campo. Os valores possíveis são “add” e / ou “excluir”. Se ambas as operações são possíveis, então eles devem ser fornecidos como uma lista separada por espaços. O “add” operações indica que pode haver vários valores para este campo e que o usuário pode adicionar ao conjunto um de cada vez. O front-end deve processar um botão que permite ao usuário adicionar mais campos ao conjunto. O botão deve ser nomeado o nome do campo adicionados com a string “_ADD”, assim se o nome do campo é “Nome” o botão deve ser chamado de “firstName_add.” O “delete” operação indica que pode haver vários valores para este campo cada do qual pode ser removido a partir do conjunto. O front-end deve processar uma caixa de seleção de cada valor do campo, com exceção do primeiro, A caixa de seleção deve ser nomeado o nome do campo adicionados com a string “_selected”, assim se o nome do campo é “Nome” na caixa de seleção deve ser chamado de “firstName_selected “e o valor de cada caixa sucessivo deverá ser o nome de campo. O front-end deve também tornar um botão delete. O nome do botão de exclusão deve ser o nome do campo adicionados com a string “_delete”.
 linhas : (opcional) O número padrão de linhas que a área de texto deve espalhar. Isto aplica-se apenas aos tipos de campo textarea.
-Tamanho : O tamanho padrão (opcional) para um campo. Isso se aplica ao texto, senha e selecione os tipos de campo.</p>
+Tamanho : O tamanho padrão (opcional) para um campo. Isso se aplica ao texto, senha e selecione os tipos de campo.
+<p>
 
-<p>&lt;</p>
+    <Id = campo "XMLExample.field.name" n = "nome" type = "text"
+    required = "yes" >
 
-<p>p></p>
+         <Tamanho params = "16"
+    maxlength = "32" />
 
-<pre><code>&lt;Id = campo "XMLExample.field.name" n = "nome" type = "text"
-required = "yes" &gt;
+        <help> algum texto de ajuda com <i18n> localizada
+    conteúdo </ i18n>. </ help>
 
-     &lt;Tamanho params = "16"
-maxlength = "32" /&gt;
+        < padrão > Valor padrão vai aqui </ default >
 
-    &lt;help&gt; algum texto de ajuda com &lt;i18n&gt; localizada
-conteúdo &lt;/ i18n&gt;. &lt;/ help&gt;
+    </ Field>
 
-    &lt; padrão &gt; Valor padrão vai aqui &lt;/ default &gt;
+</ P>
+referência
 
-&lt;/ Field&gt;
-</code></pre>
+Metadados elemento de referência
 
-<p>&lt;/ P>
-referência</p>
+referência é um elemento de referência utilizado para acessar informações armazenadas em um arquivo de metadados externos. A url atributo é usado para localizar o arquivo de metadados externos. O tipo de atributo fornece uma descrição curta limitado do tipo do objeto referenciado.
 
-<p>Metadados elemento de referência</p>
+referência elementos podem ser tanto contido por includeSet elementos e conter includeSets si, tornando a estrutura recursiva.
 
-<p>referência é um elemento de referência utilizado para acessar informações armazenadas em um arquivo de metadados externos. A url atributo é usado para localizar o arquivo de metadados externos. O tipo de atributo fornece uma descrição curta limitado do tipo do objeto referenciado.</p>
+Parente
 
-<p>referência elementos podem ser tanto contido por includeSet elementos e conter includeSets si, tornando a estrutura recursiva.</p>
+referenceSet
+Crianças
 
-<p>Parente</p>
+referenceSet (zero ou mais)
+Atributos
 
-<p>referenceSet
-Crianças</p>
-
-<p>referenceSet (zero ou mais)
-Atributos</p>
-
-<p>url : (obrigatório) A url para o arquivo de metadados externos.
+url : (obrigatório) A url para o arquivo de metadados externos.
 repositoryIdentifier : (obrigatório) Uma referência ao repositoryIdentifier do repositório.
 digite : (opcional) Descrição do tipo do objeto de referência.
         <IncludeSet n = "lista de browse"
 id = "lista XMLTest.includeSet.browse" >
-         &lt;Referência url = "/ metadata/handle/123/4/mets.xml"
+         <Referência url = "/ metadata/handle/123/4/mets.xml"
 repositoryID = "123" type = "DSpace
-Item "/> &lt;referência url =" / metadata / punho / 123 / 5 / mets.xml "
+Item "/> <referência url =" / metadata / punho / 123 / 5 / mets.xml "
 repositoryID = "123" />
         ...
-        &lt;/ IncludeSet>
-referenceSet</p>
+        </ IncludeSet>
+referenceSet
 
-<p>Metadados elemento de referência</p>
+Metadados elemento de referência
 
-<p>O referenceSet elemento é um recipiente de artefato ou referências de repositório.</p>
+O referenceSet elemento é um recipiente de artefato ou referências de repositório.
 
-<p>Parente</p>
+Parente
 
-<p>div
+div
 referência
-Crianças</p>
+Crianças
 
-<p>cabeça (zero ou um)
+cabeça (zero ou um)
 referência (qualquer)
-Atributos</p>
+Atributos
 
-<p>ID : (obrigatório) Um identificador exclusivo do elemento
+ID : (obrigatório) Um identificador exclusivo do elemento
 n : (obrigatório) identificador local usado para diferenciar o elemento de seus irmãos
 orderBy : (opcional) Uma referência ao campo de metadados que determina a ordenação dos artefatos ou objetos de repositório dentro do conjunto. Quando o esquema de metadados Dublin Core é usado este atributo deve ser o valor element.qualifier que o conjunto é classificada por. Como exemplo, para um navegar pela lista de títulos, o valor deve ser sortedBy = título, enquanto que para navegar pela lista de data deve ser sortedBy = date.created
 rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
@@ -1123,230 +1112,221 @@ Tipo : (obrigatório) Determina o nível de detalhe para os metadados dado. Os v
 summaryList : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma representação de lista que é adequado para a rápida varredura.
 summaryView : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma visão parcial de um ou mais objetos referenciados.
 detailList : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma representação de lista que fornece uma visão completa ou quase completa, os objetos referenciados. Se esse ponto de vista é possível ou diferente summaryView depende em grande parte do repositório na mão eo tema de execução.
-detailView : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para exibir informações completas sobre o objeto referenciado. Prestação de várias referências incluídas no âmbito deste tipo é até o tema.</p>
-
-<p>&lt;</p>
-
-<p>div ...>
-        <head> Exemplo Divisão &lt;/ head>
-        <p> ... &lt;/ p>
-        <table> ... &lt;/ table>
+detailView : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para exibir informações completas sobre o objeto referenciado. Prestação de várias referências incluídas no âmbito deste tipo é até o tema.
+        <div ...>
+        <head> Exemplo Divisão </ head>
+        <p> ... </ p>
+        <table> ... </ table>
         <list>
         ...
-        &lt;/ List>
+        </ List>
          <ReferenceSet n = "lista de browse"
 id = "XMLTest.referenceSet.browse-list" type = "summaryView"
 informationModel = "DSpace" >
-        <head> Um cabeçalho para o includeset &lt;/ head>
-        &lt;Referência
+        <head> Um cabeçalho para o includeset </ head>
+        <Referência
 url = "/ metadata/handle/123/34/mets.xml" />
-        &lt;Referência
+        <Referência
 url = "" metadados / punho / 123 / 34 / mets.xml />
-         &lt;/ ReferenceSet>
+         </ ReferenceSet>
         ...
-        &lt;/ P>
-repositório</p>
+        </ P>
+repositório
 
-<p>Metadados Elemento</p>
+Metadados Elemento
 
-<p>O repositório elemento é usado para descrever o repositório. Seu principal componente é um conjunto de metadados estruturais que a informação transportadora em como os objetos do repositório sob objectMeta estão relacionados uns aos outros. O principal método de codificação estes relacionamentos na altura da elaboração deste documento é um documento SM, embora outros formatos, como RDF, podem ser empregues no futuro.</p>
+O repositório elemento é usado para descrever o repositório. Seu principal componente é um conjunto de metadados estruturais que a informação transportadora em como os objetos do repositório sob objectMeta estão relacionados uns aos outros. O principal método de codificação estes relacionamentos na altura da elaboração deste documento é um documento SM, embora outros formatos, como RDF, podem ser empregues no futuro.
 
-<p>Parente</p>
+Parente
 
-<p>repositoryMeta
-Crianças</p>
+repositoryMeta
+Crianças
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>repositoryID : requiredA identificador único atribuído a um repositório. Ele é referenciado pelo objeto elemento para indicar o repositório que atribuiu seu identificador.
+repositoryID : requiredA identificador único atribuído a um repositório. Ele é referenciado pelo objeto elemento para indicar o repositório que atribuiu seu identificador.
 url : requiredA url para o arquivo de metadados METS externo para o repositório.
-<repositoryMeta></p>
+<repositoryMeta>
 
-<pre><code> &lt;Repositório repositoryID = "123456789"
-url = "/ metadata/handle/1234/4/mets.xml" /&gt;
-</code></pre>
+     <Repositório repositoryID = "123456789"
+    url = "/ metadata/handle/1234/4/mets.xml" />
 
-<p>&lt;/ RepositoryMeta>
-repositoryMeta</p>
+</ RepositoryMeta>
+repositoryMeta
 
-<p>Metadados Elemento</p>
+Metadados Elemento
 
-<p>O repositoryMeta elemento contém referências metadados sobre os repositórios utilizados no utilizado ou referenciadas no documento. Ele pode conter qualquer número de repositórios elementos.</p>
+O repositoryMeta elemento contém referências metadados sobre os repositórios utilizados no utilizado ou referenciadas no documento. Ele pode conter qualquer número de repositórios elementos.
 
-<p>Veja o repositório de entrada tag para mais informações sobre a estrutura do repositório de elementos.</p>
+Veja o repositório de entrada tag para mais informações sobre a estrutura do repositório de elementos.
 
-<p>Parente</p>
+Parente
 
-<p>Meta
-Crianças</p>
+Meta
+Crianças
 
-<p>repositório (qualquer)
-Atributos</p>
+repositório (qualquer)
+Atributos
 
-<p>Nenhum
-<meta></p>
+Nenhum
+<meta>
 
-<p><userMeta> ... &lt;/ usermeta></p>
+  <userMeta> ... </ usermeta>
 
-<p><pageMeta> ... &lt;/ pageMeta></p>
+  <pageMeta> ... </ pageMeta>
 
-<pre><code> &lt;repositoryMeta&gt;
+     <repositoryMeta>
 
-    &lt;Repositório repositoryIID = "..." url = "..."
-/&gt;
+        <Repositório repositoryIID = "..." url = "..."
+    />
 
- &lt;/ RepositoryMeta&gt;
-</code></pre>
+     </ RepositoryMeta>
 
-<p>&lt;/ Meta>
-linha</p>
+</ Meta>
+linha
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O elemento de linha está contido dentro de um quadro e serve como um recipiente de células elementos. A requerida papel atributo determina como a linha e suas células são prestados.</p>
+O elemento de linha está contido dentro de um quadro e serve como um recipiente de células elementos. A requerida papel atributo determina como a linha e suas células são prestados.
 
-<p>Parente</p>
+Parente
 
-<p>mesa
-Crianças</p>
+mesa
+Crianças
 
-<p>celular (qualquer)
-Atributos</p>
+celular (qualquer)
+Atributos
 
-<p>ID : (opcional) um identificador único do elemento
+ID : (opcional) um identificador único do elemento
 n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos
 rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
 papel : (obrigatório) Indica que tipo de informação a linha carrega. Os valores possíveis incluem “cabeçalho” e “dados”.
 <Table n = "table-exemplo" id = "XMLExample.table.table-exemplo" linhas = "2"
-    cols = "3" ></p>
+    cols = "3" >
 
-<pre><code> &lt;Linha
-role = "cabeça" &gt;
+     <Linha
+    role = "cabeça" >
 
-  &lt;Cols celulares = "2" &gt; Rótulo de Dados Um e
-Dois &lt;/ celular&gt;
+      <Cols celulares = "2" > Rótulo de Dados Um e
+    Dois </ celular>
 
-    Rótulo de Dados &lt;célula&gt; Três &lt;/ celular&gt;
+        Rótulo de Dados <célula> Três </ celular>
+
+        ...
+
+     </ Row> <row>
+
+      <célula> Valor Um </ celular>
+
+      <célula> Valor Dois </ celular>
+
+      <célula> Valor Três </ celular>
+
+      ...
+
+     </ Row>
 
     ...
 
- &lt;/ Row&gt; &lt;row&gt;
+</ Table>
+mesa
 
-  &lt;célula&gt; Valor Um &lt;/ celular&gt;
+Elemento estrutural
 
-  &lt;célula&gt; Valor Dois &lt;/ celular&gt;
+A tabela de elemento é um recipiente para informações apresentadas em formato tabular. Ele consiste em um conjunto de linhas elementos e um opcional cabeçalho .
 
-  &lt;célula&gt; Valor Três &lt;/ celular&gt;
+Parente
 
-  ...
+div
+Crianças
 
- &lt;/ Row&gt;
-
-...
-</code></pre>
-
-<p>&lt;/ Table>
-mesa</p>
-
-<p>Elemento estrutural</p>
-
-<p>A tabela de elemento é um recipiente para informações apresentadas em formato tabular. Ele consiste em um conjunto de linhas elementos e um opcional cabeçalho .</p>
-
-<p>Parente</p>
-
-<p>div
-Crianças</p>
-
-<p>cabeça (zero ou um)
+cabeça (zero ou um)
 linha (qualquer)
-Atributos</p>
+Atributos
 
-<p>cols : (obrigatório) O número de colunas na tabela.
+cols : (obrigatório) O número de colunas na tabela.
 ID : (obrigatório) Um identificador exclusivo do elemento
 n : (obrigatório) Um identificador de local utilizado para diferenciar o elemento de seus irmãos
 rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
 linhas : (obrigatório) O número de linhas na tabela.
 <Div n = "divisão-exemplo"
-    id = "XMLExample.div.division-exemplo" ></p>
+    id = "XMLExample.div.division-exemplo" >
 
-<pre><code> &lt;Table n = "tabela1" id = "XMLExample.table.table1" linhas = "2"
-cols = "3" &gt;
+     <Table n = "tabela1" id = "XMLExample.table.table1" linhas = "2"
+    cols = "3" >
 
-    &lt;Papel linha = "cabeça" &gt;
+        <Papel linha = "cabeça" >
 
-      &lt;Cols celulares = "2" &gt; Rótulo de Dados Um e
-Dois &lt;/ celular&gt;
+          <Cols celulares = "2" > Rótulo de Dados Um e
+    Dois </ celular>
 
-        Rótulo de Dados &lt;célula&gt; Três &lt;/ celular&gt;
+            Rótulo de Dados <célula> Três </ celular>
+
+            ...
+
+        </ Row>
+
+        <row>
+
+          <célula> Valor Um </ celular>
+
+          <célula> Valor Dois </ celular>
+
+          <célula> Valor Três </ celular>
+
+          ...
+
+        </ Row>
 
         ...
 
-    &lt;/ Row&gt;
+     </ Table>
+    ...
+</ Div>
+trilha
 
-    &lt;row&gt;
+Container Texto
 
-      &lt;célula&gt; Valor Um &lt;/ celular&gt;
+Metadados Elemento
 
-      &lt;célula&gt; Valor Dois &lt;/ celular&gt;
+A trilha elemento traz informações sobre a localização atual do usuário no sistema relativo de página raiz do repositório. Cada instância do elemento serve como um link no caminho da raiz para a página atual.
 
-      &lt;célula&gt; Valor Três &lt;/ celular&gt;
+Parente
 
-      ...
+pageMeta
+Crianças
 
-    &lt;/ Row&gt;
+nenhum
+Atributos
+
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+alvo : (opcional) Um atributo opcional para especificar um URL de destino para um elemento trilha servindo como um hiperlink. O texto no interior do elemento vai ser utilizado como o texto da ligação.
+<pageMeta>
+
+    <Elemento de metadados = "title" > Exemplo DRI
+    página </ metadata>
+
+    <Metadados
+    elemento = "contextPath" > / XMLUI / </ metadata>
+
+    <metadata ...> ... </ metadata>
 
     ...
 
- &lt;/ Table&gt;
-...
-</code></pre>
+     <Alvo trilha = "/ myDSpace" > Um item de miolo de pão apontando para um
+    página. </ Trilha> <trail ...> ... </ trilha>
 
-<p>&lt;/ Div>
-trilha</p>
+    ...
 
-<p>Container Texto</p>
+</ PageMeta>
+userMeta
 
-<p>Metadados Elemento</p>
+Metadados Elemento
 
-<p>A trilha elemento traz informações sobre a localização atual do usuário no sistema relativo de página raiz do repositório. Cada instância do elemento serve como um link no caminho da raiz para a página atual.</p>
+O userMeta elemento contém metadados associados com o usuário que solicitou o documento. Ele contém genéricos metadados elementos, que por sua vez transportam as informações. Valores obrigatórios e sugeridos para metadados elementos contidos no userMeta incluir, mas não limitado a:
 
-<p>Parente</p>
-
-<p>pageMeta
-Crianças</p>
-
-<p>nenhum
-Atributos</p>
-
-<p>rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
-alvo : (opcional) Um atributo opcional para especificar um URL de destino para um elemento trilha servindo como um hiperlink. O texto no interior do elemento vai ser utilizado como o texto da ligação.
-<pageMeta></p>
-
-<pre><code>&lt;Elemento de metadados = "title" &gt; Exemplo DRI
-página &lt;/ metadata&gt;
-
-&lt;Metadados
-elemento = "contextPath" &gt; / XMLUI / &lt;/ metadata&gt;
-
-&lt;metadata ...&gt; ... &lt;/ metadata&gt;
-
-...
-
- &lt;Alvo trilha = "/ myDSpace" &gt; Um item de miolo de pão apontando para um
-página. &lt;/ Trilha&gt; &lt;trail ...&gt; ... &lt;/ trilha&gt;
-
-...
-</code></pre>
-
-<p>&lt;/ PageMeta>
-userMeta</p>
-
-<p>Metadados Elemento</p>
-
-<p>O userMeta elemento contém metadados associados com o usuário que solicitou o documento. Ele contém genéricos metadados elementos, que por sua vez transportam as informações. Valores obrigatórios e sugeridos para metadados elementos contidos no userMeta incluir, mas não limitado a:</p>
-
-<p>identificador (sugerido): um identificador único associado com o usuário.
+identificador (sugerido): um identificador único associado com o usuário.
 identifier.email (sugerido): endereço de e-mail do usuário solicitante.
 identifier.firstName (sugerido): O primeiro nome do usuário solicitante.
 identifier.lastName (sugerido): O sobrenome do usuário solicitante.
@@ -1357,111 +1337,102 @@ rights.accessRights (obrigatório): determina o escopo de ações que um usuári
 nenhum: O usuário está ou não autenticado ou não tem uma conta válida no sistema
 usuário: O usuário é autenticado e tem uma conta válida no sistema
 admin: O usuário é autenticado e pertence ao grupo administrativo do sistema
-Veja o metadados entrada tag para mais informações sobre a estrutura de metadados elementos.</p>
+Veja o metadados entrada tag para mais informações sobre a estrutura de metadados elementos.
 
-<p>Parente</p>
+Parente
 
-<p>meta
-Crianças</p>
+meta
+Crianças
 
-<p>metadados (qualquer)
-Atributos</p>
+metadados (qualquer)
+Atributos
 
-<p>autenticados : (obrigatório) Os valores aceitos são “sim”, “não”. Determina se o usuário foi autenticado pelo sistema.
-<meta></p>
+autenticados : (obrigatório) Os valores aceitos são “sim”, “não”. Determina se o usuário foi autenticado pelo sistema.
+<meta>
 
-<pre><code> &lt;userMeta&gt;
+     <userMeta>
 
-    &lt;Elemento de metadados = "identificador" qualificador = "email" &gt; bobJones @ tamu . edu &lt;/ metadata&gt;
+        <Elemento de metadados = "identificador" qualificador = "email" > bobJones @ tamu . edu </ metadata>
 
-    &lt;Elemento de metadados = "identificador" qualificador = "nome" &gt; Bob &lt;/ metadata&gt;
+        <Elemento de metadados = "identificador" qualificador = "nome" > Bob </ metadata>
 
-    &lt;Elemento de metadados = "identificador" qualificador = "Sobrenome" &gt; Jones &lt;/ metadata&gt;
+        <Elemento de metadados = "identificador" qualificador = "Sobrenome" > Jones </ metadata>
 
-    &lt;Elemento de metadados = "direitos" Qualificador = "accessRights" &gt; usuário &lt;/ metadata&gt;
+        <Elemento de metadados = "direitos" Qualificador = "accessRights" > usuário </ metadata>
 
-    &lt;metadata ...&gt; ... &lt;/ metadata&gt;
+        <metadata ...> ... </ metadata>
 
-    ...
+        ...
 
-    &lt;Fonte trilha = "123456789/6" &gt; Um item de miolo de pão &lt;/ trilha&gt;
+        <Fonte trilha = "123456789/6" > Um item de miolo de pão </ trilha>
 
-    &lt;trail ...&gt; ... &lt;/ trilha&gt;
+        <trail ...> ... </ trilha>
 
-    ...
+        ...
 
- &lt;/ UserMeta&gt;
+     </ UserMeta>
 
-&lt;pageMeta&gt; ... &lt;/ pageMeta&gt;
-</code></pre>
+    <pageMeta> ... </ pageMeta>
 
-<p>&lt;/ Meta>
-valor</p>
+</ Meta>
+valor
 
-<p>Rich Text Container</p>
+Rich Text Container
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O elemento de valor contém o valor associado a um campo de formulário e podem servir a um propósito diferente para vários tipos de campo. O elemento de valor é composto por dois sub-elementos: o elemento bruto, que armazena o valor não processado diretamente do usuário de outra fonte, eo elemento interpretado que armazena o valor em um formato adequado para exibição para o usuário, possivelmente incluindo rico marcação de texto.</p>
+O elemento de valor contém o valor associado a um campo de formulário e podem servir a um propósito diferente para vários tipos de campo. O elemento de valor é composto por dois sub-elementos: o elemento bruto, que armazena o valor não processado diretamente do usuário de outra fonte, eo elemento interpretado que armazena o valor em um formato adequado para exibição para o usuário, possivelmente incluindo rico marcação de texto.
 
-<p>Parente</p>
+Parente
 
-<p>campo
-Crianças</p>
+campo
+Crianças
 
-<p>oi (qualquer)
+oi (qualquer)
 xref (qualquer)
 figura (qualquer)
-Atributos</p>
+Atributos
 
-<p>optionSelected : (opcional) Um atributo opcional para selecionar, caixa de seleção e campos de rádio para determinar se o valor deve ser selecionado ou não.
+optionSelected : (opcional) Um atributo opcional para selecionar, caixa de seleção e campos de rádio para determinar se o valor deve ser selecionado ou não.
 optionValue : (opcional) Um atributo opcional para selecionar, caixa de seleção e campos de rádio para determinar o valor que deve ser retornado quando esse valor é selecionado.
 Tipo : (obrigatório) Um atributo necessário para especificar o tipo de valor. Tipos aceitos são:
 crua : O tipo de matéria-armazena o valor não processado diretamente do usuário de outra fonte.
 interpretado : O tipo interpretado armazena o valor em um formato adequado para exibição para o usuário, possivelmente incluindo rico marcação de texto.
-padrão : O tipo padrão armazena um valor fornecido pelo sistema, utilizado quando há outros valores são fornecidos.</p>
-
-<p>&lt;</p>
-
-<p>p>
-  <hi> ... &lt;/ oi>
-  <xref> ... &lt;/ xref></p>
-
-<p>&lt;</p>
-
-<p>figure> ... &lt;/ figure>
+padrão : O tipo padrão armazena um valor fornecido pelo sistema, utilizado quando há outros valores são fornecidos.
+<p>
+  <hi> ... </ oi>
+  <xref> ... </ xref>
+  <figure> ... </ figure>
   <Id = campo "XMLExample.field.name" n = "nome" type = "text"
     required = "yes" >
     <Tamanho params = "16" maxlength = "32" />
     <help> algum texto de ajuda com <i18n> localizada
-    conteúdo &lt;/ i18n>. &lt;/ help>
+    conteúdo </ i18n>. </ help>
      <Tipo de valor = "default" > Autor,
-    John &lt;/ value>
-  &lt;/ Field>
-&lt;/ P>
-xref</p>
+    John </ value>
+  </ Field>
+</ P>
+xref
 
-<p>Container Texto</p>
+Container Texto
 
-<p>Elemento estrutural</p>
+Elemento estrutural
 
-<p>O xref elemento é uma referência a um documento externo. Pode ser misturada livremente com o texto e todo o texto no interior da própria etiqueta irá ser usado como parte de corpo visual do elo.</p>
+O xref elemento é uma referência a um documento externo. Pode ser misturada livremente com o texto e todo o texto no interior da própria etiqueta irá ser usado como parte de corpo visual do elo.
 
-<p>Parente</p>
+Parente
 
-<p>célula
+célula
 p
 item
 oi
-Crianças</p>
+Crianças
 
-<p>nenhum
-Atributos</p>
+nenhum
+Atributos
 
-<p>alvo : (obrigatório) Um alvo para a referência, utilizando uma URL ou um ID de um elemento existente como um destino para a referência externa .</p>
+alvo : (obrigatório) Um alvo para a referência, utilizando uma URL ou um ID de um elemento existente como um destino para a referência externa .
+<p>
+     <Alvo xref = "/ url / link / target" > Este texto é mostrado como um link. </ xref>
+</ P>
 
-<p>&lt;</p>
-
-<p>p>
-     <Alvo xref = "/ url / link / target" > Este texto é mostrado como um link. &lt;/ xref>
-&lt;/ P></p>
