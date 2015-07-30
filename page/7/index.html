@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta name="robots" content="noindex, follow">
+                <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="apple-touch-startup-image" href="/images/jackson/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+                                    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/blog/categories">Categories</a></li>
+                                <li><a href="/blog/tags">Tags</a></li>
+                                <li><a href="/about">About</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2><a href="/_posts/2015-04-15-calculando-o-value-at-risk-de-uma-acao-no-python.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Calculando o Value at Risk de uma ação no Python",
+"author":"Royopa",
+"date":"15-04-2015",
+"tag":"python, finance",
+"slug" : "calculando-o-value-at-risk-de-uma-acao-no-python",
+"category":"finance"
+}</p>
+
+<p>Em uma madrugada que utilizei para juntar o conhecimento que estou adquirindo fazendo um curso preparatório para a <a href="http://certificacao.anbid.com.br/cea.asp">Certificação de Especialista em Investimentos Anbima (CEA)</a> e também aprendendo a <a href="https://www.python.org/">linguagem de programação Python</a> resolvi fazer alguns testes e pesquisas para calcular o <a href="http://pt.wikipedia.org/wiki/Value_at_Risk">Value at Risk (VaR)</a> de uma ação pegando os dados do <a href="http://finance.yahoo.com/">Yahoo Finance</a>.</p>
+
+<p>Uma alternativa para pegar os dados de cotações é usar o <a href="https://www.quandl.com/">Quandl</a>. Existe um <a href="http://wilsonfreitas.github.io/posts/2014-03/quandl-uma-otima-forma-de-obter-dados-estruturados-em-python.html">artigo sobre o Quandl do Wilson Freitas</a>, um cara que é fera em Python e ciência de dados. Tinha visto o blog dele na semana passada e gostei bastante das análises. Por coincidência assisti uma <a href="http://www.slideshare.net/wfreitas/analise-dos-campeoes-da-corrida-de-sao-silvestre-com-python">palestra dele</a> no <a href="http://www.meetup.com/Grupy-SP/events/221188662/">encontro GrupySP do dia 11/04/2015</a>.</p>
+
+<p>Fiz algumas pesquisas encontrei um artigo legal sobre como calcular o VaR usando Python, então resolvi traduzi-lo e adaptá-lo, o texto original está no endereço (http://gosmej1977.blogspot.com.br/2013/06/value-at-risk.html):</p>
+
+<h2 id="a-teoria">A teoria</h2>
+
+<p>De acordo com a Wikipédia, Value at Risk (VaR) é um método para avaliar o risco em operações financeiras. O VaR resume, em um número, o risco de um produto financeiro ou o risco de uma carteira de investimentos , de um montante financeiro. Esse número representa a pior perda esperada em um dado horizonte de tempo e é associado a um intervalo de confiança.</p>
+
+<p>Normalmente o VaR é calculado com 95%, 97,5% ou 99% de confiança. Este nível de confiança nos indica que é esperada perda maior que a calculada pelo VaR. Assim, ao utilizar 99% de confiança, espera-se que a cada 100 observações do VaR, em pelo menos 1 vez a perda do investimento financeiro seja superior à perda estimada no cálculo do VaR.</p>
+
+<p>Assim, o VaR diário de 95% é uma quantidade negativa de dinheiro que separa os nossos resultados dos outros 5% piores resultados. Então, sabemos que 95% dos nossos dias será melhor do que esse número e 5% pior.</p>
+
+<p>Existem várias técnicas para o cálculo do VaR. Estas técnicas podem ser divididas em dois grandes grupos: VaR Paramétrico e VaR Não Paramétrico (Simulação). 
+O VaR Paramétrico baseia-se no conhecimento prévio de uma distribuição estatística (Ex.: Curva Normal) para fazer o cálculo das perdas financeiras com base em hipótese de comportamento da distribuição de probabilidades dos retornos dos ativos. 
+O VaR Não Paramétrico não faz hipótese alguma sobre a distribuição de probabilidade dos retornos dos ativos. Nestas técnicas (Ex.: Simulação Histórica, Simulação de Monte Carlo) são utilizadas a história dos próprios retornos para obtenção de informações sobre as perdas financeiras.</p>
+
+<p>O VaR deve ser sempre associado a:
+    Uma moeda (valor monetário)
+    Um intervalo de tempo
+    Uma probabilidade com que a perda será percebida</p>
+
+<p>Ex.: "O VaR da minha carteira, para 1 dia e com 95% de confiança é de R$ 100.000,00" onde:</p>
+
+<ul>
+<li>"...para 1 dia": significa que o cálculo do VaR considerou a hipótese de maior perda para acontecer no próximo dia</li>
+<li>"...com 95% de confiança": significa que para cada 100 dias é esperado que em 5 dias a perda realizada seja maior do que a prevista pelo VaR</li>
+<li>"...é de R$ 100.000,00": Montante financeiro máximo de perda esperada</li>
+</ul>
+
+<p>Tendo em conta que a distribuição dos preços muda com o tempo, não se pode realmente saber o VaR, mas pode-se estimá-lo.</p>
+
+<p>Veja um trecho do regulamento do fundo do BTG Pactual <a href="http://www.guiainvest.com.br/dados/fundo/16522%5CRegulamento_16522_2014_04_28.pdf">Joatina I Fi Multimercado Crédito Privado</a> que fala sobre o risco de mercado do FUndo medido pelo VaR:</p>
+
+<blockquote>
+  <p>O limite de risco de mercado diário do fundo, medido pelo
+  VaR, será de 50% do CDI projetado para 21 dias, tendo como parâmetros, 95% de nível
+  de confiança, modelo não paramétrico e horizonte de 21 dias, com janela de volatilidade
+  de 252 dias úteis.</p>
+</blockquote>
+
+<h2 id="vamos-a-programa%C3%A7%C3%A3o">Vamos a programação</h2>
+
+<p>O código a seguir usa python3 o <a href="http://pandas.pydata.org/">pandas</a>, uma biblioteca bastante útil para manipular dados financeiros e também o <a href="http://matplotlib.org/">matplotlib</a> para geração dos gráficos.</p>
+
+<p>Eu não tenho muito conhecimento em estatística, então é outro assunto que estou aprendendo. Sobre o que é quantil veja na <a href="http://pt.wikipedia.org/wiki/Quantil">Wikipedia</a> e tem uma vídeo aula bem didática sobre Quartis (os 4-quantis - Q) neste link <a href="https://www.youtube.com/watch?v=szKwOaWY-Nk">Aula de Estatística - Quartis e Percentis</a>.</p>
+
+<pre><code class="python"># Escolha do período de tempo inicial d0 e final d1
+startDate = datetime.datetime(2001, 1, 1)
+endDate   = datetime.datetime(2012, 1, 1)
+
+#get the tickers
+stock = 'PETR4.SA'
+price = DataReader(stock, 'yahoo',startDate,endDate)['Adj Close']
+price = price.asfreq('B').fillna(method='pad')
+
+ret = price.pct_change()
+
+#escolhe o quantil
+quantile = 0.05
+#a janela de volatilidade
+volwindow = 50
+#e a janela móvel do VaR
+varwindow = 250
+</code></pre>
+
+<p>Estou usando a ação PETR4.SA mas isso não importa, caso você queira mudar basta alterar o parâmetro stock, de acordo com o código da ação no <a href="http://finance.yahoo.com/">Yahoo Finance</a>. A volatilidade vai ser estimada utilizando uma janela móvel e também será testado uma <a href="http://www.uic.edu/cuppa/pa/academics/Duplicate/Lectures,%20Outlines%20and%20Handouts/Public%20Finance/Asset%20Pricing-%20Dennis%20Pelletier%20of%20North%20Carolina%20State%20University/Estimating%20Volatilities,%20correlations%20and%20VaR.pdf">janela móvel (rolling window)</a> com estimativas quantis.
+Note que a janela para os quantis precisa ser grande enquanto testamos estimar o quantil de 5% (ou 1%) e para isso precisamos garantir que temos observações suficientes. A janela para volatilidade não deve ser muito grande pois a volatilidade muda bem rápido.</p>
+
+<p>A linha <strong>price = price.asfreq('B').fillna(method='pad')"</strong> tem a amostra de dados de todos os dias úteis, se o preço tiver faltando então preço anterior será copiado.</p>
+
+<p>Depois os próprios cálculos</p>
+
+<pre><code class="python">#VaR simples usando todos os dados
+unnormedquantile = pd.expanding_quantile(ret,quantile)
+
+#similar usando uma janela móvel
+unnormedquantileR = pd.rolling_quantile(ret,varwindow,quantile)
+
+#nós também podemos normalizar o retorno por parte da vol
+vol     = pd.rolling_std(ret,volwindow)*np.sqrt(256)
+unitvol = ret/vol
+
+#e também obter o quantil expandido ou o rolling dos quantis
+Var  = pd.expanding_quantile(unitvol,quantile)
+VarR = pd.rolling_quantile(unitvol,varwindow,quantile)
+
+normedquantile  = Var*vol
+normedquantileR = VarR*vol
+</code></pre>
+
+<p>Usando funções de rolling do Panda torna o processo simples. A função <em>rolling_quantile</em> calcula o quantil em uma janela móvel e a função <em>expanding_quantile</em> estima os quantis usando todos os dados disponíveis até a data considerada.</p>
+
+<p>Lembre-se que temos uma série de preços do Yahoo, em seguida, cada data na séria tem uma estimativa de VaR baseado nos dados passados e não sobre todos os dados, o que seria uma enganação.</p>
+
+<p>Nós podemos então criar um gráfico:</p>
+
+<pre><code class="python">ret2 = ret.shift(-1)
+
+courbe = pd.DataFrame({'returns':ret2,
+              'quantiles':unnormedquantile,
+              'Rolling quantiles':unnormedquantileR,
+              'Normed quantiles':normedquantile,
+              'Rolling Normed quantiles':normedquantileR,
+              })
+courbe.plot()
+plt.show()
+</code></pre>
+
+<p>Ele mostra os retornos da PETRO4 e os diferentes VAR computados.
+É um gráfico bastante denso então não foi reproduzido nesse artigo, mas você não terá problemas para reproduzí-lo.</p>
+
+<p>Nós vemos que o VaR normalizado é muito mais variável pois segue a volatilidade. Finalmente nós podemos julgar a eficiência dos nossos cálculos. o VaR 95% deve ser quebrado em 5% do tempo, o código seguinte faz esse teste:</p>
+
+<pre><code class="python">courbe['nqBreak']   = np.sign(ret2-normedquantile)/(-2) +0.5
+courbe['nqBreakR']  = np.sign(ret2-normedquantileR)/(-2) +0.5
+courbe['UnqBreak']  = np.sign(ret2-unnormedquantile)/(-2) +0.5
+courbe['UnqBreakR'] = np.sign(ret2-unnormedquantileR)/(-2) +0.5
+
+
+nbdays = price.count()
+
+print('Número de retornos piores que o VaR')
+print('Ideal VaR                : ', (quantile)*nbdays)
+print('Simple VaR               : ', np.sum(courbe['UnqBreak']))
+print('Normalized VaR           : ', np.sum(courbe['nqBreak']))
+print('---------------------------')
+print('Ideal Rolling Var        : ', (quantile)*(nbdays-varwindow))
+print('Rolling VaR              : ', np.sum(courbe['UnqBreakR']))
+print('Rolling Normalized VaR   : ', np.sum(courbe['nqBreakR']))
+</code></pre>
+
+<p>O rolling VaR usa uma abordagem de janela móvel para a estimativa dos quantis, mas precisa de algum tempo antes da janela ser preenchida de modo que o número de dias para testá-la seja diferente. A partir desses números por si só o VaR simples é melhor, mais perto dos 5% de quebras de VaR. Porém, a partir do gráfico o VaR simples parece muito estático e independente do mercado e como uma medida de risco não é algo desejado.</p>
+
+<p>Isso pode ser melhorado mudando a forma de calcular a volatilidade. Eu uso um estimador simples, mas pode se usar um estimador baseado em OHLC <a href="http://blog.bussoladoinvestidor.com.br/grafico-ohlc/">(open/high/low/close)</a> ou um <a href="http://www.maxwell.vrac.puc-rio.br/14872/14872_3.PDF">modelo GARCH</a>.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-04-21-otimizacao-de-portfolio-de-markovitz-no-python.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Otimização de portfólio de Markovitz no Python",
+"author":"Royopa",
+"date":"21-04-2015",
+"tag":"python, finance",
+"slug" : "otimizacao-de-portfolio-de-markovitz-no-python",
+"category":"finance"
+}</p>
+
+<p>Tradução e adaptação dos artigos abaixo:</p>
+
+<p>(http://blog.quantopian.com/markowitz-portfolio-optimization-2/)
+(http://work.ange.le.free.fr/works/MarkowitzPortfolio/MarkowitzPortfolio.pdf)
+(http://www.rodrigofernandez.com.br/ecomp/ref/excel_markowitz.pdf)
+(http://hcinvestimentos.com/2009/08/14/harry-markowitz-fronteira-eficiente/)</p>
+
+<h2 id="introdu%C3%A7%C3%A3o">Introdução</h2>
+
+<p>De acordo com a Wikipédia, o Modelo de Markowitz permite que se calcule o risco de uma carteira de investimentos, não importando se é composta por ações, opções, renda fixa ou qualquer outro ativo. Um ponto interessante é que usando o Modelo de Markowitz é possível construir carteiras de investimento em que o risco é inferior ao ativo de menor risco da carteira. Isto é, imagine uma carteira com PETR4 (suponha risco de 3% ao dia) e TAMM4 (risco de 4% ao dia) em que o risco da carteira é inferior ao ativo de menor risco - o que significaria dizer que posso investir em Petrobrás e Tam e ainda assim obter um risco menor que 3% ao dia.</p>
+
+<p>Neste post você vai aprender sobre a idéia básica por trás de otimização de carteiras de Markowitz, bem como a forma de calcular em Python. Veremos também como criar um backtest simples que reequilibra seu portfólio da melhor forma.</p>
+
+<p>Vamos começar usando dados aleatórios e só mais tarde usar dados de estoque reais. Esperamos que possa ajudá-lo a ter uma noção de como usar modelagem e simulação para melhorar a sua compreensão dos conceitos teóricos. Não se esqueça que a habilidade de um <a href="https://fernandonogueiracosta.wordpress.com/2012/09/06/seguidor-automatico-de-estrategias-financeiras-algotrader-real-people-real-money/">algotrader</a> é colocar modelos matemáticos em código e este exemplo é ótimo para praticar.</p>
+
+<p>Vamos começar com a importação de alguns módulos, que precisaremos mais tarde para produzir uma série de retornos normalmente distribuídos. O <a href="http://cvxopt.org/"><strong><em>cvxopt</em></strong></a> é um pacote para otimização convexa que pode ser facilmente fazer a instalação com comando <strong><em>sudo pip instalar cvxopt</em></strong> ou num sistema Ubuntu like <strong><em>sudo apt-get install python-cvxopt</em></strong>.</p>
+
+<h2 id="simula%C3%A7%C3%B5es">Simulações</h2>
+
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import numpy as np
+import matplotlib.pyplot as plt
+import cvxopt as opt
+from cvxopt import blas, solvers
+import pandas as pd
+
+np.random.seed(123)
+
+# Turn off progress printing
+solvers.options['show_progress'] = False
+
+## NUMBER OF ASSETS
+n_assets = 4
+
+## NUMBER OF OBSERVATIONS
+n_obs = 1000
+
+return_vec = np.random.randn(n_assets, n_obs)
+
+plt.plot(return_vec.T, alpha=.4)
+plt.xlabel('time')
+plt.ylabel('returns')
+
+plt.show()
+
+#######################################
+
+def rand_weights(n):
+    ''' Produces n random weights that sum to 1 '''
+    k = np.random.rand(n)
+    return k / sum(k)
+
+print(rand_weights(n_assets))
+print(rand_weights(n_assets))
+
+#######################################
+
+def random_portfolio(returns):
+    '''
+    Returns the mean and standard deviation of returns for a random portfolio
+    '''
+
+    p = np.asmatrix(np.mean(returns, axis=1))
+    w = np.asmatrix(rand_weights(returns.shape[0]))
+    C = np.asmatrix(np.cov(returns))
+
+    mu = w * p.T
+    sigma = np.sqrt(w * C * w.T)
+
+    # This recursion reduces outliers to keep plots pretty
+    if sigma &gt; 2:
+        return random_portfolio(returns)
+    return mu, sigma
+
+
+n_portfolios = 500
+means, stds = np.column_stack([
+    random_portfolio(return_vec)
+    for _ in range(n_portfolios)
+])
+
+plt.plot(stds, means, 'o', markersize=5)
+plt.xlabel('std')
+plt.ylabel('mean')
+plt.title(
+    'Mean and standard deviation of returns of randomly generated portfolios'
+)
+
+plt.show()
+
+#######################################
+
+
+def optimal_portfolio(returns):
+    n = len(returns)
+    returns = np.asmatrix(returns)
+
+    N = 100
+    mus = [10**(5.0 * t/N - 1.0) for t in range(N)]
+
+    # Convert to cvxopt matrices
+    S = opt.matrix(np.cov(returns))
+    pbar = opt.matrix(np.mean(returns, axis=1))
+    # Create constraint matrices
+    G = -opt.matrix(np.eye(n))  # negative n x n identity matrix
+    h = opt.matrix(0.0, (n, 1))
+    A = opt.matrix(1.0, (1, n))
+    b = opt.matrix(1.0)
+
+    # Calculate efficient frontier weights using quadratic programming
+    portfolios = [solvers.qp(mu*S, -pbar, G, h, A, b)['x'] for mu in mus]
+    ## CALCULATE RISKS AND RETURNS FOR FRONTIER
+    returns = [blas.dot(pbar, x) for x in portfolios]
+    risks = [np.sqrt(blas.dot(x, S*x)) for x in portfolios]
+    ## CALCULATE THE 2ND DEGREE POLYNOMIAL OF THE FRONTIER CURVE
+    m1 = np.polyfit(returns, risks, 2)
+    x1 = np.sqrt(m1[2] / m1[0])
+    # CALCULATE THE OPTIMAL PORTFOLIO
+    wt = solvers.qp(opt.matrix(x1 * S), -pbar, G, h, A, b)['x']
+    return np.asarray(wt), returns, risks
+
+weights, returns, risks = optimal_portfolio(return_vec)
+
+plt.plot(stds, means, 'o')
+plt.ylabel('mean')
+plt.xlabel('std')
+plt.plot(risks, returns, 'y-o')
+
+plt.show()
+
+################################################################################
+
+print(weights)
+
+################################################################################
+
+from zipline.utils.factory import load_bars_from_yahoo
+end = pd.Timestamp.utcnow()
+start = end - 2500 * pd.tseries.offsets.BDay()
+
+data = load_bars_from_yahoo(
+    stocks=['IBM', 'GLD', 'XOM', 'AAPL', 'MSFT', 'TLT', 'SHY'],
+    start=start,
+    end=end)
+
+
+data.loc[:, :, 'price'].plot(figsize=(8, 5))
+plt.ylabel('price in $')
+
+plt.show()
+
+################################################################################
+
+from zipline.api import add_history
+from zipline.api import history
+from zipline.api import set_slippage
+from zipline.api import slippage
+from zipline.api import set_commission
+from zipline.api import commission
+from zipline.api import order_target_percent
+from zipline import TradingAlgorithm
+
+
+def initialize(context):
+    '''
+    Called once at the very beginning of a backtest (and live trading).
+    Use this method to set up any bookkeeping variables.
+
+    The context object is passed to all the other methods in your algorithm.
+
+    Parameters
+
+    context: An initialized and empty Python dictionary that has been
+             augmented so that properties can be accessed using dot
+             notation as well as the traditional bracket notation.
+
+    Returns None
+    '''
+    # Register history container to keep a window of the last 100 prices.
+    add_history(100, '1d', 'price')
+    # Turn off the slippage model
+    set_slippage(slippage.FixedSlippage(spread=0.0))
+    # Set the commission model (Interactive Brokers Commission)
+    set_commission(commission.PerShare(cost=0.01, min_trade_cost=1.0))
+    context.tick = 0
+
+
+def handle_data(context, data):
+    '''
+    Called when a market event occurs for any of the algorithm's
+    securities.
+
+    Parameters
+
+    data: A dictionary keyed by security id containing the current
+          state of the securities in the algo's universe.
+
+    context: The same context object from the initialize function.
+             Stores the up to date portfolio as well as any state
+             variables defined.
+
+    Returns None
+    '''
+    # Allow history to accumulate 100 days of prices before trading
+    # and rebalance every day thereafter.
+    context.tick += 1
+    if context.tick &lt; 100:
+        return
+    # Get rolling window of past prices and compute returns
+    prices = history(100, '1d', 'price').dropna()
+    returns = prices.pct_change().dropna()
+    try:
+        # Perform Markowitz-style portfolio optimization
+        weights, _, _ = optimal_portfolio(returns.T)
+        # Rebalance portfolio accordingly
+        for stock, weight in zip(prices.columns, weights):
+            order_target_percent(stock, weight)
+    except ValueError as e:
+        # Sometimes this error is thrown
+        # ValueError: Rank(A) &lt; p or Rank([P; A; G]) &lt; n
+        print(e)
+        pass
+
+# Instantinate algorithm
+algo = TradingAlgorithm(initialize=initialize, handle_data=handle_data)
+# Run algorithm
+results = algo.run(data)
+results.portfolio_value.plot()
+
+plt.show()
+</code></pre>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-04-24-calculando-o-beta-de-uma-acao-com-python.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Calculando o Beta de uma ação com Python",
+"author":"Royopa",
+"date":"24-04-2015",
+"tag":"python, finance",
+"slug" : "calculando-o-beta-de-uma-acao-com-python",
+"category":"finance"
+}</p>
+
+<p>Tradução e adaptação do artigo <a href="https://composmachina.com/blog/2013/03/calculating-portfolio-beta-with-python/">Calculating Portfolio Beta with Python</a> do <a href="https://composmachina.com/blog/">Dave Tucker</a>.</p>
+
+<h2 id="a-teoria">A teoria</h2>
+
+<p>O Índice Beta é um indicador que mede a sensibilidade de um ativo em relação ao comportamento de uma carteira que represente o mercado.</p>
+
+<p>É a relação entre a variação do retorno de uma ação (ativo) e o Ibovespa (mercado), por exemplo.</p>
+
+<p>Portanto, o Índice Beta é uma medida do risco que um investidor está exposto ao investir em um ativo em particular em comparação com o mercado como um todo.</p>
+
+<p>A fórmula do Índice Beta é bem simples:</p>
+
+<p>Beta = Covariância entre o Retorno do Ativo e do Mercado / Variância do Retorno do Mercado</p>
+
+<p>Ou desta maneira:</p>
+
+<p><img src="http://hcinvestimentos.com/wp-content/uploads/2011/12/formula-beta.png" alt="Fórmula do Índice Beta" title="Fórmula do Índice Beta" /></p>
+
+<p>onde:</p>
+
+<p>βa = Beta</p>
+
+<p>ra = Retorno do Ativo</p>
+
+<p>rp = Retorno do Portfólio (Também pode ser usado como rm = Retorno do Mercado)</p>
+
+<p>O coeficiente β é usado para medir o risco não-diversificável, isto é, fatores de mercado que afetam todas as empresas, como guerra, inflação, crises internacionais, etc. Ou seja, quanto o ativo está sujeito às variações não controláveis do mercado e do ambiente. É um índice que mede a relação entre o retorno de um ativo e o retorno do mercado. Desta forma, o prêmio por risco será sempre multiplicado por este coeficiente, exigindo um prêmio maior por risco quanto maior a variação do ativo em relação à carteira de mercado.</p>
+
+<p>O beta da carteira de ações padrão, IBOVESPA, é sempre igual a 1, uma vez que ela é a base para o cálculo comparativo. O beta desta carteira é o beta médio de todos os títulos disponíveis. Desta forma, concluímos:</p>
+
+<p>β = 1 Ativo médio.</p>
+
+<p>Sua variação tende a acompanhar perfeitamente o mercado. Quando o IBOVESPA valoriza 5%, o ativo valoriza na mesma proporção.</p>
+
+<p>β &lt; 1 Ativo defensivo.</p>
+
+<p>Possui oscilações inferiores ao mercado e no mesmo sentido. Quando o IBOVESPA valoriza 5%, o ativo tende a valorizar menos do que 5%.</p>
+
+<p>β > 1 Ativo agressivo.</p>
+
+<p>Possui oscilações maiores do que o mercado e no mesmo sentido. Por exemplo, uma ação com β=2,0 tende a valorizar/desvalorizar o dobro do mercado (IBOVESPA).</p>
+
+<p>Suponha-se que seja necessário fazer a escolha entre três ações que farão parte de um portfólio agressivo de médio prazo (até 1 ano). As ações são: VALE5, TNLP4 e ELPL5. Iremos determinar o risco do ativo a partir do índice beta.</p>
+
+<p>Considere-se, para este exemplo, que o mercado encontra-se em alta, com boas perspectivas para o próximo ano.</p>
+
+<p>Analisando a explicação sobre o índice beta fornecida acima, concluímos que devemos escolher ativos com betas superiores a 1, pois pertencem a ativos que possuem oscilações maiores do que a carteira. Tanto positivamente quanto negativamente.</p>
+
+<p>O próximo passo é observar o período de análise do β. Este deve estar alinhado com a estratégia de investimento, isto é, para um investimento de médio prazo, devemos escolher o β de um período similar.</p>
+
+<p>Fontes:
+<a href="http://hcinvestimentos.com/2011/12/20/indice-beta/">O que é Índice Beta?</a>
+<a href="http://pt.wikipedia.org/wiki/%C3%8Dndice_beta">Wikipédia</a></p>
+
+<h2 id="vamos-a-programa%C3%A7%C3%A3o">Vamos a programação</h2>
+
+<p>O código a seguir usa Python3 e o <a href="http://numpy.scipy.org/">Numpy</a>, pacote para a linguagem Python que suporta arrays e matrizes multidimensionais, possuindo uma larga coleção de funções matemáticas para trabalhar com estas estruturas.</p>
+
+<pre><code class="python">#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import numpy as np
+from datetime import date
+import Quandl
+
+
+# Faz a consulta de dados históricos do Quandl e retorna um array Numpy
+def get_prices(stock, startDate, endDate):
+    # Retorna os Ãºltimos 252 registros de cotações
+    data = Quandl.get(
+        stock, trim_start=startDate,
+        trim_end=endDate,
+        returns="numpy"
+    )
+
+    return data
+
+
+# Verifica se existe datas faltando entre dados históricos da ação e de mercado
+def check_missing_date_prices(stock_prices, market_prices):
+    # transforma os dados históricos num array com de datas de preços
+    stock_dates = get_datas_by_prices(stock_prices)
+    # transforma os dados históricos num array com de datas de mercdo
+    market_dates = get_datas_by_prices(market_prices)
+
+    for stock_date in stock_dates:
+        if stock_date not in market_dates:
+            print('Data não existe nos dados de mercado: ', stock_date)
+
+    for market_date in market_dates:
+        if market_date not in stock_dates:
+            print('Data não existe nos dados da ação: ', market_date)
+
+    return False
+
+
+# Transforma o array de preços retornados pelo Quantl num array de datas
+def get_datas_by_prices(prices):
+
+    # array com as datas que serão armazenadas
+    datas = []
+
+    # Percorre cada linha (ou seja, dia a dia)
+    for price in prices:
+        # Adiciona o elemento data no array
+        datas.append(price[0])
+
+    # Retorna os resultados
+    return datas
+
+
+# Transforma o array de preços retornados pelo Quantl
+# num array Numpy somente com os preços de fechamento (index)
+def get_closing_prices(prices, index):
+
+    # preços de fechamento que serão os preços de fechamento diÃ¡rios
+    closing_prices = []
+
+    # Percorre cada linha (ou seja, dia a dia)
+    for price in prices:
+        # Adiciona o elemento preço de fechamento no array, depois
+        # de convertÃª-lo para float
+        closing_prices.append(float(price[index]))
+
+    # Retorna os resultados como um array Numpy
+    return np.array(closing_prices)
+
+
+# Transforma o array de preços de fechamento num array de retornos
+# (preço atual / preço dia anterior - 1)
+def get_returns_prices(closing_prices, lenght):
+
+    # Cria arrays zerados que serão preenchidos com os retornos dos preços.
+    # Os dados de retorno sempre serão uma unidade menor do que os arrays
+    # originais
+    returns = np.zeros(lenght - 1)
+
+    # Percorre cada preço dado
+    for i in range(lenght - 1):
+        # O retorno é igual ao preço atual dividido pelo preço anterior menos 1.
+        # Devido a isso, vamos sempre começar com o segundo preço
+        returns[i] = (closing_prices[i + 1] / closing_prices[i]) - 1
+
+    # Retorna os resultados como um array Numpy
+    return np.array(returns)
+
+
+# Calcula o beta de uma ação dados os preços bem como os preços para o mercado
+# como um todo (como um índice, Bovespa por exemplo).
+# Os dois arrays devem ter o mesmo tamanho.
+# O resultado é o beta arredondado com duas casas decimais
+def calc_beta(prices_stock, prices_market):
+
+    # Calcula e armazena o tamanho dos arrays porque eles serão usados várias
+    # vezes
+    stock_len = len(prices_stock)
+    market_len = len(prices_market)
+
+    # Decide qual o conjunto de dados tem menos itens, pois para calcular o
+    # beta é necessário que os dados da ação e de mercado tenha a mesma
+    # quantidade de registros
+    smallest = market_len
+    if stock_len &lt; market_len:
+        smallest = stock_len
+
+    # Cria os arrays de retornos dos preços
+    # Os dados de retorno sempre serão uma unidade menor do que os arrays
+    # originais
+    stock_ret = get_returns_prices(prices_stock, smallest)
+    market_ret = get_returns_prices(prices_market, smallest)
+
+    # Calcula a covariância entre a ação e o mercado
+    # http://docs.scipy.org/doc/numpy/reference/generated/numpy.cov.html
+    covar_stock_market = np.cov(stock_ret, market_ret, ddof=0)[0, 1]
+    print('Covariância ação/mercado: ', covar_stock_market)
+
+    # Calcula a variância dos retornos do mercado
+    # http://docs.scipy.org/doc/numpy/reference/generated/numpy.var.html
+    var_market = np.var(market_ret)
+    print('Variância mercado: ', var_market)
+
+    # Beta é igual a covariância entre os retornos do ativo e retornos
+    # do mercado dividido pela variância dos retornos do mercado.
+    # Além disso, estamos arredondado o beta para duas casas decimais.
+    return np.around(covar_stock_market / var_market, decimals=2)
+
+# data atual
+today = date.today()
+# data de início para pegar os dados de mercado - 5 anos
+startDate = date(today.year - 3, today.month, today.day)
+# a data final é a data de hoje
+endDate = today
+
+# pega os dados do índice Bovespa
+stock = 'YAHOO/INDEX_BVSP'
+market_prices = get_prices(stock, startDate, endDate)
+print('Mercado:', stock[stock.find('/')+1:])
+
+# para os dados do YAHOO o índice de preço de fechamento ajustado é o 6
+# ["Date","Open","High","Low","Close","Volume","Adjusted Close"]
+closing_prices_market = get_closing_prices(market_prices, 6)
+
+# pega os dados da ação PETR4
+stock = 'GOOG/BVMF_PETR4'
+stock_prices = get_prices(stock, startDate, endDate)
+print('Ação:', stock[stock.find('/')+1:])
+
+# para os dados do GOOGLE o índice de preço de fechamento é o 4
+# ["Date","Open","High","Low","Close","Volume"]
+closing_prices_stock = get_closing_prices(stock_prices, 4)
+
+beta = calc_beta(closing_prices_stock, closing_prices_market)
+print('O beta é = ', beta)
+</code></pre>
+
+<p>O código em Pyhton acima pode ser baixado no Gist, no endereço: <a href="https://gist.github.com/royopa/a8af15e8cead604ff6c2">https://gist.github.com/royopa/a8af15e8cead604ff6c2</a></p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/6">Newer Posts</a><br />
+        <a href="/page/8">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <h4>Links</h4>
+                        <ul class="nav">
+                            <li><a href="http://sculpin.io">sculpin.io</a></li>
+                            <li><a href="http://twitter.com/getsculpin">@getsculpin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2015 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+                    </body>
+</html>

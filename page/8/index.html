@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta name="robots" content="noindex, follow">
+                <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="apple-touch-startup-image" href="/images/jackson/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+                                    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/blog/categories">Categories</a></li>
+                                <li><a href="/blog/tags">Tags</a></li>
+                                <li><a href="/about">About</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2><a href="/_posts/2015-06-07-sincronizando-as-configuracoes-do-sublime-no-dropbox.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Sincronizando as configurações do Sublime no Dropbox",
+"author":"Royopa",
+"date":"07-06-2015",
+"tag":"coding, dropbox, plugins, preferences, python, settings, sublime text 3, sync",
+"slug" : "sincronizando-as-configuracoes-do-sublime-no-dropbox",
+"category":"sublime"
+}</p>
+
+<p>Hoje eu reinstalei o meu xUbuntu do notebook e sei que dá o maior trabalho para reinstalar o Sublime Text com todas as configurações e pacotes que eu tinha. Diante disso estava pesquisando uma maneira fácil de manter essas configurações sincronizadas para todas as máquinas que utilizo.</p>
+
+<p>Espero que seja útil! Tradução do artigo <a href="http://www.alexconrad.org/2013/07/sync-sublime-text-3-settings-with.html">Sync Sublime Text 3 settings with Dropbox</a> do <a href="https://twitter.com/alexconrad">Alex Conrad</a>.</p>
+
+<p>Recentemente eu atualizei para o Subliem Text 3 (ST3)</p>
+
+<p>I recently upgraded to Sublime Text 3 (ST3) e achei que era uma boa hora para descobrir como sincronizar as minhas preferências do ST3 entre os computadores do meu trabalho e de casa. Especialmente por que o ST3 usa o Python 3: nem todos os plugins disponíveis no Sublime Package Control funcionam no Python 3, então frequentemente eu tenho que fazer a instalação manual, o que é muito chato se você tem que fazer em todos os outros computadores que rodam o Sublime Text 3.</p>
+
+<h2 id="algumas-das-minhas-configura%C3%A7%C3%B5es">Algumas das minhas configurações</h2>
+
+<p>Acontece que, a sincronização do ST3 é muito simples se você usar um qualquer tipo de hospedagem de arquivos e serviços de sincronização como o Dropbox.</p>
+
+<p>Existem discussões de como fazer isso no Sublime Text 2 mas não muito com a versão 3. Dito isto, os passos são quase idênticos e você certamente descobriria sozinho. Mas hey, você não terá que fazer isso!</p>
+
+<h2 id="sincronizando-o-sublime">Sincronizando o Sublime</h2>
+
+<p>Os passos a seguir devem ser feitas no computador que tem as suas configurações ST3 mais atualizadas (aquelas que você deseja propagar para outros computadores).</p>
+
+<p>Antes de fazer qualquer coisa, feche o Sublime Text 3.</p>
+
+<pre><code class="shell">#  Cria a pasta de sincronização no Dropbox
+$ mkdir ~/Dropbox/sublime-text-3/
+
+# Move os seus "Packages" e "Installed Packages" do ST3 para o Dropbox
+$ cd ~/.config/sublime-text-3/
+$ mv Packages/ ~/Dropbox/sublime-text-3/
+$ mv Installed\ Packages/ ~/Dropbox/sublime-text-3/
+
+# Então cria um link simbólico dos diretórios anteriores
+$ ln -s ~/Dropbox/sublime-text-3/Packages/
+$ ln -s ~/Dropbox/sublime-text-3/Installed\ Packages/
+</code></pre>
+
+<p>Note que o ST3 tem três outros diretórios dentro da pasta ~/.config.sublime-text-3/: Cache, Index e Local. Não os sincronize, pois cada computador deve gerenciar suas próprias cópias locais.</p>
+
+<h2 id="sincronizando-outros-computadores">Sincronizando outros computadores</h2>
+
+<p>Todos os outros computadores terão agora ~/Dropbox/sublime-text-3/. Siga estes passos em cada um dos computadores que você tem o ST3 instalado para sincronizá-los:</p>
+
+<pre><code class="shell"># Remove os diretórios "desatualizados"
+$ cd ~/.config/sublime-text-3/
+$ rm -rf Packages/
+$ rm -rf Installed\ Packages/
+
+# Então cria links simbólicos dos diretórios anteriores para o Dropbox
+$ ln -s ~/Dropbox/sublime-text-3/Packages/
+$ ln -s ~/Dropbox/sublime-text-3/Installed\ Packages/
+</code></pre>
+
+<p>Agora quando você alterar as configurações do seu Sublime Text 3, elas serão propagadas automaticamente. Mesmo novos pacotes serão instalados em todos os lugares! Você sempre se sentirá em casa, onde quer que esteja!</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-07-07-mediafilters-para-transformacao-de-conteudo-no-dspace.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Mediafilters para transformação de conteúdo no DSpace",
+"author":"Royopa",
+"date":"07-07-2015",
+"tag":"DSpace, Mediafilters",
+"slug" : "mediafilters-para-transformacao-de-conteudo-no-dspace",
+"category":"DSpace"
+}</p>
+
+<p>O DSpace pode aplicar diversos filtros para arquivos/bitstreams criando novos conteúdos.
+Os filtros foram incluídos para extrair textos numa busca de texto completo 
+(full-text searching) e criar thumbnails para os itens que contém imagens.  Os 
+media filters são controlados pelo script dspace <strong>filter-media</strong> que vai até
+asset store e chama todas as classes de MediaFilter ou FormatFilter configurados
+nos arquivos/bitstreams (veja a seção <a href="https://wiki.duraspace.org/display/DSDOC4x/Configuration+Reference#ConfigurationReference-ConfiguringMediaFilters">"Configuring Media Filters"</a>
+para mais informações de como eles são configurados).</p>
+
+<h2 id="mediafilters-dispon%C3%ADveis">MediaFilters disponíveis</h2>
+
+<p>A tabela abaixo lista todos os Media Filters disponíveis atualmente no DSpace e 
+o que eles realmente fazem:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Nome</th>
+  <th>Classe Java</th>
+  <th>Função</th>
+  <th>Habilitado por Padrão?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>HTML Text Extractor</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/HTMLFilter.java">org.dspace.app.mediafilter.HTMLFilter</a></td>
+  <td>Extrai o texto completo de documentos HTML para indexação de texto completo (usa o Swing HTML Parser)</td>
+  <td>true</td>
+</tr>
+<tr>
+  <td>JPEG Thumbnail</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/JPEGFilter.java">org.dspace.app.mediafilter.JPEGFilter</a></td>
+  <td>Cria thumbnail de imagens GIF, JPEG e PNG</td>
+  <td>true</td>
+</tr>
+<tr>
+  <td>Branded Preview JPEG</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/BrandedPreviewJPEGFilter.java">org.dspace.app.mediafilter.BrandedPreviewJPEGFilter</a></td>
+  <td>Cria uma imagem de pré-visualização para imagens GIF, JPEG e PNG</td>
+  <td>false</td>
+</tr>
+<tr>
+  <td>PDF Text Extractor</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/PDFFilter.java">org.dspace.app.mediafilter.PDFFilter</a></td>
+  <td>Extrai o texto completo de documentos PDF (somente se o PDF for baseado em texto ou OCR) para indexação de texto completo. (usa a ferramenta Apache PDFBox)</td>
+  <td>true</td>
+</tr>
+<tr>
+  <td>XPDF Text Extractor</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/XPDF2Text.java">org.dspace.app.mediafilter.XPDF2Text</a></td>
+  <td>Extrai o texto completo de documentos PDF (somente se o PDF for baseado em texto ou OCR) para indexação de texto completo. (usa a <a href="http://www.foolabs.com/xpdf/">ferramenta de linha de comando XPDF</a> disponível para *nix). Veja <a href="https://wiki.duraspace.org/display/DSDOC4x/Configuration+Reference#ConfigurationReference-XPDFFilter">XPDF Filter Configuration</a> para detalhes de como habilitar/instalar essa ferramenta.</td>
+  <td>false</td>
+</tr>
+<tr>
+  <td>Word Text Extractor</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/WordFilter.java">org.dspace.app.mediafilter.WordFilter</a></td>
+  <td>Extrai o texto completo de documentos Word ou texto simples para indexação de texto completo. (Usa a ferramenta <a href="http://code.google.com/p/text-mining/">Microsoft Word Text Mining</a> )</td>
+  <td>true</td>
+</tr>
+<tr>
+  <td>PowerPoint Text Extractor</td>
+  <td><a href="https://github.com/DSpace/DSpace/blob/master/dspace-api/src/main/java/org/dspace/app/mediafilter/PowerPointFilter.java">org.dspace.app.mediafilter.PowerPointFilter</a></td>
+  <td>Extrai o texto completo de slides e notas em documentos Power Point e Power Point XML para indexação de texto completo. (usa as ferramentas <a href="http://poi.apache.org/">Apache POI</a> )</td>
+  <td>true</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note que o script filter-media irá atualizar automaticamente os índices de busca 
+do DSpace por padrão (veja <a href="https://wiki.duraspace.org/display/DSDOC4x/Legacy+methods+for+re-indexing+content">Legacy methods for re-indexing content</a>).
+Essa é a forma recomendada de rodar esses scripts. Mas se desejar desabilitar isso,
+basta passar o parâmetro -n para o script (veja a seção <a href="https://wiki.duraspace.org/display/DSDOC4x/Mediafilters+for+Transforming+DSpace+Content#MediafiltersforTransformingDSpaceContent-Executing(viaCommandLine)">Executing via Command Line</a>.</p>
+
+<h2 id="habilitando%2Fdesabilitando-mediafilters">Habilitando/desabilitando MediaFilters</h2>
+
+<p>A seção de configuração <strong>filter.plugins</strong> no dspace.cfg contém uma lista com todos
+os media/format filters plugins habilitados (veja <a href="https://wiki.duraspace.org/display/DSDOC4x/Configuration+Reference#ConfigurationReference-ConfiguringMediaFilters">Configuring Media Filters</a> para mais informações). Modificando o valor de <strong>filter.plugins</strong> 
+você consegue habilitar ou desabilitar os plugins MediaFilter.</p>
+
+<h2 id="executing-via-command-line">Executing (via Command Line)</h2>
+
+<p>O sistema de media filter é feito para rodar em linha de comando (ou regularmente
+como uma cron task):</p>
+
+<pre><code class="sh">[dspace]/bin/dspace filter-media
+</code></pre>
+
+<p>Sem opções, o script irá percorrer o asset store, aplicará os media filters para
+os bitstreams e irá ignorar os bitstreams que já foram filtrados.</p>
+
+<p>Mais informações podem ser encontradas na <a href="https://wiki.duraspace.org/display/DSDOC4x/Mediafilters+for+Transforming+DSpace+Content">Wiki do DSpace</a>.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-07-09-integrando-sherpa-romeo-no-dspace.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Integrando SHERPA/RoMEO no DSpace",
+"author":"Royopa",
+"date":"09-07-2015",
+"tag":"DSpace, SherpaRomeo",
+"slug" : "integrando-sherpa-romeo-no-dspace",
+"category":"DSpace"
+}</p>
+
+<p>O <a href="http://www.sherpa.ac.uk/romeo">portal SHERPA/RoMEO</a> reúne políticas de 
+arquivamento de diversas editoras internacionais. Esta ferramenta permite 
+aos usuários e gestores de repositórios consultar as políticas de copyright e 
+auto-arquivamento das revistas e editoras sobre o depósito das publicações em 
+repositórios de acesso aberto.</p>
+
+<h2 id="cores-do-sherpa%2Fromeo">Cores do SHERPA/RoMEO</h2>
+
+<p>O serviço SHERPA/RoMEO utiliza um simples <a href="http://www.sherpa.ac.uk/romeo/definitions.php?la=pt&amp;fIDnum=|&amp;mode=simple&amp;version=#colours">código de cores</a> para ajudar a consultar as
+políticas de arquivamento das editoras. Existem quatro categorias de cores, que
+são descritas abaixo:</p>
+
+<table>
+<thead>
+<tr>
+  <th align="left">Cor</th>
+  <th align="left">Política de arquivamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td align="left"><a href="http://www.sherpa.ac.uk/romeo/browse.php?colour=green&amp;la=pt&amp;fIDnum=|&amp;mode=simple">Verde</a></td>
+  <td align="left">Pode arquivar a versão preprint e postprint ou Versão/PDF do editor</td>
+</tr>
+<tr>
+  <td align="left"><a href="http://www.sherpa.ac.uk/romeo/browse.php?colour=blue&amp;la=pt&amp;fIDnum=|&amp;mode=simple">Azul</a></td>
+  <td align="left">Pode arquivar a versão postprint (ex: o rascunho final após o peer-review) ou Versão/PDF do editor</td>
+</tr>
+<tr>
+  <td align="left"><a href="http://www.sherpa.ac.uk/romeo/browse.php?colour=yellow&amp;la=pt&amp;fIDnum=|&amp;mode=simple">Amarelo</a></td>
+  <td align="left">Pode arquivar a versão preprint (ex: antes do peer-review)</td>
+</tr>
+<tr>
+  <td align="left"><a href="http://www.sherpa.ac.uk/romeo/browse.php?colour=white&amp;la=pt&amp;fIDnum=|&amp;mode=simple">Branco</a></td>
+  <td align="left">O arquivo não é suportado formalmente</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="integra%C3%A7%C3%A3o-do-sherpa%2Fromeo-no-dspace">Integração do SHERPA/RoMEO no DSpace</h2>
+
+<p>O DSpace 5 acrescenta a funcionalidade de lookup da política SHERPA/RoMEO para a 
+interface XMLUI. Essa funcionalidade evita o risco de quebrar as restrições de
+publicação de forma involuntária.</p>
+
+<p>Habilitando o lookup SHERPA/RoMEO no DSpace adicionará informações nos steps
+de submissão. Depois de selecionar um determinado editor ou jornal no formulário
+de submissão, o DSpace automaticamente inclui informações sobre permissões de
+publicação e restrições ao lado da opção de seleção de arquivos.</p>
+
+<h2 id="m%C3%A3o-na-massa%21">Mão na massa!</h2>
+
+<p>Crie sua chave de acesso para a API SHERPA/RoMEO, para ter os benefícios abaixo:</p>
+
+<ul>
+<li>As aplicações registradas podem exceder o limite de 500 requisições por dia.</li>
+<li>Os usuários registrados recebem avisos antecipados das mudanças planejadas para
+a API.</li>
+<li>Estatísticas de uso da API para a sua chave ficam disponíveis mediante solicitação.</li>
+</ul>
+
+<p>Para criar a chave de acesso, use esse link: 
+<a href="http://www.sherpa.ac.uk/romeo/apiregistry.php">http://www.sherpa.ac.uk/romeo/apiregistry.php</a></p>
+
+<p>Primeiro configure o controle de autoridade do plugin SHERPA/RoMEO no arquivo
+[dspace]/config/dspace.cfg conforme abaixo:</p>
+
+<pre><code class="cfg">#####  SHERPA/Romeo Integration Settings ####
+# the SHERPA/RoMEO endpoint
+sherpa.romeo.url = http://www.sherpa.ac.uk/romeo/api29.php
+
+# to disable the sherpa/romeo integration
+# uncomment the follow line 
+# webui.submission.sherparomeo-policy-enabled = false
+
+# please register for a free api access key to get many benefits
+# http://www.sherpa.ac.uk/news/romeoapikeys.htm
+sherpa.romeo.apikey = YOUR-API-KEY
+</code></pre>
+
+<p>E então reinicie o servidor tomcat com o comando abaixo:</p>
+
+<pre><code class="sh">sudo service tomcat7 restart
+</code></pre>
+
+<h2 id="testando">Testando</h2>
+
+<p>Para testar a funcionalidade, primeiro pesquisei um registro na <a href="http://www.sherpa.ac.uk/romeo/search.php">página de busca do SHERPA/RoMEO</a>
+com o <strong>ISSN 1210-8510</strong>, que é um Jornal com a cor <strong>branca</strong>, conforme mostrado na 
+imagem abaixo:</p>
+
+<p><img src="http://www.royopa.url.ph/themes/royopa-blog/assets/img/sherpa-romeo-consulta-registro-issn.jpg" alt="" /></p>
+
+<p>E então inclui um novo item no DSpace e usei o ISSN 1210-8510, como mostrado na
+figura abaixo:</p>
+
+<p><img src="http://www.royopa.url.ph/themes/royopa-blog/assets/img/sherpa-romeo-upload-inclusao-de-issn.jpg" alt="" /></p>
+
+<p>E então quando eu chego no step para fazer o upload do arquivo, veja que as
+informações do registro no SHERPA/RoMEO (Publisher Information) são exibidas:</p>
+
+<p><img src="http://www.royopa.url.ph/themes/royopa-blog/assets/img/sherpa-romeo-upload-arquivos.jpg" alt="" /></p>
+
+<p>Veremos num próximo artigo como incluir um controle de autoridades usando a mesma 
+API do SHERPA/RoMEO, até lá!</p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/7">Newer Posts</a><br />
+        <a href="/page/9">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <h4>Links</h4>
+                        <ul class="nav">
+                            <li><a href="http://sculpin.io">sculpin.io</a></li>
+                            <li><a href="http://twitter.com/getsculpin">@getsculpin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2015 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+                    </body>
+</html>

@@ -1,0 +1,3423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[Sculpin Blog Skeleton]]></title>
+    <link href="/atom.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2015-07-29T21:05:09-03:00</updated>
+    <id>/</id>
+        <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Symfony Live Hacking Day!]]></title>
+            <link href="/blog/2012/09/29/symfony-live-hacking-day"/>
+            <updated>2012-09-29T00:00:00-03:00</updated>
+            <id>/blog/2012/09/29/symfony-live-hacking-day</id>
+            <content type="html"><![CDATA[<p>Fun times at the Symfony Live San Francisco 2012 Hacking Day! Code
+was hacked and pizza was had. Some pics of the conference are
+available on the <a href="https://www.facebook.com/media/set/?set=a.450514941665306.112810.129739647076172">Sensio Labs Facebook page</a>.</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[Happy Birthday Sculpin!]]></title>
+            <link href="/blog/2011/12/20/happy-birthday-sculpin"/>
+            <updated>2011-12-20T00:00:00-02:00</updated>
+            <id>/blog/2011/12/20/happy-birthday-sculpin</id>
+            <content type="html"><![CDATA[<p>The first commit to the Sculpin repository was made on December 20th, 2011.
+What a trip since then!</p>
+
+<p>Sculpin has always been a big fan of <a href="http://daringfireball.net/projects/markdown/">Markdown</a>. So this post was
+written in Markdown. :)</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2013-07-30-from-stupid-to-solid-code.md"/>
+            <updated>2013-07-30T00:00:00-03:00</updated>
+            <id>/_posts/2013-07-30-from-stupid-to-solid-code.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "From STUPID to SOLID Code!",
+"author":"Royopa",
+"date":"30-07-2013",
+"tag":"orientação a objetos, qualidade de código, solid",
+"slug" : "from-stupid-to-solid-code",
+"category":"SOLID"
+}</p>
+
+<p>Last week I gave a talk about <a href="https://en.wikipedia.org/wiki/Object-oriented&#95;programming">Object-Oriented
+Programming</a> at
+Michelin, the company I am working for. I talked about writing better code,
+<a href="http://williamdurand.fr/from-stupid-to-solid-code-slides/">from STUPID to SOLID
+code!</a>
+<strong>STUPID</strong> as well as
+<a href="http://en.wikipedia.org/wiki/SOLID&#95;&#40;object-oriented&#95;design&#41;"><strong>SOLID</strong></a> are
+two acronyms, and have been
+<a href="http://blog.ircmaxell.com/2012/05/dont-be-stupid-grasp-solid-slides.html">covered</a>
+<a href="http://nikic.github.io/2011/12/27/Dont-be-STUPID-GRASP-SOLID.html">quite</a> a
+<a href="http://lostechies.com/chadmyers/2008/03/08/pablo-s-topic-of-the-month-march-solid-principles/">lot</a>
+for a long time. However, these mnemonics are not always well-known, so it is
+worth spreading the word.</p>
+
+<p>In the following, I will introduce both <strong>STUPID</strong> and <strong>SOLID</strong> principles. Keep
+in mind that these are <strong>principles</strong>, <strong>not laws</strong>. However, considering them as
+laws would be good for those who want to improve themselves.</p>
+
+<h2 id="stupid-code%2C-seriously%3F">STUPID code, seriously?</h2>
+
+<p>This may hurt your feelings, but you have probably written STUPID code already. I have too. But, what does that mean?</p>
+
+<ul>
+<li><a href="#singleton"><strong>S</strong>ingleton</a></li>
+<li><a href="#tight-coupling"><strong>T</strong>ight Coupling</a></li>
+<li><a href="#untestability"><strong>U</strong>ntestability</a></li>
+<li><a href="#premature-optimization"><strong>P</strong>remature Optimization</a></li>
+<li><a href="#indescriptive-naming"><strong>I</strong>ndescriptive Naming</a></li>
+<li><a href="#duplication"><strong>D</strong>uplication</a></li>
+</ul>
+
+<p>In the following, I will explain the individual points with more details. This
+is more or less the transcript of my talk.</p>
+
+<h3 id="singleton">Singleton</h3>
+
+<p>The <a href="http://en.wikipedia.org/wiki/Singleton_pattern">Singleton pattern</a> is
+probably the most well-known design pattern, but also the most misunderstood
+one. Are you aware of the <em>Singleton syndrome</em>? It is when you think the
+Singleton pattern is the most appropriate pattern for the current use case you
+have. In other words, you use it everywhere. That is definitely <strong>not</strong> cool.</p>
+
+<p><a href="https://code.google.com/p/google-singleton-detector/wiki/WhySingletonsAreControversial">Singletons are
+controversial</a>,
+and they are often <a href="http://stackoverflow.com/questions/11292109/why-is-singleton-considered-an-anti-pattern-in-java-world-sometimes">considered
+anti-patterns</a>.
+You should <a href="http://programmers.stackexchange.com/questions/40373/so-singletons-are-bad-then-what">avoid
+them</a>.
+Actually, the use of a <a href="http://programmers.stackexchange.com/questions/40373/so-singletons-are-bad-then-what/40376#40376">singleton is not the problem, but the symptom of
+a problem</a>.
+Here are two reasons why:</p>
+
+<ul>
+<li>Programs using global state are very difficult to test;</li>
+<li>Programs that rely on global state hide their dependencies.</li>
+</ul>
+
+<p>But should you really avoid them all the time? I would say <em>yes</em> because you can
+often replace the use of a singleton by something better. Avoiding static things
+is important to avoid something called <strong>tight coupling</strong>.</p>
+
+<h3 id="tight-coupling">Tight Coupling</h3>
+
+<p><strong>Tight coupling</strong>, also known as <strong>strong coupling</strong>, is a generalization of
+the Singleton issue. Basically, you should <a href="http://martinfowler.com/ieeeSoftware/coupling.pdf">reduce
+coupling</a> between your
+modules. <strong>Coupling</strong> is <a href="http://en.wikipedia.org/wiki/Coupling&#95;&#40;computer&#95;programming&#41;">the degree to which each program module relies on
+each one of the other modules</a>.</p>
+
+<p>If making a change in one module in your application requires you to change another module,
+then coupling exists. For instance, you instantiate objects in your
+constructor's class instead of passing instances as arguments. That is bad because
+it <strong>doesn't allow further changes</strong> such as replacing the instance by an instance
+of a sub-class, a <em>mock</em> or whatever.</p>
+
+<p>Tightly coupled modules are <strong>difficult to reuse</strong>, and also <strong>hard to test</strong>.</p>
+
+<h3 id="untestability">Untestability</h3>
+
+<p>In my opinion, <strong>testing should not be hard!</strong> No, really. Whenever you don't
+write unit tests because you don't have time, the real issue is that your code
+is bad, but that is another story.</p>
+
+<p>Most of the time, <strong>untestability</strong> is caused by <strong>tight coupling</strong>.</p>
+
+<h3 id="premature-optimization">Premature Optimization</h3>
+
+<p>Donald Knuth said: "<em>premature optimization is the root of all evil</em>. There is
+<strong>only cost</strong>, and <strong>no benefit</strong>". Actually, optimized systems are much more
+complex than just rewriting a loop or using <a href="http://stackoverflow.com/questions/24886/is-there-a-performance-difference-between-i-and-i-in-c">pre-increment instead of
+post-increment</a>.
+You will just end up with unreadable code. That is why <a href="http://www.c2.com/cgi/wiki?PrematureOptimization">Premature Optimization
+is often considered an anti-pattern</a>.</p>
+
+<p>A friend of mine often says that there are two rules to optimize an
+application:</p>
+
+<ul>
+<li>don't do it;</li>
+<li>(for experts only!) don't do it yet.</li>
+</ul>
+
+<h3 id="indescriptive-naming">Indescriptive Naming</h3>
+
+<p>This should be obvious, but still needs to be said: <strong>name</strong> your classes, methods,
+attributes, and variables <strong>properly</strong>. Oh, and <a href="/2013/06/03/object-calisthenics/#6-don-t-abbreviate">don't
+abbreviate</a>! You write code
+for people, not for computers. They don't understand what you write anyway.
+Computers just understand <code>0</code> and <code>1</code>. <strong>Programming languages are for humans</strong>.</p>
+
+<h3 id="duplication">Duplication</h3>
+
+<p><a href="http://c2.com/cgi/wiki?DuplicatedCode">Duplicated code</a> is bad, so please <a href="http://lostechies.com/patricklioi/2013/07/30/no-seriously-dont-repeat-yourself/">Don't
+Repeat Yourself</a>
+(<a href="http://en.wikipedia.org/wiki/Don't&#95;repeat&#95;yourself">DRY</a>),
+and also <a href="http://en.wikipedia.org/wiki/KISS&#95;principle">Keep It Simple, Stupid</a>.
+Be lazy the right way - write code only once!</p>
+
+<p>Now that I have explained what STUPID code is, you may think that your code
+is STUPID. It does not matter (yet). Don't feel bad, keep calm and be awesome
+by writing SOLID code instead!</p>
+
+<h2 id="solid-to-the-rescue%21">SOLID to the rescue!</h2>
+
+<p>SOLID is a term describing a <strong>collection of design principles</strong> for good code
+that was invented by Robert C. Martin, also known as <em>Uncle Bob</em>.</p>
+
+<p>SOLID means:</p>
+
+<ul>
+<li><a href="#single-responsibility-principle"><strong>S</strong>ingle Responsibility Principle</a></li>
+<li><a href="#open/closed-principle"><strong>O</strong>pen/Closed Principle</a></li>
+<li><a href="#liskov-substitution-principle"><strong>L</strong>iskov Substitution Principle</a></li>
+<li><a href="#interface-segregation-principle"><strong>I</strong>nterface Segregation Principle</a></li>
+<li><a href="#dependency-inversion-principle"><strong>D</strong>ependency Inversion Principle</a></li>
+</ul>
+
+<h3 id="single-responsibility-principle">Single Responsibility Principle</h3>
+
+<p><a href="http://www.objectmentor.com/resources/articles/srp.pdf">Single Responsibility
+Principle</a> or
+<a href="http://en.wikipedia.org/wiki/Single&#95;responsibility&#95;principle">SRP</a> states that
+<strong>every class should have a single responsibility</strong>. There should <strong>never be
+more than one reason for a class to change</strong>.</p>
+
+<p>Just because you can add everything you want into your class doesn't mean that you
+should. Thinking in term of responsibilities will help you design your
+application better. Ask yourself whether the logic you are introducing should live in
+this class or not. Using <strong>layers</strong> in your application helps a lot. Split big
+classes in smaller ones, and avoid <a href="http://c2.com/cgi/wiki?GodClass">god
+classes</a>.
+Last but not least, <strong>write straightforward comments</strong>. If you start writing
+comments such as <code>in this case</code>, <code>but if</code>, <code>except when</code>, <code>or</code>, then you are
+doing it wrong.</p>
+
+<h3 id="open%2Fclosed-principle">Open/Closed Principle</h3>
+
+<p><a href="http://www.objectmentor.com/resources/articles/ocp.pdf">Open/Closed Principle</a>
+or <a href="http://en.wikipedia.org/wiki/Open/closed&#95;principle">OCP</a> states that
+software entities should be <strong>open for extension</strong>, but <strong>closed for
+modification</strong>.</p>
+
+<p>You should make all member variables <strong>private</strong> by default. Write getters and setters only
+when you need them. I've already covered this point in a previous
+article, as <a href="/2013/06/03/object-calisthenics/#9-no-getters/setters/properties">the ninth rule of the Object
+Calisthenics</a>
+is related to this principle.</p>
+
+<h3 id="liskov-substitution-principle">Liskov Substitution Principle</h3>
+
+<p><a href="http://www.objectmentor.com/resources/articles/lsp.pdf">Liskov Substitution
+Principle</a> or
+<a href="http://c2.com/cgi/wiki?LiskovSubstitutionPrinciple">LSP</a> states that objects
+in a program should be <strong>replaceable with instances of their subtypes without
+altering the correctness</strong> of the program.</p>
+
+<p>Let's take an example. A rectangle is a plane figure with four right angles. It
+has a <code>width</code>, and a <code>height</code>. Now, take a look at the following pseudo-code:</p>
+
+<pre><code>rect = new Rectangle();
+
+rect.width  = 10;
+rect.height = 20;
+
+assert 10 == rect.width
+assert 20 == rect.height
+</code></pre>
+
+<p>We simply set a <code>width</code> and a <code>height</code> on a <code>Rectangle</code> instance, and then
+we assert that both properties are correct. So far, so good.</p>
+
+<p>Now we can improve our definition by saying that a rectangle with four sides of
+equal length is called a square. A square <strong>is a</strong> rectangle so we can create a
+<code>Square</code> class that extends the <code>Rectangle</code> one, and replace the first line above
+by the one below:</p>
+
+<pre><code>rect = new Square();
+</code></pre>
+
+<p>According to the definition of a square, its width is equal to its height. Can
+you spot the problem? The first assertion will fail because we had to change the
+behavior of the setters in the <code>Square</code> class to fit the definition. This is a
+violation of the Liskov Substitution Principle.</p>
+
+<h3 id="interface-segregation-principle">Interface Segregation Principle</h3>
+
+<p><a href="http://www.objectmentor.com/resources/articles/isp.pdf">Interface Segregation
+Principle</a> or
+<a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">ISP</a> states that
+<strong>many</strong> client-specific <strong>interfaces are better than one</strong> general-purpose
+interface. In other words, you should not have to implement methods that you
+don't use. Enforcing ISP gives you <strong>low coupling</strong>, and <strong>high cohesion</strong>.</p>
+
+<p>When talking about <strong>coupling</strong>,
+<a href="http://en.wikipedia.org/wiki/Cohesion&#95;&#40;computer&#95;science&#41;">cohesion</a> is often
+mentioned as well. <strong>High cohesion</strong> means to keep similar and related things
+together. The <strong>union</strong> of cohesion and coupling is <a href="http://www.jasoncoffin.com/cohesion-and-coupling-principles-of-orthogonal-object-oriented-programming/">orthogonal
+design</a>.
+The idea is to <strong>keep your components focused</strong> and try to <strong>minimize the
+dependencies between them</strong>.</p>
+
+<p>Note that this is similar to the <a href="#single-responsibility-principle">Single Responsibility
+Principle</a>. An interface is a contract that
+meets a need. It is ok to have a class that implements different interfaces, but be careful, don't violate SRP.</p>
+
+<h3 id="dependency-inversion-principle">Dependency Inversion Principle</h3>
+
+<p><a href="http://www.objectmentor.com/resources/articles/dip.pdf">Dependency Inversion
+Principle</a>
+or <a href="http://www.c2.com/cgi/wiki?DependencyInversionPrinciple">DIP</a> has two key
+points:</p>
+
+<ul>
+<li><strong>Abstractions should not depend upon details</strong>;</li>
+<li><strong>Details should depend upon abstractions</strong>.</li>
+</ul>
+
+<p>This principle could be rephrased as <strong>use the same level of abstraction at a
+given level</strong>. Interfaces should depend on other interfaces. Don't add concrete
+classes to method signatures of an interface. However, use interfaces in your
+class methods.</p>
+
+<p>Note that <a href="http://lostechies.com/derickbailey/2011/09/22/dependency-injection-is-not-the-same-as-the-dependency-inversion-principle/">Dependency Inversion Principle is not the same as Dependency
+Injection</a>.
+<strong>Dependency Injection</strong> is about how one object knows about another dependent
+object. In other words, it is about <a href="http://martinfowler.com/articles/dipInTheWild.html">how one object acquires a
+dependency</a>. On the other
+hand, DIP is about the level of abstraction. Also, a <a href="http://www.martinfowler.com/articles/injection.html">Dependency Injection
+Container</a> is a way to
+auto-wire classes together. That does not mean you do Dependency Injection
+though. Look at the <a href="http://en.wikipedia.org/wiki/Service_locator_pattern">Service
+Locator</a> for example.</p>
+
+<p>Also, rather than working with classes that are tight coupled, use interfaces.
+This is called <a href="http://www.fatagnus.com/program-to-an-interface-not-an-implementation/">programming to the
+interface</a>.
+This <strong>reduces dependency</strong> on implementation specifics and makes code <strong>more
+reusable</strong>. It also ensures that you can replace the implementation without
+violating the expectations of that interface, according to the Liskov
+Substitution Principle seen before.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>As you probably noticed, <strong>avoiding tight coupling is the key</strong>. It is present
+in a lot of code, and if you start by focusing on <em>fixing</em> this alone, you will immediately start writing better code.</p>
+
+<p>If I may leave you with only one piece of advice, that would be to <strong>use your brain</strong>. There
+are a lot of principles in software engineering. Even if you don't understand all these
+principles, always think before writing code. Take the time to understand those that you don't understand.</p>
+
+<p>Honestly, writing SOLID code is not that hard.</p>
+
+<h2 id="slides">Slides</h2>
+
+<script async class="speakerdeck-embed" data-id="e04c5ae0d74d013022821e9ac6d7834e" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"></script>
+
+<h2 id="tl%3Bdr">TL;DR</h2>
+
+<p><strong>STUPID</strong> is an acronym that describes bad practices in Oriented Object
+Programming:</p>
+
+<ul>
+<li><a href="#singleton"><strong>S</strong>ingleton</a></li>
+<li><a href="#tight-coupling"><strong>T</strong>ight Coupling</a></li>
+<li><a href="#untestability"><strong>U</strong>ntestability</a></li>
+<li><a href="#premature-optimization"><strong>P</strong>remature Optimization</a></li>
+<li><a href="#indescriptive-naming"><strong>I</strong>ndescriptive Naming</a></li>
+<li><a href="#duplication"><strong>D</strong>uplication</a></li>
+</ul>
+
+<p><strong>SOLID</strong> is an acronym that stands for <strong>five basic principles</strong> of
+Object-Oriented Programming and design to <em>fix</em> STUPID code:</p>
+
+<ul>
+<li><a href="#single-responsibility-principle"><strong>S</strong>ingle Responsibility Principle</a></li>
+<li><a href="#open/closed-principle"><strong>O</strong>pen/Closed Principle</a></li>
+<li><a href="#liskov-substitution-principle"><strong>L</strong>iskov Substitution Principle</a></li>
+<li><a href="#interface-segregation-principle"><strong>I</strong>nterface Segregation Principle</a></li>
+<li><a href="#dependency-inversion-principle"><strong>D</strong>ependency Inversion Principle</a></li>
+</ul>
+
+<p>Rule of thumb: <strong>use your brain</strong>!</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-03-04-instalacao-dspace-4-no-linux.md"/>
+            <updated>2014-03-04T00:00:00-03:00</updated>
+            <id>/_posts/2014-03-04-instalacao-dspace-4-no-linux.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Instalação DSpace 4 no Linux",
+"author":"Royopa",
+"date":"04-03-2014",
+"tag":"DSpace, DSpace install",
+"slug" : "instalacao-dspace-4-no-linux",
+"category":"DSpace"
+}</p>
+
+<p>Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em <a href="http://royopa.wordpress.com/2014/03/04/instalacao-do-dspace-4-1-em-sistemas-ubuntu-like/">Wordpress</a>.</p>
+
+<p>Após o lançamento da versão 4.1 do DSpace em 03/03/2014, resolvi criar uma máquina virtual para testar a estabilidade e novas funcionalidades da versão.</p>
+
+<p>Devido ao processo de instalação ser um pouco <del>difícil</del> chato, com diversas configurações para se fazer e tudo mais (como já havia publicado no <a href="http://www.slideshare.net/royopa1/instalao-dspace-3x-windows-e-linux">Slideshare</a> o guia para a instalação da versão 3, resolvi criar um script para instalação de forma quase que automática do DSpace.</p>
+
+<p>Para esse processo utilizei como base o artigo DSpace LiveCD da <a href="https://wiki.duraspace.org/display/DSPACE/LiveCD">Wiki do DSpace</a>.</p>
+
+<p>Meu projeto está no <a href="https://github.com/royopa/dspace-auto-install/">GitHub</a>, então quem tiver interesse de melhorá-lo, adequá-lo conforme as suas necessidades fiquem à vontade!.</p>
+
+<h2 id="1%C2%BA-passo---baixar-uma-imagem-do-ubuntu">1º Passo - Baixar uma imagem do Ubuntu</h2>
+
+<p>Para evitar o processo de instalação do Linux foi baixada uma imagem do <a href="http://downloads.sourceforge.net/virtualboximage/xubuntu_1204.7z">XUbuntu</a>, localizada no site <a href="http://virtualboxes.org/images/">Virtual Box Images</a>, conforme abaixo:</p>
+
+<pre><code>Xubuntu 12.04 codename Precise Pangolin
+Size (compressed/uncompressed): 502.2 MBytes / 2.6 GBytes
+Active user account(s) (username/password): xubuntu/reverse
+</code></pre>
+
+<p>Outra alternativa é usar uma versão de Linux bem pequena, chamada Puppy Linux, através da <a href="http://sourceforge.net/projects/virtualboximage/files/Puppy%20Linux/5.2.0/LucidPuppy-520.7z/download">imagem</a> baixada no mesmo site.</p>
+
+<pre><code>Puppy Linux 5.2.0 Lucid
+Size (compressed/uncompressed): 167.0 MBytes/ 655 MBytes
+Link:LucidPuppy-520.7z
+</code></pre>
+
+<p>Após ter a máquina virtual baixada e funcionando siga para os próximos passos. Esse artigo não tem a intenção de ensinar como criar uma máquina virtual, mas procurando no Google você verá que o processo é bem fácil.</p>
+
+<h2 id="2%C2%BA-passo---baixar-os-arquivos%2Fscripts-para-instala%C3%A7%C3%A3o-do-dspace">2º Passo - Baixar os arquivos/scripts para instalação do DSpace</h2>
+
+<p>Baixe os <a href="https://github.com/royopa/dspace-auto-install/archive/master.zip">arquivos do GitHub</a> para a instalação do DSpace e extraia-os numa pasta no diretório home da máquina virtual.</p>
+
+<h2 id="3%C2%BA-passo---alterar-os-par%C3%A2metros-de-instala%C3%A7%C3%A3o">3º Passo - Alterar os parâmetros de instalação</h2>
+
+<p>Altere e salve os arquivos abaixo, localizados na pasta que você extraiu no passo acima, com os parâmetros que você deseja.</p>
+
+<p>No meu caso eu utilizei como servidor de e-mail o Gmail, portanto caso você utilize uma conta do Gmail também basta alterar o endereço de e-mail e a senha com os dados da sua conta.</p>
+
+<h3 id="build-dspace-altere-para-a-vers%C3%A3o-do-dspace-que-se-deseja-instalar">build-dspace (altere para a versão do DSpace que se deseja instalar)</h3>
+
+<pre><code>VERSION_DSPACE="4.1"
+</code></pre>
+
+<h3 id="build.properties">build.properties</h3>
+
+<pre><code>dspace.name = DSpace
+default.language = pt_BR
+</code></pre>
+
+<h3 id="dspace.cfg">dspace.cfg</h3>
+
+<pre><code>dspace.name = DSpace
+default.language = pt_BR
+mail.server=smtp.gmail.com
+mail.server.username = treinamento.dspace@gmail.com
+mail.server.password = yourPassword
+mail.extraproperties = mail.smtp.socketFactory.port=465, \
+mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory, \
+mail.smtp.socketFactory.fallback=false
+mail.from.address = treinamento.dspace@gmail.com
+feedback.recipient = treinamento.dspace@gmail.com
+mail.admin = treinamento.dspace@gmail.com
+alert.recipient = treinamento.dspace@gmail.com
+registration.notify = treinamento.dspace@gmail.com
+</code></pre>
+
+<h2 id="4%C2%BA-passo---iniciar-o-processo-de-instala%C3%A7%C3%A3o">4º Passo - Iniciar o processo de instalação</h2>
+
+<p>Abra o terminal, vá até a pasta onde os arquivos estão localizados e execute o script de instalação:</p>
+
+<pre><code>$ ./build-dspace
+</code></pre>
+
+<p>Algumas vezes o script solicitará a senha do root ou alguma confirmação, basta responder a solicitação que o script continua sem problemas.</p>
+
+<p>Esse processo baixa todas as depêndencias necessárias, instala e compila o DSpace, portanto é um processo um pouco demorado, dependendo da velocidade da sua conexão de internet.</p>
+
+<p>Caso tenha ocorrido tudo bem, será exibida a mensagem <strong><em>Build completed</em></strong>.</p>
+
+<p>Pronto, o DSpace está instalado, basta acessar através do endereço: <a href="http://localhost:8080/xmlui">http://localhost:8080/xmlui</a> para a interface XMLUI e <a href="http://localhost:8080/jspui">http://localhost:8080/jspui</a> para a interface JSPUI.</p>
+
+<p>O usuário administrador criado foi o dspace com a senha dspace.</p>
+
+<h3 id="senhas-da-aplica%C3%A7%C3%A3o">Senhas da aplicação</h3>
+
+<p><strong>DSpace admin</strong>
+Usuário: dspace
+Senha: dspace</p>
+
+<p><strong>PostgreSQL</strong>
+Usuário: postgres
+Senha: dspace</p>
+
+<p>Mais informações sobre a instalação podem ser encontradas na <a href="https://wiki.duraspace.org/display/DSDOC4x/Installing+DSpace">documentação oficial do DSpace</a>.</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-04-01-como-contribuir-para-o-dspace.md"/>
+            <updated>2014-04-01T00:00:00-03:00</updated>
+            <id>/_posts/2014-04-01-como-contribuir-para-o-dspace.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Como contribuir para o DSpace",
+"author":"Royopa",
+"date":"01-04-2014",
+"tag":"DSpace, DRI",
+"slug" : "como-contribuir-para-o-dspace",
+"category":"DSpace"
+}</p>
+
+<p>Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em <a href="http://royopa.wordpress.com/2013/04/01/como-contribuir-para-o-dspace/">Wordpress</a>.</p>
+
+<p>Esse artigo abaixo é uma tradução minha para a página da wiki do DSpace How to Contribute to DSpace, acessada em 01/04/2013.</p>
+
+<p>Formas de contribuir e participar</p>
+
+<p>Você não tem que apenas contribuir com o código! Há outras maneiras que você pode contribuir:</p>
+
+<p>Comunicação – Use as listas de discussão, o Wiki e o canal de chat IRC DSpace para se comunicar com a comunidade. Participação – Participe de grupos de usuários, conferências, eventos de biblioteca, reuniões de desenvolvimento – e qualquer outro local onde os usuários DSpace reúnem para compartilhar informações e idéias. Se você é um desenvolvedor (ou está apenas interessado ​​em discussões sobre desenvolvimento), participe das reuniões semanais Developer Meetings. Se você é um gerente de repositório, você pode ser voluntário para o DSpace Community Advisory Team ou participar das reuniões / discussões on-line. Teste – Faça o download e experimente versões beta, forneça relatórios de erros, experiências, feedback. O servidor demo DSpace oferece um lugar para testar a versão mais recente. Se você encontrar um bug, relate-o através do Issue Tracker. Desenvolvimento – Contribua com correções de bugs, novas funcionalidades, ciclos de desenvolvimento. Contribuir com o código é muito mais fácil do que você imagina! Veja como contribuir com o código e Code Contribution Guidelines para mais detalhes. Tradução – Traduzir a interface do usuário DSpace para a sua língua, usando o novo language pack existente desde a versão DSpace 1.3. Veja I18nSupport para mais detalhes. Protótipo – A melhor maneira de obter apoio para uma idéia é construir e compartilhar um protótipo. Se você gostaria de compartilhar protótipos existentes, consulte Code Contribution Guidelines para mais detalhes. Implantação – Compartilhe suas experiências na implantação de DSpaces em organizações e diferentes situações, em pequenas e grandes escalas. Suporte – Torne-se membros ativos nas mailing lists, responda a dúvidas de outras pessoas e ajude-os a resolver os seus problemas técnicos. Experimente – Pegue o sistema para “dar uma volta”, experimente-o com diferentes tipos de conteúdo e cenários; diga a todos o que você encontrar. Novamente, o servidor demo DSpace oferece um lugar para experimentar a versão mais recente do DSpace. (Se você estiver rodando um grande teste de escalabilidade no servidor de demonstração, por favor, avise-nos por e-mail através das mailing lists “dspace-devel”. Doe conteúdo e metadados – Para testar e experimentar o DSpace, coleções de testes livres de direitos de uso são necessárias. Contacte-nos através das mailing lists se você tiver conteúdo para doar para testes. Solicitar novos recursos / compartilhar idéias – Existe algo que você realmente precisa de DSpace ou não está funcionando direito? Solicite novos recursos / melhorias ou relatórios de bugs relatório através do Issue Tracker. Você também pode votar sobre os recursos existentes, ou adicionar seus próprios comentários / sugestões. Ambos podem ajudar os desenvolvedores a decidir quais questões são as mais importantes para a comunidade. Consulte a seção sobre Como contribuir com ideias ou sugerir novas funcionalidades para mais detalhes. Ajuda a melhorar a documentação – Nossa Documentação DSpace é agora gerenciado diretamente através de uma nova seção do nosso Wiki: DSpace 1.8 Documentation. Embora os usuários Wiki normais não podem editar essa área da Wiki, você sempre pode adicionar comentários para adições / alterações / sugestões. Se você estiver interessado em contribuir de forma mais formal, seja voluntário para ajudar através de uma das mailing lists, e nós podemos adicionar ao nosso Time de Documentação e fornecer-lhe os direitos de acesso para editar / melhorar a documentação diretamente. Deixe-nos saber se existe alguma maneira de facilitar o processo de contribuição para o DSpace Não seja tímido! Contribuições não tem que ser 100% polido ou perfeito, ninguém vai pensar menos de você. “Compartilhar cedo, muitas vezes partes” é um conhecido mantra do código aberto. Quanto mais cedo você contribuir com alguma coisa, os outros mais cedo podem ajudar com o polimento, e você já não terá que manter a personalização contra a evolução da plataforma central DSpace, uma vez que será parte da plataforma!</p>
+
+<p>Plataformas para Contribuição e Participação</p>
+
+<p>Este Wiki – Ajude tornando esse Wiki útil, conciso e com informações atualizadas: fornecendo conteúdo corrigindo conteúdo removendo conteúdo obsoleto reestruturando ou melhorando o conteúdo As Mailing Lists – Torne uma parte ativa na discussão sobre DSpace. compartilhe suas opiniões sobre o DSpace faça perguntas forneça feedback Documentação Oficial do DSpace adicione comentários aos documentos existentes, para ajudar a melhorar o conteúdo ser voluntário para ajudar a melhorar o o conteúdo DSpace GitHub – O GitHub permite o desenvolvimento de código social e colaborativo! Você pode criar sua própria conta GitHub (é grátis) para começar e então “fork” nosso repositório e inicie criando suas próprias modificações (que podem ser enviadas de volta para nós através de “Pull Request” no GitHub). Para muito mais informações consulte Development with Git. The Feature/Issue Tracking System (JIRA) (use o mesmo login da Wiki) relatórios de bugs solicitação de feature/novos recursos patches votar sobre problemas existentes ou adicionar seus próprios comentários “assistir” sobre problemas existentes (você receberá um e-mail automaticamente assim que um comentário for adicionado ou o status do problema for atualizado) trabalhar numa feature/issue (basta adicionar um comentário ao problema) O canal de IRC DSpace – Apenas uma maneira informal de discutir idéias e fazer perguntas. Você também pode ajudar outras pessoas que precisam de alguma ajuda imediata.</p>
+
+<p>Como Contribuir com Idéias ou Sugerir Novas Funcionalidades</p>
+
+<p>Recebemos sempre novas idéias ou sugestões para novas funcionalidades. No entando, existem algumas coisas que você deve ter em mente que podem aumentar as chances da sua funcionalidade ser incluída no DSpace!</p>
+
+<p>Faça com que os desenvolvedores DSpace conheçam o seu pedido
+Você deve submeter suas idéias ou requisições de funcionalidades para o Issue Tracking System (JIRA) (utilize o memo login da Wiki). No entanto, antes de passar pelo processo de apresentação de suas idéias é melhor pesquisar o Issue Tracker para ver se outras pessoas já solicitação essa funcionalidade. Se alguém pediu esse recurso, você pode adicionar comentários com as suas idéias ou votar para que o recurso seja adicionado/implementado.</p>
+
+<p>Se essa funcionalidade não foi solicitada por ninguém, faça o pedido! (Não se preocupe, se ele for um pedido dublicado, você ficará sabendo). Seu pedido entrará numa fila, onde passará por uma revisão completa.</p>
+
+<p>Algumas coisas para ter em mente quando for fazer um pedido:</p>
+
+<p>Forneça sempre o máximo de detalhes que você conseguir. Um parágrafo para descrição é bom, mas alguns parágrafos com alguns casos de uso é ainda melhor. Geralmente é muito difícil trabalhar com uma única sentença para descrição e nós podemos pedir-lhes mais informações para entender o que você está pedindo. Se você tem casos de uso ou necessidades locais, por favor, descreva para nós. Os casos de uso realmente ajudam os desenvolvedores a entender por que esse recurso é importante. Além disso, casos de uso podem ajudar a localizar outras instituições com necessidades semelhantes (que podem estar dispostos a ajudar no desenvolvimento dessa função). Espere que provavelmente teremos que lhe fazer algumas perguntas. Mesmo com descrições detalhadas/casos de uso, há chances de termos que acompanhar com você durante o andamento para mais alguns detalhes ou para ter certeza de que entendemos exatamente o seu pedido. Então, por favor esteja disposto a responder perguntas ou pedidos de informações adicionais. Sempre que alguém comentar sobre um problema recém-criado você receberá um e-mail do sistema Issue Tracker. 2. Anuncie seu Pedido para Outros e Ajude-nos a Encontrar Um ou Dois Desenvolvedores Voluntários</p>
+
+<p>Todos os nossos desenvolvedores/commiters DSpace são voluntários. Vamos repetir: Todos os nossos Desenvolvedores/Commiters do DSpace são voluntários. Isso significa que o núcleo do time de Desenvolvimento DSpace (ex: Commiters) nem sempre têm controle sobre quanto tempo eles podem gastar no desenvolvimento de novas funcionalidades para o DSpace. Em muitos cados, os Commiters só podem trabalhar em novas funcionalidades que são de interesse para a instituição/universidade onde trabalham.</p>
+
+<p>Portando, mesmo que os Commiters concordem que uma nova funcionalidade pareça valer a pena, muitas vezes precisamos primeiro encontrar uma instituição que esteja disposta a dar tempo de seu desenvolvedor para o desenvolvimento dessa funcionalidade.</p>
+
+<p>Você pode ser capaz de nos ajudar a acelerar este processo! Veja o que você pode fazer para ajudar:</p>
+
+<p>Se você tem um desenvolvedor local que tem tempo para trabalhar nessa funcionalidade, deixe-nos saber quando você enviar a questão (ou adicionar um comentário mais tarde). Se um colaborador local já pode analisar o pedido/funcionalidade, nós só precisamos aprovar o código (ver Diretrizes de Contribuição de Código para detalhes sobre o processo de Aprovação/Aceitação de código do DSpace). Se você souber de outras instituições com necessidades semelhantes, diga-lhes para “votar” no seu pedido pelo Issue Tracker, ou adicionar os seus próprios casos de uso/comentários. Além disso, se algum deles tem um desenvolvedor com tempo para desenvolver esse recurso, avise-nos! Se você não tem certeza se outras instituições podem ter essa necessidade, você pode promover o seu pedido enviando um e-mail para as mailing lists ‘dspace-general’ or ‘dspace-tech’ , pedindo feedback para outras pessoas. Felizmente outras pessoas podem adicionar comentários/sugestões ou até mesmo nos apontar a direção sobre um desenvolvedor voluntário interessado. Mesmo se não pudermos encontrar um desenvolvedor interessado na comunidade, muitos Commiters do DSpace irão analisar o pedido e ver se um ou mais Commiters têm tempo para se dedicar ao trabalho. Em alguns casos um commiter pode ser capaz de convencer sua instituição da importância da nova funcionalidade (novamente, os casos de uso são amostras úteis para convencer instituições da importância da funcionalidade. 3. Responda a Revisão Formal do seu Pedido (se necessário)</p>
+
+<p>Cada solicitação de recurso tem a garantia de ter uma revisão formal por pelo menos um dos dois grupos (possivelmente ambos):</p>
+
+<p>Os Commiters do DSpace – Eles analisam cada pedido de funcionalidade ou relatório de bug que vem do sistema, muitas vezes em reuniões semanais de desenevolvimento – as Developer Meetings. Nota: Devido a atrasos ocasionais, pode haver um atraso de várias semanas/meses antes do seu pedido ter uma revisão formal dos Commiters. No entanto, é interessante notar que o seu pedido será imediatamente enviado a lista ‘dspace-devel’, onde os desenvolvedores individuais podem fornecer feedback imediato antes da revisão formal ocorrer. Assim, você pode não precisar esperar tanto tempo para uma resposta imediata, ou mesmo para um desenvolvedor se voluntariar para trabalhar nessa funcionalidade. Para mais informações sobre as questões que Commiters estão planejando a revisão em sua próxima reunião, consulte a agenda publicada na página Developer Meetings. Observação: Os Commiters sempre revisam as questões na ordem em que são recebidas. No entanto, como mencionados acima, todas as solicitações de novas funcionalidades são enviadas para ‘dspace-devel’, portanto, se há interesse imediado entre os desenvolvedores, você pode achar que vai receber mais feedback imediato e/ou perguntas. O DSpace Community Advisory Team – Eles revisam e solicitam feedbacks adicionais sobre qualquer pedido de nova funcionalidade. Esse time é composto de Gerentes de Repositórios (ou similar) que oferecem feedback adicional para os Commiters em novas funcionalidade. Depois de uma revisão formal, um comentário será adicionado ao seu pedido (que também vai gerar um e-mail para você). Esse comentário vai detalhar os resultados da análise inicial, juntamente com todas as perguntas que surgiram. Se você tiver tempo, por favor, responda a essas perguntas ou encoraje outros a respondê-las. Estas perguntas são frequentemente usadas para nos ajudar a entender melhor o pedido para que possamos garantir uma compreensão comum.</p>
+
+<p>Mantenha Contato com o Pedido
+Deixe-nos saber se você precisa de atualizações sobre o status da solicitação de recursos. Basta adicionar um comentário na sua questão, solicitando o status mais recente e nós vamos responder o mais breve possível.</p>
+
+<p>Existem várias razões pelas quais um pedido de recurso não pode ter tido qualquer atividade recente:</p>
+
+<p>Podemos ter um backlog de pedidos e apenar não ter chegado a revisão formal ainda. Nós precisamos encontrar um desenvolvedor (ou commiter) que tem tempo para desenvolver essa função. Nestes cados, pode-se localizar outras instituições que possam estar interessados, que muitas vezes podem ajudar na busca de um desenvolvedor voluntário. Nós estamos esperando respostas de uma ou mais questões colocadas em comentários anteriores. Se precisarmos de mais esclarecimentos você deve ficar sabendo. Nós estamos fazendo a “Revisão de Código” em qualquer código apresentado, para garantir que é seguro e estável o suficiente para ser liberado no DSpace. Para mais informações sobre o nosso processo de aprovação de código, veja Diretrizes de Contribuição de Código. Também é possível que tenha um ou mais desenvolvedores trabalhando ativamente no recurso, mas que o trabalho ainda não está num estado completo. 5. Uma vez que seu Pedido é Aceito no DSpace</p>
+
+<p>Se o seu pedido for aceito formalmente no DSpace, você receberá um e-mail assim que o pedido for “Close” ou “Resolve” no nosso Issue Tracker. Naquele momento, o Issue Tracker será atualizado para indicar em qual versão do DSpace este novo recurso será incluído.</p>
+
+<p>Uma vez que a versão DSpace é liberada, o seu nome (e um link para o seu pedido inicial) aparece em nossa seção Version History da documentação DSpace. Você também será adicionado à nossa lista de todos os DSpaceContributors conhecidos. Essa é a nossa maneira de garantir que você receberá reconhecimento por suas contribuições para o DSpace!</p>
+
+<p>Usando o mantra: “compartilhar cedo, muitas vezes em partes”, vou parar por enquanto por aqui, e continuarei aos poucos…</p>
+
+<p>How To Contribute Code or Development Time</p>
+
+<p>Where to Obtain the Source Code</p>
+
+<p>If you plan to develop new features for DSpace, we recommend forking and cloning our Source Code via Github:</p>
+
+<p>DSpace GitHub repository: https://github.com/DSpace/DSpace More information on using DSpace + GitHub is at: Development with Git</p>
+
+<p>Development Hints/Tips
+More hints/tips on developing with DSpace are available in the following locations: Developer Guidelines and Tools – includes hints / tips on using many common IDEs (IDEA, NetBeans, Eclipse) with DSpace Code Contribution Guidelines – includes our guidelines for submitting patches or new features, and our code approval processes Our Development Policies / Mantra</p>
+
+<p>For more information on our DSpace Code Approval/Acceptance process (i.e. how to get your code accepted in DSpace), please see our Code Contribution Guidelines.
+The overriding mantra is share early, share often. Here are a few things to consider:</p>
+
+<p>Please be sure to share your plans with the DSpace community on the ‘dspace-devel’ list (or via one of the weekly Developer Meetings) before embarking on any sizable development effort. This will ensure you achieve your goals in a way that is consistent with the DSpace architecture and plans of the rest of the community. This will minimize the chances of a scenario where you have invested a large amount of time and effort into a body of code that does not fit in with the DSpace architecture or the consensus of the community, meaning that you need to spend further time refactoring your code or worse, ‘forking’ the code. Develop incrementally; try and implement and contribute a basic form of your feature as soon as possible, rather than aiming to implement a complete and ‘polished’ solution. This will help ensure you’re on the right track with regards to the rest of the DSpace community and platform. The sooner your code is part of the core code base, the less time you will have to spend ‘chasing’ the main code base, i.e. keeping your changes up-to-date with that core code base. Obtain the DSpace code using GitHub. This will make code management much easier. It’s very simple to do; see Developer Guidelines and Tools and Development with Git. Read Code Contribution Guidelines to ensure you are following DSpace conventions. This page also gives you a sense of the DSpace Code Approval processes. Looking for a Project to Work on?</p>
+
+<p>Do you have a developer (or two) with some extra time? Are you looking for ways that you can help the community and improve your local DSpace?</p>
+
+<p>Please, take a look at our current listing of ‘unassigned’ New Feature requests or DSpace Improvements. Any help you can provide would be much appreciated!</p>
+
+<p>But, before you get started, please make sure to do the following:</p>
+
+<p>Add a comment to the Feature/Improvement you plan to work on, letting us know you will work on it. If you’d like more input on the feature/improvement, or potential requirements, post your questions and/or plans as a comment as well. Make sure your developer is following our Code Contribution Guidelines. If you have questions about any guidelines, or want some early feedback/suggestions from developers, please get in touch with us on the ‘dspace-devel’ listserv. We’d be glad to help make suggestions on ways in which to implement the new feature, and the earlier you get in touch, the earlier we can give you feedback on whether there’s anything you may need to change before we can accept it as part of out-of-the-box DSpace. See also the Code Review Process on the Code Contribution Guidelines page. If you run into any “gray areas”, ask questions! If it’s a development issue, contact the Developers via the ‘dspace-devel’ listserv. If it’s a policy issue or requires feedback from Repository Managers, get in touch with the DSpace Community Advisory Team, as they can help you query the community for feedback and/or provide you with their immediate opinions Most of all: Thanks! The more individuals/institutions can give back to DSpace, the better the software is for everyone!</p>
+
+<p>Submitting Code Changes</p>
+
+<p>See Code Contribution Guidelines for guidelines that all submissions must adhere to. That page also describes the general process for how a patch/contribution gets accepted into DSpace. The mechanics of creating a patch file are described in Developer Guidelines and Tools.</p>
+
+<p>Copyright and Licensing of Code Contributions</p>
+
+<p>In the words of the PostgreSQL Global Development Group, which also uses the BSD license, “The simplest explanation of the licensing terms is that you can do whatever you want with the product and source code as long as you don’t claim you wrote it or sue us.” The BSD License under which DSpace is made available does not require you to make your changes public or open-source. It does allow for proprietary commercial use, and for DSpace-derived creations to be incorporated into proprietary commercial products. Works based on DSpace may even be released under a proprietary license (but still must maintain the license requirements).</p>
+
+<p>You are encouraged, but not obligated, to share your contributions with the DSpace community. If you choose to do so, you will need to sign over copyright and intellectual property rights of your code to DuraSpace, to be distributed via the BSD license. DuraSpace is a 501c(3) non-profit established to be the legal guardian of the code and to remain mission centric on providing free and open source software for management and archiving of digital works. Also, your code cannot rely on any non-BSD compatibly licensed code.</p>
+
+<p>The BSD license means there is no advantage to be gained by your university (or anyone) retaining copyright, and that by having different copyright holders of different sections of the code, we will be rendered inflexible regarding copyright and licensing in the future, we do ask that you transfer copyright of your modifications to DuraSpace.</p>
+
+<p>You will receive full acknowledgment for contributing the code; so we do encourage you to incorporate your enhancements to DSpace’s functionality for everyone to benefit. You will also see benefits since you will neither have to re-incorporate the changes with new versions of DSpace, nor maintain this code solely yourself!</p>
+
+<p>If your code contribution uses third-party products/tools, you should also double-check that they use a compatible open source license. Compatible licenses are listed at: Licensing of Contributions section of the Code Contribution Guidelines page.</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-07-07-o-esquema-dri-digital-repository-interface.md"/>
+            <updated>2014-07-07T00:00:00-03:00</updated>
+            <id>/_posts/2014-07-07-o-esquema-dri-digital-repository-interface.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "O esquema DRI – Digital Repository Interface",
+"author":"Royopa",
+"date":"07-07-2014",
+"tag":"DSpace, DRI",
+"slug" : "o-esquema-dri-digital-repository-interface",
+"category":"DSpace"
+}</p>
+
+<p>Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em <a href="http://royopa.wordpress.com/2014/07/07/o-esquema-dri-digital-repository-interface/">Wordpress</a>.</p>
+
+<p>O esquema DRI – Digital Repository Interface</p>
+
+<p>Tradução da página</p>
+
+<p>https://wiki.duraspace.org/display/DSDOC4x/DRI+Schema+Reference</p>
+
+<p>Referência de esquema DRI</p>
+
+<p>O DRI (Digital Repository Interface) é um esquema que rege a estrutura de uma página DSpace Manakin quando codificada como um documento XML. Ela determina quais os elementos podem estar presentes no documento e a relação entre os elementos. Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.
+Índice:</p>
+
+<p>1 Introdução
+1.1 A finalidade da DRI
+1.2 O Desenvolvimento da DRI
+2 DRI em tangará
+2.1 Temas
+2.2 Correntes Aspect
+3 Padrões de Projeto Comum
+3.1 Localização e Internacionalização
+3.2 atributo padrão trio
+3.3 Estrutura orientada a marcação
+4 Visão geral do esquema
+5 Fusão de DRI Documentos
+6 Alterações Versão
+6.1 Alterações 1,0-1,1
+7 Element Reference
+7.1 BODY
+7.2 cell
+7.3 div
+7.4 DOCUMENT
+7.5 field
+7.6 figure
+7.7 head
+7.8 help
+7.9 hi
+7.10 instance
+7.11 item
+7.12 label
+7.13 list
+7.14 META
+7.15 metadata
+7.16 OPTIONS
+7.17 p
+7.18 pageMeta
+7.19 params
+7.20 reference
+7.21 referenceSet
+7.22 repository
+7.23 repositoryMeta
+7.24 row
+7.25 table
+7.26 trail
+7.27 userMeta
+7.28 value
+7.29 xref
+INTRODUÇÃO</p>
+
+<p>Este manual descreve o Digital Repository Interface (DRI) que se aplica ao repositório digital DSpace e na interface baseada em XMLUI Manakin.O XMLUI DSpace é um sistema de UI (User Interface) abrangente. É centralizada e genérica, permitindo-lhe ser aplicada a todas as páginas DSpace, sendo eficaz para substituir o sistema de interface baseado em JSP. Sua capacidade de aplicar estilos específicos para arbitrariamente grandes conjuntos de páginas DSpace facilita significativamente a tarefa de adaptar o “look and feel” do DSpace. Isso também permite vários níveis de marcação, gerando credibilidade institucional para o repositório e coleções.</p>
+
+<p>O Manakin, a segunda versão do DSpace XML UI, é composto por vários componentes, escritos usando Java, XML e XSL, e é implementado em Cocoon. O centro da interface é o documento XML, que é uma representação semântica de uma página DSpace. No Manakin, o documento XML adere a um esquema chamado de Digital Repository Interface (DRI), que foi desenvolvido em conjunto com o Manakin e é o assunto deste guia. Para o restante deste guia, os termos do documento XML, documento DRI e documento serão usados de forma intercambiável.</p>
+
+<p>Este documento explica a finalidade do DRI, fornece uma visão geral da arquitetura e explica os padrões de design comuns. O apêndice inclui uma referência completa para os elementos utilizados no esquema DRI, uma representação gráfica da hierarquia dos elementos e uma tabela de elementos e atributos de referência rápida.</p>
+
+<p>O PROPÓSITO DO ESQUEMA DRI</p>
+
+<p>DRI é um esquema que comanda a estrutura do documento XML. Ela determina os elementos que podem estar presentes no documento e a relação dos elementos uns com os outros. Uma vez que todos os componentes Manakin geram documentos XML que aderem ao esquema DRI, o documento XML serve como camada de abstração. Dois componentes: temas e aspectos são essenciais para o funcionamento do Manakin e são brevementes descritos neste manual.</p>
+
+<p>O DESENVOLVIMENTO DO ESQUEMA DRI</p>
+
+<p>O esquema DRI foi desenvolvido para uso no Manakin. A escolha para desenvolver o nosso próprio esquema, em vez de adaptar um já existente veio depois de uma análise cuidadosa do propósito do esquema, bem como as lições aprendidas a partir de tentativas anteriores de personalização da interface DSpace. Uma vez que cada página DSpace no Manakin existe como um documento XML em algum ponto do processo, o esquema que descreve este documento tinha de ser capaz de representar estruturalmente todo o conteúdo, metadados e relações entre diferentes partes de uma página DSpace. Tinha que ser preciso o suficiente para evitar a perda de qualquer informação estrutural e ainda genérico o suficiente para permitir Temas com um certo grau de liberdade para expressar essa informação em um formato legível.</p>
+
+<p>Esquemas populares como XHTML sofrem com o problema de não relacionar elementos em conjunto de forma explicita. Por exemplo, se um título precede um parágrafo, o título está relacionado com o parágrafo não porque ele é codificado como tal, mas porque ele precede o elemento parágrafo. Quando tenta-se traduzir essas estruturas dentro de formatos onde esses tipos de relacionamentos são explícitos, a tradução torna-se tediosa e potencialmente problemática. Esquemas mais estruturados, como TEI ou DocBook, são de domínio específico (muito parecido com o próprio DRI) e, portanto, não é adequado para nossos propósitos.</p>
+
+<p>Decidimos também que o esquema deve suportar nativamente um padrão de metadados para a codificação de artefatos. Ao invés de codificar metadados de artefatos em elementos estruturais, como tabelas ou listas, o esquema incluiria artefatos como objetos codificados em um padrão particular. A inclusão de metadados em formato nativo permitiria que o Tema escolhesse o melhor método para exibir o artefato sem estar amarrado a uma estrutura particular.</p>
+
+<p>Em última análise, optamos por desenvolver o nosso próprio esquema. Nós construímos o esquema DRI através da incorporação de outras normas, quando apropriado, como o esquema i18n do Cocoon para internacionalização, Dublin Core da DCMI e a o esquema METS da Library of Congress’s. O projeto de elementos estruturais derivou fundamentalmente do TEI , com alguns dos padrões de design de outras normas existentes, como DocBook e XHTML. Enquanto os elementos estruturais foram projetados para serem facilmente traduzidos em XHTML, eles preservam as relações semânticas para uso em linguagens mais expressivas.</p>
+
+<p>DRI NO MANAKIN</p>
+
+<p>O processo geral para o tratamento de uma requisição no DSpace XMLUI consiste em duas partes. A primeira parte constrói o documento XML e a segunda parte estiliza o Documento para a saída. No Manakin, as duas partes não são discretas, então são embrulhadas dentro de dois processos: Content Generation, que constrói uma representação XML da página, e Application Style, que estiliza o documento resultante. Content Generation é realizado pelo Aspect chaining, enquanto o Application Style é realizado por um tema.</p>
+
+<p>TEMAS</p>
+
+<p>Um tema é uma coleção de folhas de estilo XSL e arquivos de suporte, como imagens, estilos CSS, traduções e documentos de ajuda. As folhas de estilo XSL são aplicadas ao documento DRI para convertê-lo em um formato legível e dar-lhe estrutura e formatação visual. Os arquivos de suporte são usados ​​para fornecer a página um específico look and feel, inserir imagens e outros meios de comunicação, traduzir o conteúdo e executar outras tarefas. O formato de saída usado atualmente é XHTML e os arquivos de suporte são geralmente limitados a CSS, imagens e JavaScript. Mais formatos de saída, como PDF ou SVG podem ser adicionados no futuro.</p>
+
+<p>A instalação DSpace manakin pode ter vários temas associados. Quando aplicado a uma página, um tema determina a maioria do look and fell. Diferentes temas podem ser aplicados a diferentes conjuntos de páginas DSpace permitindo tanto a variedade de estilos entre as séries de páginas e a consistência dentro desses conjuntos. O arquivo de configuração xmlui.xconf determina quais temas são aplicados para as páginas DSpace (veja a seção XMLUI Configuration and Customization seção para mais informações sobre como instalar e configurar temas). Os temas podem ser configurados para aplicar-se a todas as páginas de um tipo específico, como browse-by-title, a todas as páginas de uma determinada comunidade ou uma coleção ou conjuntos de comunidades e coleções, e qualquer mistura dos dois. Eles também podem ser configurados para se aplicar a um página arbitrária ou um handle.</p>
+
+<p>CHAIN ASPECTS – CADEIA DE ASPECTOS</p>
+
+<p>Os Aspects Manakin são arranjos de componentes Cocoon (transformadores, ações, matchers, etc) que implementam um novo conjunto de recursos acoplados para o sistema. Estes aspectos são encadeados para formar todas as características do manakin. Cinco aspectos existem na instalação padrão do manakin, cada um lida com um determinado conjunto de características do DSpace, e muito mais pode ser adicionado ao implementar recursos extras. Todos os Aspectos tem um documento DRI como entrada e também geram um documento DRI como saída. Isso permite que os aspectos sejam unidos para formar uma cadeia de Aspect. Cada aspecto da cadeia leva um documento DRI como entrada, adiciona sua própria funcionalidade, e passa o documento modificado para o próximo Aspecto na cadeia.</p>
+
+<p>DESIGN PATTERNS COMUNS</p>
+
+<p>Existem vários padrões de projeto utilizados de forma consistente dentro do esquema DRI. Esta seção identifica a necessidade e descreve a implementação desses padrões. Três padrões são discutidos: questões de linguagem e de internacionalização, o atributo trio padrão ( id , n , erend ), e o uso de marcação orientada a estrutura.</p>
+
+<p>LOCALIZAÇÃO E INTERNACIONALIZAÇÃO</p>
+
+<p>Internacionalização é um componente muito importante do sistema de DRI. Ele permite que o conteúdo a ser oferecido em outras línguas com base na localidade do usuário e condicionada à disponibilidade de traduções, bem como datas atuais e moeda de forma localizada. Existem dois tipos de conteúdo: o conteúdo traduzido armazenado e exibido pelo próprio DSpace e conteúdo introduzido pelo processo de styling DRI nas transformações XSL. Ambos os tipos são tratados pelo transformador i18n do Cocoon sem levar em conta sua origem.</p>
+
+<p>Quando o processo de geração de conteúdo produz um documento DRI, algum do conteúdo textual pode ser marcado com i18n elementos para significar que as traduções estão disponíveis para esse conteúdo. Durante o processo de aplicação de estilo, o tema também pode introduzir um novo conteúdo textual, marcando-o com i18n tags. Como resultado, após modelos XSL do tema são aplicadas ao documento DRI, o resultado final consiste em uma página DSpace marcado no formato de apresentação escolhido (como XHTML) com i18n elementos de ambos DSpace e conteúdo XSL. Este documento final é enviado através de transformador de i18n do Cocoon que traduz o texto marcado.</p>
+
+<p>STANDARD ATTRIBUTE TRIPLET – PADRÃO TRIO DE ATRIBUTOS</p>
+
+<p>Muitos elementos do sistema de DRI (todos os containers de nível superior, classes de caracteres e muitos outros) contém um ou vários dos três atributos padrão: id , n , e rend . Os atributos ID e n podem ser obrigatórios ou opcionais baseados no propósito do elemento, enquanto o atributo rend é sempre opcional. Os dois primeiros são usados ​​para fins de identificação, enquanto que o terceiro é utilizado como uma pitada de exibição para o passo de styling.</p>
+
+<p>A identificação é importante porque permite que elementos sejam separados de seus pares para a classificação, renderização em caso especial e outras tarefas. O primeiro atributo, ID , é o identificador global e é único para todo o documento. Qualquer elemento que contém um atributo ID pode, assim, ser referenciado exclusivamente por ele. O atributo ID de um elemento pode ser atribuído tanto explicitamente, ou gerado a partir da Java Class Path do objeto de origem se nenhum nome for dado. Embora todos os elementos que podem ser identificadas exclusivamente podem transportar o atributo ID, apenas aqueles que são independentes no seu contexto tem a necessidade de fazer isso. Por exemplo, as tabelas são obrigadas a terem uma identificação, pois precisam manter o significado independentemente da sua localização no documento, enquanto as linhas da tabela e células podem omitir o atributo já que seu significado depende do elemento pai.</p>
+
+<p>O atributo n é simplesmente o nome atribuído ao elemento e que é utilizado para distinguir um elemento de seus pares imediatos. No exemplo de uma lista particular, todos os itens dessa lista terão nomes diferentes para distingui-los uns dos outros. Outras listas no documento, no entanto, também pode conter itens cujos nomes serão diferentes um do outro, mas idênticos aos da primeira lista. O atributo n de um elemento é, portanto, único apenas no âmbito do pai desse elemento e é usado principalmente para fins de classificação e prestação especial de uma certa classe de elementos, como, por exemplo, todos os primeiros itens em listas, ou todos os itens com o nome “browse”. O atributo n segue as mesmas regras como id para determinar se é ou não é exigido para um determinado elemento.</p>
+
+<p>O último atributo no padrão trio é o rend. Ao contrário do id e n , o atributo rend pode consistir de vários valores de espaços delimitados e é opcional para todos os elementos que podem contê-lo. Seu objetivo é fornecer uma dica de renderização da camada intermediária do componente para estilizar o tema. Há vários casos, onde o conteúdo do atributo rend é descrito em detalhes e seu uso é incentivado. Esses casos são os elementos de ênfase hi , o elemento de divisão div, e o elemento list. Por favor, consulte o manual de Referência de Elementos para obter mais detalhes sobre eles.</p>
+
+<p>MARCAÇÃO ORIENTADA A ESTRUTURA</p>
+
+<p>O padrão de projeto final é o uso de marcação orientada a estrutura para o conteúdo transportado pelo documento XML. Uma vez gerado pela Cocoon, o documento contém dois tipos principais de informação: metadados sobre o repositório e seu conteúdo e o conteúdo real da página a ser exibida. Uma visão completa de metadados e marcação de conteúdo e sua relação com outros elementos é dada na próxima seção. Uma coisa importante a notar aqui, no entanto, é que a marcação do conteúdo é voltado para declarar explicitamente as relações estruturais entre os elementos ao invés de focar os aspectos de apresentação. Isso faz com que a marcação utilizada pelo documento seja mais semelhante ao TEI ou Docbook em vez de HTML. Por esta razão, templates XSL são utilizadas pelos temas para converter a marcação DRI estrutural para XHTML. Mesmo assim é feita uma tentativa para criar XHTML estrutural sempre que possível, deixando a apresentação inteiramente no CSS. Isso permite que o documento XML seja genérico o suficiente para representar qualquer página DSpace sem informar como ela deveria ser renderizada.</p>
+
+<p>VISÃO GERAL DO ESQUEMA</p>
+
+<p>O documento XML DRI consiste do elemento raiz document e três elementos de nível superior que contém dois tipos principais de elementos. Os três containers de nível superior são meta, body e options. Os dois tipos de elementos que eles contêm são metadados e conteúdo, levando metadados sobre a página e os conteúdos da página, respectivamente. A Figura 1 mostra a relação entre estes seis componentes.</p>
+
+<p>Figura 1: Os dois tipos de conteúdo em três divisões principais de uma página DRI.</p>
+
+<p>O elemento document é a raiz de todas as páginas da DRI e contém todos os outros elementos. Ele tem apenas um atributo, versão, que contém o número da versão do sistema DRI e o esquema usado para validar o documento produzido. Na hora de escrever o número da versão de trabalho é “1.1”.</p>
+
+<p>O elemento meta é um elemento de nível superior com o número e contém todas as informações de metadados sobre a página, o usuário que a solicitou e o repositório que foi usado. Ele não contém elementos estruturais, pelo contrário, sendo o único container de elementos de metadados em um documento DRI. Os metadados armazenados pelo elemento meta é dividido em três grandes grupos: userMeta , pageMeta e objectMeta , cada um armazenando informação sobre o seu respectivo componente. Por favor, consulte as entradas de referência para mais informações sobre estes elementos.</p>
+
+<p>O elemento options é outro elemento de nível superior que contém todas as opções de navegação e de ação disponíveis para o usuário. As opções são armazenados como itens de elementos da lista, divididas pelo tipo de ação que executam. Os cinco tipos de ações são: navegação, pesquisa, seleção de idioma, as ações que estão sempre disponíveis, e as ações que são dependentes do contexto. Os dois tipos de ação também conter sub-listas que contêm as ações disponíveis para usuários de diferentes níveis de acesso ao sistema. O elemento options não contém elementos de metadados e só pode fazer uso de um pequeno conjunto de elementos estruturais, ou seja, os elementos list e de seus filhos.</p>
+
+<p>O último grande elemento superior é o elemento body. Ele contém todos os elementos estruturais em um documento DRI, incluindo as listas utilizadas pelo elemento options. Os elementos estruturais são usados ​​para construir uma representação genérica de uma página DSpace. Qualquer página DSpace pode ser representada com uma combinação de elementos estruturais, o que por sua vez, podem ser transformados pelos modelos XSL em outro formato. Este é o principal mecanismo que permite que o DSpace XMLUI aplique templates uniformes e regras de estilo para todas as páginas do DSpace e é a diferença fundamental entre a abordagem JSP usada pelo DSpace.</p>
+
+<p>O elemento body contém diretamente apenas um tipo de elemento: div.O elemento div serve como uma grande divisão de conteúdo e qualquer número deles pode ser contido pelo corpo . Além disso, as divisões são recursivas, permitindo que divs possam conter outros divs . É dentro destes elementos que todos os outros elementos estruturais estão. Esses elementos incluem tabelas, elementos de parágrafo p, listas, assim como os seus diversos elementos filhos. Nos níveis mais baixos desta hierarquia encontram-se os elementos de character container. Esses elementos, parágrafos p, table cells, listas de items, e o elemento de ênfase hi, contém o conteúdo textual de uma página DSpace, opcionalmente modificada com links, figuras e ênfase. Se a divisão dentro do qual a classe de caracteres está contida é marcado como interativa (via atributo interactive), esses elementos também podem conter campos de formulário interativos. Divisões marcadas como interativas também devem fornecer os atributos method e action para que seus campos sejam utilizados.</p>
+
+<p>Figura 2: Todos os elementos no esquema DRI (versão 1.1).</p>
+
+<p>MERGE DE DOCUMENTOS DRI</p>
+
+<p>Tendo descrito a estrutura do documento DRI, bem como sua função no Aspect chains do Manakin, voltaremos agora a nossa atenção para o último detalhe de seu uso: fazer merge de dois documentos em um só. Existem várias situações em que a necessidade de fundir dois documentos surge. No Manakin, por exemplo, cada aspecto é responsável por adicionar uma funcionalidade diferente para uma página DSpace. Uma vez que cada instância de uma página tem que ser um documento DRI completo, cada aspecto é confrontado com a tarefa de fundir o documento gerado com outro documento gerado (e fundido em um único documento) previamente pela execução dos aspectos. Por esta razão existem regras que descrevem os elementos que podem ser mesclados e o que acontece com seus dados e elementos filhos no processo.</p>
+
+<p>Ao mesclar dois documentos DRI, um é considerado o documento principal e o outro é um documento feeder que é adicionado dentro do principal. Os três container de nível superior (meta , body e options) de ambos os documentos são analisados ​​individualmente e mesclados. No caso dos elementos options e meta, as  tags filhas são pegas individualmente e são tratadas de forma diferente de seus irmãos.</p>
+
+<p>Os elementos body são os mais fáceis de fundir: seus respectivos div filhos são preservados, juntamente com ele mesmo e estão agrupados sob um mesmo elemento. Assim, a nova tag body conterá todos os divs do documento principal seguido por todos os divs do feeder. No entanto, se duas divs têm os mesmos atributos n e rend (e no caso de uma div interativa os mesmos atributos action e method), essas divs serão fundidas em uma só. A div resultante terá os atributos id , n , e rend da div do documento principal e conterá todas as divs do documento principal seguido por todas as divs do feeder. Este processo continua recursivamente até que todas as divs sejam fundidas. Deve notar-se que duas divisões com regras de paginação separadas não podem ser fundidas em conjunto.</p>
+
+<p>Merclar os elementos options é um pouco diferente. Primeiro, os elementos list sob options de ambos os documentos são comparados uns com os outros. Aqueles que forem únicos para ambos os documentos são simplesmente adicionados sob o novo elemento options, assim como divs sob o elemento body. Em caso de elementos duplicados, ou seja, elementos list que pertencem a ambos os documentos e tem o mesmo atributo n, as duas lists serão fundidas em uma só. O novo elemento list será composto do elemento head do documento principal, seguido dos pares label-item do documento principal, e finalmente, os pares label-item do feeder, desde que sejam diferentes daqueles do principal.</p>
+
+<p>Finalmente, os elementos meta são fundidos bem como os elementos sob o body. Os três filhos de meta – userMeta , pageMeta e objectMeta – são fundidos individualmente, adicionando o conteúdo do feeder após o conteúdo do principal.</p>
+
+<p>ALTERAÇÃO DE VERSÕES</p>
+
+<p>O esquema DRI continuará a evoluir de acordo com as necessidades de design de interface. O atributo version do documento vai indicar qual a versão do esquema do documento está em conformidade. Na época o Manakin foi incorporado ao padrão de distribuição DSpace, a versão atual era “1.1”, porém as versões anteriores da interface Manakin podem usar a versão “1.0”.</p>
+
+<p>ALTERAÇÃO 1.0 – 1.1</p>
+
+<p>Houveram grandes mudanças estruturais entre estes dois números de versão. Vários elementos foram removidos do esquema: includeSet, include, objectMeta, and object. Originalmente todos os metadados para objetos foram incluídos em linha com o documento DRI, este provou ter vários problemas e foi removido na versão 1.1 do esquema. Em vez de incluir metadados em linha, foram incluídas referências externas para os metadados. Assim um elemento reference foi adicionado juntamente com referenceSet . Estes novos elementos funcionam como suas contrapartes na versão anterior, exceto sobre referenciar metadados contidos no elemento objectMeta que se referem a metadados em arquivos externos. Os elementos repository e repositoryMeta também foram modificados de forma semelhante removendo metadados em linha e referenciando documentos de metadados externos.</p>
+
+<p>REFERÊNCIA DE ELEMENTOS</p>
+
+<p>Element Attributes  Required?
+BODY
+cell
+    cols
+    id
+    n
+    rend
+    role
+    rows
+div
+    action  required for interactive behavior
+    behaviorSensitivFields
+    currentPage
+    firstItemIndex
+    id  required
+    interactive
+    itemsTotal
+    lastItemIndex
+    method  required for interactive
+    n   required
+    nextPage
+    pagesTotal
+    pageURLMask
+    pagination
+    previousPage
+    rend
+DOCUMENT    version required
+field
+    disabled
+    id  required
+    n   required
+    rend
+    required
+    type    required
+figure
+    rend
+    source
+    target
+head
+    id
+    n
+    rend
+help
+hi  rend    required
+instance
+item
+    id
+    n
+    rend
+label
+    id
+    n
+    rend
+list
+    id  required
+    n   required
+    rend
+    type
+META
+metadata
+    element required
+    language
+    qualifier
+OPTIONS
+p
+    id
+    n
+    rend
+pageMeta
+params
+    cols
+    maxlength
+    multiple
+    operations
+    rows
+    size
+reference
+    url required
+    repositoryID    required
+    type
+referenceSet
+    id  required
+    n   required
+    orderBy
+    rend
+    type    required
+repository
+    repositoryID    required
+    url required
+repositoryMeta
+row
+    id
+    n
+    rend
+    role    required
+table
+    cols    required
+    id  required
+    n   required
+    rend
+    rows    required
+trail
+    rend
+    target
+userMeta    authenticated   required
+value
+    optionSelected
+    optionValue
+    type    required
+xref    target  required
+BODY</p>
+
+<p>Container de nível superior</p>
+
+<p>O body é o principal elemento container para todo o conteúdo exibido para o usuário. Ele contém um conjunto de elementos div que agrupam o conteúdo em blocos de interação e exibição.</p>
+
+<p>Parent</p>
+
+<p>document
+Children</p>
+
+<p>div (qualquer)
+Atributos</p>
+
+<p>Nenhum
+<document version=1.0>
+  <meta> ... </meta>
+   <body>
+    <div n="division-example1"
+    id="XMLExample.div.division-example1">
+     ...
+    </div>
+    <div n="division-example2" id="XMLExample.div.division-example2"
+    interactive="yes" action="www.DRItest.com"
+    method="post">
+     ...
+    </div>
+     ...
+   </body>
+  <options> ... </options>
+</document>
+cell</p>
+
+<p>Rich Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento cell contido em uma linha de uma tabela traz conteúdo para essa tabela. É um container de caracteres, como p, item, e hi e seu objetivo principal é exibir os dados textuais, possivelmente com com hyperlinks, blocos de enfatização de texto, imagens e campos de formulários. Cada cell pode ser anotada com uma role (sendo a mais comum “header” e “data”) e pode esticar em qualquer número de linhas e colunas. Como as cells não podem existir fora do seu container (row), seu atributo id é opcional.</p>
+
+<p>Parent</p>
+
+<p>row
+Children</p>
+
+<p>hi (qualquer)
+xref (qualquer)
+figure (qualquer)
+field (qualquer)
+Atributos</p>
+
+<p>cols : (opcional) O número de colunas abrangidas pela célula.
+id : (opcional) Um identificador único do elemento.
+n : (opcional) Um identificador de local usado para diferenciar o elemento de seus irmãos.
+rend : (opcional) Uma dica de renderização usada para substituir o padrão de exibição do elemento.
+role : (opcional) Um atributo opcional para substituir as configurações da row onde a cell está contida.
+rows : (opcional) O número de linhas que a célula abrange.</p>
+
+<table n="table-example" id="XMLExample.table.table-example" rows="2"
+    cols="3">
+    <row role="head">
+       <cell cols="2">Data Label One and Two</cell> <cell>Data Label
+    Three</cell>
+      ...
+    </row>
+    <row>
+       <cell> Value One </cell> <cell> Value Two </cell> <cell> Value
+    Three </cell>
+      ...
+    </row>
+    ...
+</table>
+
+<p>div</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento div representa uma grande parte do conteúdo e pode conter uma grande variedade de elementos estruturais para apresentar conteúdo ao usuário. Ele pode conter parágrafos, tabelas e listas, bem como referências para informações armazenadas no artifactMeta, repositoryMeta, collections, and communities. O elemento div também é recursivo, permitindo-lhe ser ainda dividido em outros divs. As divs podem ser de dois tipos: interativas e estáticas. Os dois tipos são definidos através da utilização do atributo interactive e diferem na sua capacidade para conter o conteúdo interativo. Elementos filhos de divs marcadas como interativos podem conter campos do formulário, com atributos action e method da div que serve para resolver esses campos.</p>
+
+<p>Parent</p>
+
+<p>body
+div
+Children</p>
+
+<p>head (zero ou um)
+pagination (zero ou um)
+table (qualquer)
+p (qualquer)
+referenceSet (qualquer)
+list (qualquer)
+div (qualquer)
+Atributos</p>
+
+<p>action : (necessário para interativo) O atributo action do formulário determina onde as informações do formulário deverão ser enviadas para processamento.
+behavior : (opcional para interativo) As opções de comportamento aceitáveis ​​que podem ser usados ​​neste formulário. O único valor possível definidos neste momento é “ajax”, o que significa que o formulário pode ser apresentado várias vezes para cada campo individual neste formulário. Observe que, se o formulário for enviado várias vezes é melhor que o behaviorSensitiveFields seja atualizado.
+behaviorSensitiveFields : (opcional para interativo) Uma lista de nomes de campos separados por espaço são sensíveis ao behavior. Estes campos devem ser atualizadas cada vez que um formulário é enviado com uma atualização completa da página (ou seja, ajax).
+currentPage : (opcional) Por divs paginados, o atributo currentPage indica o índice da página atualmente exibida para este div.
+firstItemIndex : (opcional) Para divs paginados, o atributo firstItemIndex indica o índice do primeiro item incluído nesta div.
+id : (obrigatório) um identificador único do elemento.
+interactive : Os valores aceitos (opcionais) são “yes”, “no”. Este atributo determina se o div é interativo ou estático. As divs interativas devem fornecer action e method e pode conter elementos field.
+itemsTotal : (opcional) Para divs paginados, o atributo itemsTotal indica quantos itens existem em todos os divs paginados.
+lastItemIndex : (opcional) Para divs paginados, o atributo lastItemIndex indica o índice do último item incluído nesta div.
+method : (necessário para interativos) Os valores aceitos são “get”, “post”, e “multipart”. Determina o método usado para passar os valores dos fields para o handler especificado pelo atributo action. O método multipart deve ser usado para upload de arquivos.
+n : (obrigatório) Um identificador de local utilizado para diferenciar o elemento de seus irmãos.
+nextPage : (opcional) Para divs paginados o atributo nextPage aponta para o URL da página seguinte do div, se ele existir.
+pagesTotal : (opcional) Para divs paginados, o atributo pagesTotal indica em quantas páginas os divs serão paginados.
+pageURLMask : (opcional) Para divs paginados, o atributo pageURLMask contém a máscara de uma URL para uma página específica dentro do conjunto paginado. O número da página de destino deve substituir a string {pageNum} da URL para gerar uma URL completa para essa página.
+pagination : valores aceitos (opcionais) são “simple”, “masked”. Este atributo determina se a div está espalhada por várias páginas. Divs paginadas simples devem fornecer os atributos previousPage, nextPage, itemsTotal, firstItemIndex, lastItemIndex. Divs paginadas masked devem fornecer os atributos currentPage, pagesTotal, pageURLMask, itemsTotal, firstItemIndex, lastItemIndex.
+previousPage : (opcional) Para divs paginados o atributo previousPage aponta para o URL da página anterior do div, se ele existir.
+rend : (opcional) Uma dica de renderização usada para substituir o padrão de exibição do elemento. No caso da tag div, é também recomenado incluir um label como “primary” ou “secondary”. Divs marcadas como principal contém conteúdo, enquanto divs secundárias contém informações auxiliares ou campos de suporte.
+<body>
+     <div n="division-example"
+    id="XMLExample.div.division-example">
+      <head> Example Division </head>
+      <p> This example shows the use of divisions. </p>
+      <table ...>
+        ...
+      </table>
+      <referenceSet ...>
+        ...
+      </referenceSet>
+      <list ...>
+        ...
+      </list>
+       <div n="sub-division-example"
+    id="XMLExample.div.sub-division-example">
+        <p> Divisions may be nested </p>
+        ...
+       </div>
+      ...
+     </div>
+    ...
+</body></p>
+
+<p>DOCUMENT</p>
+
+<p>Document Root</p>
+
+<p>O elemento document é o container raiz de um documento XMLUI. Todos os outros elementos estão contidos dentro dele, direta ou indiretamente. O único atributo que ele tem é a versão do esquema que está sendo usado.</p>
+
+<p>Parent</p>
+
+<p>nenhum
+Children</p>
+
+<p>meta (um)
+corpo (um)
+opções (um)
+Atributos</p>
+
+<p>versão : (obrigatório) Número da versão do esquema que o documento segue. No momento os únicos números de versão válidos são “1.0” ou “1.1”. Iterações futuras deste esquema podem incrementar o número da versão.
+<document
+   version="1.1">
+   <meta>
+     ...
+   </meta>
+   <body>
+     ...
+   </body>
+   <options>
+     ...
+   </options>
+</document>
+field</p>
+
+<p>Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento field é um container para todas as informações necessárias para criar um campo de formulário. O atributo type é orbigatório e determina o tipo do campo, enquanto as childrens tags possuem as informações sobre como construí-lo. Os fields só podem aparecer em divs “interativas”.</p>
+
+<p>Parent</p>
+
+<p>cell
+p
+hi
+item
+Childrens</p>
+
+<p>params (um)
+help (zero ou um)
+error (qualquer)
+option (qualquer – apenas com o tipo select)
+value (qualquer – apenas disponível nos campos do tipo: select, checkbox, ou rádio)
+field (um ou mais – só com o tipo de composite)
+ValueSet (qualquer)
+Atributos</p>
+
+<p>disabled : (opcional)  Valores aceitos são “yes” e “no”. Determina se o campo permite a entrada do usuário. A renderização de campos disabled podem variar de acordo com a mídia de implementação e de exibição.
+id : (obrigatório) Um identificador exclusivo para um elemento de campo.
+n : (obrigatório) Um identificador local não-exclusivo usado para diferenciar o elemento de seus irmãos dentro de uma divisão interativa. Este é o nome do campo de utilização, quando os dados são apresentados de volta para o servidor.
+rend : (opcional) Uma dica de renderização usada para substituir o padrão de exibição do elemento.
+required : (opcional) Os valores aceitos são “yes”, “no”. Determina se o campo é um componente obrigatório do formulário e, portanto, não pode ser deixado em branco.
+type : (obrigatório) Um atributo necessário para especificar o tipo de valor. Os types aceitos são:
+button : um botão que, quando ativado pelo usuário irá enviar o formulário com todos os campos para serem processados no servidor.
+checkbox : Um input booleano que pode ser selecionado pelo usuário. Um selectbox pode ter vários campos que compartilham o mesmo nome e cada um desses campos pode ser alternado de forma independente. Ele é diferente de um botão em que apenas um campo pode ser selecionado.
+file : Um input que permite que o usuário selecione os arquivos a serem anexados ao formulário. Note-se que uma formulário que usa um campo file deve usar o method multipart.
+hidden : Um input que não é exibido na tela e é escondido do usuário.
+password : um input de linha única, onde o texto de entrada é processado de modo a esconder os caracteres do usuário.
+radio : um input booleano que pode ser selecionado pelo usuário. Vários campos radio podem compartilhar o mesmo nome. Quando isto ocorre apenas um campo pode ser selecionado. Ele é diferente de um selectbox onde vários campos podem ser selecionados.
+select : um input de menu que permite ao usuário selecionar elementos a partir de uma lista de opções.
+text : um input de texto em única linha.
+textarea : um input de texto em multi-linha.
+composite : um input composto que vombina vários inputs em um único campo. Os  campos que podem ser colocados em conjunto são: checkbox, password, select, text, and textarea. Quando os campos são combinados eles podem possuir vários valores combinados.</p>
+
+<p>
+  <hi> ... </hi>
+  <xref> ... </xref>
+  <figure> ... </figure>
+  ...
+   <field id="XMLExample.field.name" n="name" type="text"
+    required="yes">
+    <params size="16" maxlength="32"/>
+    <help>Some help text with <i18n>localized
+    content</i18n>.</help>
+    <value type="raw">Default value goes
+    here</value>
+   </field>
+</p>
+
+<p>figure</p>
+
+<p>Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento figure é utilizado para incorporar uma referência a uma imagem ou um elemento gráfico. Pode ser misturada livremente com o texto e qualquer texto no interior da própria tag será usado como um caption ou uma descrição alternativa.</p>
+
+<p>Parent</p>
+
+<p>cell
+p
+hi
+item
+Children</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+fonte : (opcional) O source da imagem, usando uma URL ou uma entidade XML pré-definida.
+alvo : (opcional) Um target para uma imagem usada como um link, utilizando uma URL ou um id de um elemento existente como destino.</p>
+
+<p>
+    <hi> ... </hi>
+    ...
+    <xref> ... </xref>
+    ...
+    <field> ... </field>
+    ...
+     <figure source="www.example.com/fig1"> This is a static image.
+    </figure> <figure source="www.example.com/fig1"
+    target="www.example.net">
+      This image is also a link.
+     </figure>
+    ...
+</p>
+
+<p>head</p>
+
+<p>Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento head é usado principalmente como um label associado ao seu elemento pai. A renderização é determinada pela tag pai, mas pode ser substituída pelo atributo rend. Uma vez que não pode ser apenas um elemento head associado com uma tag particularo, o atributo on não é necessário, e o atributo id é opcional.</p>
+
+<p>Parent</p>
+
+<p>div
+table
+list
+referenceSet
+Children</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>id : (opcional) um identificador único do elemento
+n : (opcional) Um identificador de local usado para diferenciar o elemento de seus irmãos
+rend : (opcional) Um hint de renderização usado para substituir o padrão de exibição do elemento.</p>
+
+<p>&lt;</p>
+
+<p>div …>
+     <head> Este é um cabeçalho simples associado com o seu elemento div.
+    </head>
+    <div ...>
+       <head rend="green"> Este cabeçalho será verde.
+    </head>
+      <p>
+         <head> Um cabeçalho com <i18n>conteúdo localizado</i18n>.
+    </head>
+        ...
+      </p>
+    </div>
+    <table ...>
+       <head> ...
+    </head>
+      ...
+    </table>
+    <list ...>
+       <head> ...
+    </head>
+      ...
+    </list>
+    ...
+</body></p>
+
+<p>help</p>
+
+<p>Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento opcional help é usado para fornecer instruções de ajuda em texto simples e normalmente está dentro de um elemento field. O método usado para processar o texto de ajuda está no topo do tema.</p>
+
+<p>Parent</p>
+
+<p>field
+Children</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>Nenhum</p>
+
+<p>
+    <hi> ... </hi>
+    ...
+    <xref> ... </xref>
+    ...
+    <figure> ... </figure>
+    ...
+    <field id="XMLExample.field.name" n="name" type="text"
+    required="yes">
+      <params size="16" maxlength="32" />
+       <help>Algum help com <i18n>conteúdo localizado</i18n>.</help>
+    </field>
+    ...
+</p>
+
+<p>hi</p>
+
+<p>Rich Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento hi é usado para dar ênfase num texto e ocorre em containers de caracteres como p e list. Pode ser misturado livremente com o texto, e qualquer texto dentro da tag hi será realçada de uma maneira especificada pelo atributo rend. Além disso, o elemento hi é o único componente container de texto que tem um container rich text dentro dele, o que significa que pode conter outras tags além de texto simples. Isso permite que ele contenha outros container de texto, incluindo outras tags hi.</p>
+
+<p>Parent</p>
+
+<p>cell
+p
+item
+hi
+Childrens</p>
+
+<p>hi (qualquer)
+xref (qualquer)
+figure (qualquer)
+field (qualquer)
+Atributos</p>
+
+<p>rend : (obrigatório) Usado para especificar o tipo exato de ênfase para aplicar ao texto contido. Os valores mais comuns incluem, mas não estão limitados a “bold”, “italic”, “underline”, and “emph”.</p>
+
+<p>
+    This text is normal, while  <hi rend="bold">this text is bold and
+    this text is <hi rend="italic">bold and
+    italic.</hi></hi>
+</p>
+
+<p>instância</p>
+
+<p>Elemento estrutural</p>
+
+<p>O exemplo elemento contém o valor associado a várias instâncias de um campo de formulário. Os campos codificados como uma instância também deve incluir os valores de cada instância como um campo oculto. O campo oculto deve ser anexado com o número de índice para a instância. Assim, se o campo é “nome” cada instância seria nomeado “firstName_1″, “firstName_2″, “firstName_3″, etc ..</p>
+
+<p>Parente</p>
+
+<p>campo
+Crianças</p>
+
+<p>valor
+Atributos</p>
+
+<p>Nenhum listado ainda.
+Exemplo necessário.
+item</p>
+
+<p>Rich Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O item de elemento é uma rica contêiner de texto usado para exibir dados textuais em uma lista. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.</p>
+
+<p>O item de elemento pode ser associado com um rótulo que o precede directamente. O esquema exige que se um artigo em uma lista tem um associado rótulo , em seguida, todos os outros itens devem ter um também. Isso reduz o problema de conexões soltas entre os elementos que é comumente encontradas em XHTML, uma vez que cada item na lista particular tem a mesma estrutura.</p>
+
+<p>Parente</p>
+
+<p>lista
+Crianças</p>
+
+<p>oi (qualquer)
+xref (qualquer)
+figura (qualquer)
+campo (qualquer)
+lista (qualquer)
+Atributos</p>
+
+<p>ID : (opcional) um identificador único do elemento
+n : (opcional) Um identificador de local não-exclusiva usada para diferenciar o elemento de seus irmãos
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+<Lista de n = "lista-exemplo"
+    id = "XMLExample.list.list-exemplo" >
+  <head> Lista Exemplo &lt;/ head>
+   <item> Este é o primeiro item
+    &lt;/ Item> <item> Este é o segundo item com <hi ...> destaque texto &lt;/ oi>,
+    <xref ...> um link &lt;/ xref> e um <figura
+    ...> Imagem &lt;/ figure>. &lt;/ Item>
+  ...
+  <Lista de n = "list-example2"
+    id = "XMLExample.list.list-example2" >
+    <head> Lista Exemplo &lt;/ head>
+    ITEM <label> UM: &lt;/ label>
+     <item> Este é o primeiro item
+    &lt;/ Item>
+    ITEM <label> DOIS: &lt;/ label>
+     <item> Este é o segundo item com <hi ...> destaque
+    text &lt;/ oi>, <xref ...> um link &lt;/ xref> e um <figura
+    ...> Imagem &lt;/ figure>. &lt;/ Item>
+    ITEM <label> TRÊS: &lt;/ label>
+     <item> Este é o terceiro item com um <field ...> ... &lt;/ field>
+    &lt;/ Item>
+    ...
+  &lt;/ List>
+   <item> Este é o terceiro item na lista
+    &lt;/ Item>
+  ...
+&lt;/ List>
+etiqueta</p>
+
+<p>Container Texto</p>
+
+<p>Elemento estrutural</p>
+
+<p>O rótulo elemento é associado a um item e anota esse item com um número, uma descrição textual de algum tipo, ou uma bala simples.</p>
+
+<p>Parente</p>
+
+<p>item
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>ID : (opcional) um identificador único do elemento
+n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos
+rend : (opcional) Um atributo rend opcional fornece uma dica sobre como o rótulo deve ser processado, independente do seu tipo.
+<Lista de n = "lista-exemplo"
+    id = "XMLExample.list.list-exemplo" >
+  <head> Lista Exemplo &lt;/ head>
+   <label> 1 &lt;/ label>
+  <item> Este é o primeiro item &lt;/ item>
+   <label> 2 &lt;/ label>
+  <item> Este é o segundo item com <hi ...> destaque texto &lt;/ oi>,
+    <xref ...> um link &lt;/ xref> e um <figura
+    ...> Imagem &lt;/ figure>. &lt;/ Item>
+  ...
+  <Lista de n = "list-example2"
+    id = "XMLExample.list.list-example2" >
+    <head> Exemplo Sublist &lt;/ head>
+     ITEM <label>
+    UM: &lt;/ label>
+    <item> Este é o primeiro item &lt;/ item>
+     ITEM <label>
+    DOIS: &lt;/ label>
+    <item> Este é o segundo item com <hi ...> destaque
+    text &lt;/ oi>, <xref ...> um link &lt;/ xref> e um <figura
+    ...> Imagem &lt;/ figure>. &lt;/ Item>
+     ITEM <label>
+    TRÊS: &lt;/ label>
+    <item> Este é o terceiro item com um <field ...> ... &lt;/ field>
+    &lt;/ Item>
+    ...
+  &lt;/ List>
+  <item> Este é o terceiro item da lista &lt;/ ​​item>
+  ...
+&lt;/ List>
+lista</p>
+
+<p>Elemento estrutural</p>
+
+<p>A lista elemento é usado para exibir conjuntos de dados sequenciais. Ele contém um opcional cabeça elemento, bem como qualquer número deitens e lista elementos. itens contêm informações textuais, enquanto sublists conter outros itens ou lista elementos. Um artigo pode também ser associado com um rótulo elemento que anota um item com um número, uma descrição textual de algum tipo, ou um marcador simples. O tipo de lista (ordenada, com marcadores, brilho, etc) é então determinada tanto pelo conteúdo das etiquetas em itens ou por um valor explícito do tipode atributo. Note que, se os rótulos são usados ​​em conjunto com quaisquer itens em uma lista, todos os itens da lista devem ter um rótulo .Também é recomendado para evitar a mistura de etiqueta estilos menos que um tipo explícito é especificado.</p>
+
+<p>Parente</p>
+
+<p>div
+lista
+Crianças</p>
+
+<p>cabeça (zero ou um)
+rótulo (qualquer)
+item (qualquer)
+lista (qualquer)
+Atributos</p>
+
+<p>ID : (obrigatório) Um identificador exclusivo do elemento
+n : (obrigatório) Um identificador de local utilizado para diferenciar o elemento de seus irmãos
+rend : (opcional) Um atributo rend opcional fornece uma dica sobre como a lista deve ser processado, independente do seu tipo. Os valores mais comuns são, mas não se limitando a:
+alfabeto : A lista deve ser processado como um índice alfabético
+colunas : A lista deve ser prestados em colunas de comprimento igual, conforme determinado pelo tema.
+columns2 : A lista deve ser apresentado em duas colunas iguais.
+columns3 : A lista deve ser apresentado em três colunas iguais.
+horizontal : A lista deve ser processado na horizontal.
+numérico : A lista deve ser processado como um índice numérico.
+Vertical : A lista deve ser processado verticalmente.
+digite : (opcional) Um atributo opcional para especificar explicitamente o tipo de lista. Na ausência deste atributo, o tipo de uma lista vai ser inferida a partir da presença e conteúdo dos rótulos em seus itens. Os valores aceitos são:
+forma : Usado para listas de formulário que consistem em uma série de campos.
+marcadores : Utilizado para listas com os itens marcados de bala.
+gloss : Usado para as listas que consistem em um conjunto de termos técnicos, cada uma marcada com uma etiqueta de elemento e acompanhado pela definição marcado como um item de elemento.
+ordenou : Utilizado para listas com itens numerados ou com letras.
+progresso : Usado para listas constituídos por um conjunto de etapas sendo realizadas para realizar uma tarefa. Para este tipo de aplicação, cada ponto na lista deve representar um passo e ser acompanhado de uma etiqueta que contém o nome displayable para a etapa. O artigo contém uma referência externa que referencia o passo. Além disso, o rend atributo no item de elemento deve ser: “disponível” (ou seja, o usuário pode pular para o passo usando o fornecido xref ), “indisponível” (o usuário não atender aos requisitos para saltar para o passo), ou “corrente “(o usuário está atualmente no passo)
+simples : Utilizado para listas com itens não marcados com números ou marcadores.</p>
+
+<p>&lt;</p>
+
+<p>div ...>
+  ...
+   <Lista de n = "lista-exemplo"
+    id = "XMLExample.list.list-exemplo" >
+    <head> Lista Exemplo &lt;/ head>
+    <item> ... &lt;/ item>
+    <item> ... &lt;/ item>
+    ...
+     <Lista de n = "list-example2"
+    id = "XMLExample.list.list-example2" >
+      <head> Exemplo Sublist &lt;/ head>
+      <label> ... &lt;/ label>
+      <item> ... &lt;/ item>
+      <label> ... &lt;/ label>
+      <item> ... &lt;/ item>
+      <label> ... &lt;/ label>
+      <item> ... &lt;/ item>
+      ...
+     &lt;/ List>
+    <label> ... &lt;/ label>
+    <item> ... &lt;/ item>
+    ...
+   &lt;/ List>
+&lt;/ Div>
+META</p>
+
+<p>Nível superior-Container</p>
+
+<p>A meta elemento é um elemento de nível superior e existe diretamente dentro do documento elemento. Ele serve como um elemento de recipiente para todos os metadados associados a um documento dividido em categorias, de acordo com o tipo de metadados que eles carregam.</p>
+
+<p>Parente</p>
+
+<p>documento
+Crianças</p>
+
+<p>userMeta (um)
+pageMeta (um)
+repositoryMeta (um)
+Atributos</p>
+
+<p>Nenhum
+&lt;Versão do documento = 1.0 >
+   <meta>
+    <userMeta> ... &lt;/ userMeta>
+    <pageMeta> ... &lt;/ pageMeta>
+    <repositoryMeta> ... &lt;/ repositoryMeta>
+   &lt;/ Meta>
+  <body> ... &lt;/ body>
+  &lt;opções> ... &lt;/ Opções>
+&lt;/ Documento>
+metadados</p>
+
+<p>Container Texto</p>
+
+<p>Elemento estrutural</p>
+
+<p>O metadados elemento carrega informações de metadados genérico na forma de um par atributo-valor. O tipo de informação que ele contém é determinada por dois atributos: elemento , que especifica o tipo geral de metadados armazenados, e um opcional qualificador atributo que restringe o tipo baixo. A representação padrão para esse par é element.qualifier. Os metadados real está contida no texto da etiqueta em si.Além disso, uma linguagem atributo pode ser utilizado para especificar o idioma utilizado para a entrada de metadados.</p>
+
+<p>Parente</p>
+
+<p>userMeta
+pageMeta
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>elemento : (obrigatório) O nome de um campo de metadados.
+língua : (opcional) Um atributo opcional para especificar o idioma utilizado na tag de metadados.
+qualificador : (opcional) Uma postfix opcional para o nome do campo usado para diferenciar os nomes.
+<meta>
+  <userMeta>
+     <Elemento de metadados = "identificador" qualificador = "nome" > Bob
+    &lt;/ Metadata> <elemento de metadados = "identificador" qualificador = "Sobrenome" > Jones
+    &lt;/ Metadata> <metadata ...> ...
+    &lt;/ Metadata>
+    ...
+  &lt;/ UserMeta>
+  <pageMeta>
+     <elemento de metadados = "direitos"
+    Qualificador = "accessRights" > usuário &lt;/ metadata> <metadata ...> ...
+    &lt;/ Metadata>
+    ...
+  &lt;/ PageMeta>
+&lt;/ Meta>
+OPÇÕES</p>
+
+<p>Nível superior-Container</p>
+
+<p>O opções de elemento é o principal recipiente para todas as ações e opções de navegação disponíveis para o usuário. Ele consiste em um número qualquer de lista elementos cujos itens contêm informações e ações de navegação. Embora qualquer lista de opções de navegação pode ser contida neste elemento, sugere-se que, pelo menos, os seguintes cinco listas ser incluídos.</p>
+
+<p>Parente</p>
+
+<p>documento
+Crianças</p>
+
+<p>lista (qualquer)
+Atributos</p>
+
+<p>Nenhum
+&lt;Versão do documento = 1.0 ></p>
+
+<pre><code>&lt;meta&gt; ... &lt;/ meta&gt;
+
+&lt;body&gt; ... &lt;/ body&gt;
+
+&lt;opções&gt;
+
+    &lt;Lista de n = "navegação à example1"
+id = "XMLExample.list.navigation-example1" &gt;
+
+        &lt;head&gt; Exemplo Lista de Navegação 1 &lt;/ head&gt;
+
+        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
+Um &lt;/ xref&gt; &lt;/ item&gt;
+
+        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
+dois &lt;/ xref&gt; &lt;/ item&gt;
+
+            ...
+
+    &lt;/ List&gt;
+
+    &lt;Lista de n = "navegação à example2"
+id = "XMLExample.list.navigation-example2" &gt;
+
+        &lt;head&gt; Exemplo Lista de Navegação 2 &lt;/ head&gt;
+
+        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
+Um &lt;/ xref&gt; &lt;/ item&gt;
+
+        &lt;item&gt; &lt;xref target = "/ link / to / opção" &gt; Opção
+dois &lt;/ xref&gt; &lt;/ item&gt;
+
+        ...
+
+    &lt;/ List&gt;
+
+    ...
+
+&lt;/ Opções&gt;
+</code></pre>
+
+<p>&lt;/ Documento>
+p</p>
+
+<p>Rich Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O p elemento é uma rica contêiner de texto usado por divs para exibir dados textuais em um formato de parágrafo. Como um contêiner de texto rico que pode conter hiperligações, enfatizou blocos de texto, imagens e campos de formulário, além de texto simples.</p>
+
+<p>Parente</p>
+
+<p>div
+Crianças</p>
+
+<p>oi (qualquer)
+xref (qualquer)
+figura (qualquer)
+campo (qualquer)
+Atributos</p>
+
+<p>ID : (opcional) um identificador único do elemento.
+n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos.
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+<Div n = "divisão-exemplo"
+    id = "XMLExample.div.division-exemplo" ></p>
+
+<pre><code> &lt;p&gt; Este é um parágrafo normal.
+&lt;/ P&gt; Este texto é normal, enquanto &lt;oi rend = "bold" &gt; este texto está em negrito
+e este texto é &lt;oi rend = "italic" &gt; negrito e itálico. &lt;/ oi&gt; &lt;/ oi&gt;
+&lt;/ P&gt; Este parágrafo contém uma &lt;xref
+target = "/ link / target" &gt; link &lt;/ xref&gt;, uma estática &lt;figura
+source = "/ imagem.jpg" &gt; imagem &lt;/ figure&gt;, e &lt;figura target =
+"/ Link / target" source = "/ imagem.jpg" &gt; link da imagem. &lt;/ figure&gt;
+&lt;/ P&gt;
+</code></pre>
+
+<p>&lt;/ Div>
+pageMeta</p>
+
+<p>Metadados Elemento</p>
+
+<p>O pageMeta elemento contém metadados associados com o próprio documento. Ele contém genéricos metadados elementos para transportar o conteúdo, e qualquer número de trilha elementos para fornecer informações sobre a localização atual do usuário no sistema. Valores obrigatórios e sugeridos para metadados elementos contidos no pageMeta incluem, mas não estão limitados a:</p>
+
+<p>browser (sugerido): agente de navegação do usuário, como relatado para servidor na solicitação HTTP.
+browser.type (sugerido): A família do navegador em geral como forma derivada do campo de metadados browser. Os valores possíveis podem incluir “MSIE” (para o Microsoft Internet Explorer), “Opera” (para o navegador Opera), “Apple” (para navegadores baseados kit web Apple), “Gecko” (no Netscape, Mozilla e navegadores baseados Firefox) , ou “Lynx” (para navegadores baseados em texto).
+browser.version (sugerido): A versão do navegador como relatado por solicitação HTTP.
+contextPath (obrigatório): A URL base do sistema Digital Repository.
+redirect.time (sugerido): O tempo que deve decorrer antes que a página é redirecionada para um endereço especificado pelo redirect.urlmetadados elemento.
+redirect.url (sugerido): O destino URL de uma página de redirecionamento
+título (obrigatório): O título do documento / página que o usuário navegando.
+Veja o metadados e trilha entradas tag para mais informações sobre a sua estrutura.</p>
+
+<p>Parente</p>
+
+<p>meta
+Crianças</p>
+
+<p>metadados (qualquer)
+trilha (qualquer)
+Atributos</p>
+
+<p>Nenhum
+<meta></p>
+
+<pre><code>&lt;userMeta&gt; ... &lt;/ userMeta&gt;
+
+ &lt;pageMeta&gt;
+
+    &lt;Elemento de metadados = "title" &gt; Exemplo DRI
+página &lt;/ metadata&gt;
+
+    &lt;Metadados
+elemento = "contextPath" &gt; / XMLUI / &lt;/ metadata&gt;
+
+    &lt;metadata ...&gt; ... &lt;/ metadata&gt;
+
+    ...
+
+    &lt;Fonte trilha = "123456789/6" &gt; Um item de migalha de pão
+&lt;/ Trilha&gt;
+
+    &lt;trail ...&gt; ... &lt;/ trilha&gt;
+
+    ...
+
+ &lt;/ PageMeta&gt;
+</code></pre>
+
+<p>&lt;/ Meta>
+params</p>
+
+<p>Componente estrutural</p>
+
+<p>O params elemento identifica parâmetros extras usados ​​para construir um campo de formulário. Existem vários atributos que podem estar disponíveis para este elemento, dependendo do tipo de campo.</p>
+
+<p>Parente</p>
+
+<p>campo
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>cols : (opcional) O número padrão de colunas que a área de texto deve espalhar. Isto aplica-se apenas aos tipos de campo textarea.
+maxlength : (opcional) O comprimento máximo que o tema deve aceitar para a entrada de formulário. Isso se aplica a tipos de texto e de campo de senha.
+múltipla : (opcional) sim / não valor. Determine se o campo pode aceitar vários valores para o campo. Isso se aplica somente para selecionar listas.
+operações : (opcional) As operações possíveis que podem ser pré-formados sobre este campo. Os valores possíveis são “add” e / ou “excluir”. Se ambas as operações são possíveis, então eles devem ser fornecidos como uma lista separada por espaços. O “add” operações indica que pode haver vários valores para este campo e que o usuário pode adicionar ao conjunto um de cada vez. O front-end deve processar um botão que permite ao usuário adicionar mais campos ao conjunto. O botão deve ser nomeado o nome do campo adicionados com a string “_ADD”, assim se o nome do campo é “Nome” o botão deve ser chamado de “firstName_add.” O “delete” operação indica que pode haver vários valores para este campo cada do qual pode ser removido a partir do conjunto. O front-end deve processar uma caixa de seleção de cada valor do campo, com exceção do primeiro, A caixa de seleção deve ser nomeado o nome do campo adicionados com a string “_selected”, assim se o nome do campo é “Nome” na caixa de seleção deve ser chamado de “firstName_selected “e o valor de cada caixa sucessivo deverá ser o nome de campo. O front-end deve também tornar um botão delete. O nome do botão de exclusão deve ser o nome do campo adicionados com a string “_delete”.
+linhas : (opcional) O número padrão de linhas que a área de texto deve espalhar. Isto aplica-se apenas aos tipos de campo textarea.
+Tamanho : O tamanho padrão (opcional) para um campo. Isso se aplica ao texto, senha e selecione os tipos de campo.</p>
+
+<p>&lt;</p>
+
+<p>p></p>
+
+<pre><code>&lt;Id = campo "XMLExample.field.name" n = "nome" type = "text"
+required = "yes" &gt;
+
+     &lt;Tamanho params = "16"
+maxlength = "32" /&gt;
+
+    &lt;help&gt; algum texto de ajuda com &lt;i18n&gt; localizada
+conteúdo &lt;/ i18n&gt;. &lt;/ help&gt;
+
+    &lt; padrão &gt; Valor padrão vai aqui &lt;/ default &gt;
+
+&lt;/ Field&gt;
+</code></pre>
+
+<p>&lt;/ P>
+referência</p>
+
+<p>Metadados elemento de referência</p>
+
+<p>referência é um elemento de referência utilizado para acessar informações armazenadas em um arquivo de metadados externos. A url atributo é usado para localizar o arquivo de metadados externos. O tipo de atributo fornece uma descrição curta limitado do tipo do objeto referenciado.</p>
+
+<p>referência elementos podem ser tanto contido por includeSet elementos e conter includeSets si, tornando a estrutura recursiva.</p>
+
+<p>Parente</p>
+
+<p>referenceSet
+Crianças</p>
+
+<p>referenceSet (zero ou mais)
+Atributos</p>
+
+<p>url : (obrigatório) A url para o arquivo de metadados externos.
+repositoryIdentifier : (obrigatório) Uma referência ao repositoryIdentifier do repositório.
+digite : (opcional) Descrição do tipo do objeto de referência.
+        <IncludeSet n = "lista de browse"
+id = "lista XMLTest.includeSet.browse" >
+         &lt;Referência url = "/ metadata/handle/123/4/mets.xml"
+repositoryID = "123" type = "DSpace
+Item "/> &lt;referência url =" / metadata / punho / 123 / 5 / mets.xml "
+repositoryID = "123" />
+        ...
+        &lt;/ IncludeSet>
+referenceSet</p>
+
+<p>Metadados elemento de referência</p>
+
+<p>O referenceSet elemento é um recipiente de artefato ou referências de repositório.</p>
+
+<p>Parente</p>
+
+<p>div
+referência
+Crianças</p>
+
+<p>cabeça (zero ou um)
+referência (qualquer)
+Atributos</p>
+
+<p>ID : (obrigatório) Um identificador exclusivo do elemento
+n : (obrigatório) identificador local usado para diferenciar o elemento de seus irmãos
+orderBy : (opcional) Uma referência ao campo de metadados que determina a ordenação dos artefatos ou objetos de repositório dentro do conjunto. Quando o esquema de metadados Dublin Core é usado este atributo deve ser o valor element.qualifier que o conjunto é classificada por. Como exemplo, para um navegar pela lista de títulos, o valor deve ser sortedBy = título, enquanto que para navegar pela lista de data deve ser sortedBy = date.created
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+Tipo : (obrigatório) Determina o nível de detalhe para os metadados dado. Os valores aceitos são:
+summaryList : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma representação de lista que é adequado para a rápida varredura.
+summaryView : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma visão parcial de um ou mais objetos referenciados.
+detailList : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para construir uma representação de lista que fornece uma visão completa ou quase completa, os objetos referenciados. Se esse ponto de vista é possível ou diferente summaryView depende em grande parte do repositório na mão eo tema de execução.
+detailView : Indica que os metadados de artefatos referenciados ou objetos de repositório deve ser usado para exibir informações completas sobre o objeto referenciado. Prestação de várias referências incluídas no âmbito deste tipo é até o tema.</p>
+
+<p>&lt;</p>
+
+<p>div ...>
+        <head> Exemplo Divisão &lt;/ head>
+        <p> ... &lt;/ p>
+        <table> ... &lt;/ table>
+        <list>
+        ...
+        &lt;/ List>
+         <ReferenceSet n = "lista de browse"
+id = "XMLTest.referenceSet.browse-list" type = "summaryView"
+informationModel = "DSpace" >
+        <head> Um cabeçalho para o includeset &lt;/ head>
+        &lt;Referência
+url = "/ metadata/handle/123/34/mets.xml" />
+        &lt;Referência
+url = "" metadados / punho / 123 / 34 / mets.xml />
+         &lt;/ ReferenceSet>
+        ...
+        &lt;/ P>
+repositório</p>
+
+<p>Metadados Elemento</p>
+
+<p>O repositório elemento é usado para descrever o repositório. Seu principal componente é um conjunto de metadados estruturais que a informação transportadora em como os objetos do repositório sob objectMeta estão relacionados uns aos outros. O principal método de codificação estes relacionamentos na altura da elaboração deste documento é um documento SM, embora outros formatos, como RDF, podem ser empregues no futuro.</p>
+
+<p>Parente</p>
+
+<p>repositoryMeta
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>repositoryID : requiredA identificador único atribuído a um repositório. Ele é referenciado pelo objeto elemento para indicar o repositório que atribuiu seu identificador.
+url : requiredA url para o arquivo de metadados METS externo para o repositório.
+<repositoryMeta></p>
+
+<pre><code> &lt;Repositório repositoryID = "123456789"
+url = "/ metadata/handle/1234/4/mets.xml" /&gt;
+</code></pre>
+
+<p>&lt;/ RepositoryMeta>
+repositoryMeta</p>
+
+<p>Metadados Elemento</p>
+
+<p>O repositoryMeta elemento contém referências metadados sobre os repositórios utilizados no utilizado ou referenciadas no documento. Ele pode conter qualquer número de repositórios elementos.</p>
+
+<p>Veja o repositório de entrada tag para mais informações sobre a estrutura do repositório de elementos.</p>
+
+<p>Parente</p>
+
+<p>Meta
+Crianças</p>
+
+<p>repositório (qualquer)
+Atributos</p>
+
+<p>Nenhum
+<meta></p>
+
+<p><userMeta> ... &lt;/ usermeta></p>
+
+<p><pageMeta> ... &lt;/ pageMeta></p>
+
+<pre><code> &lt;repositoryMeta&gt;
+
+    &lt;Repositório repositoryIID = "..." url = "..."
+/&gt;
+
+ &lt;/ RepositoryMeta&gt;
+</code></pre>
+
+<p>&lt;/ Meta>
+linha</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento de linha está contido dentro de um quadro e serve como um recipiente de células elementos. A requerida papel atributo determina como a linha e suas células são prestados.</p>
+
+<p>Parente</p>
+
+<p>mesa
+Crianças</p>
+
+<p>celular (qualquer)
+Atributos</p>
+
+<p>ID : (opcional) um identificador único do elemento
+n : (opcional) Um identificador de local usada para diferenciar o elemento de seus irmãos
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+papel : (obrigatório) Indica que tipo de informação a linha carrega. Os valores possíveis incluem “cabeçalho” e “dados”.
+<Table n = "table-exemplo" id = "XMLExample.table.table-exemplo" linhas = "2"
+    cols = "3" ></p>
+
+<pre><code> &lt;Linha
+role = "cabeça" &gt;
+
+  &lt;Cols celulares = "2" &gt; Rótulo de Dados Um e
+Dois &lt;/ celular&gt;
+
+    Rótulo de Dados &lt;célula&gt; Três &lt;/ celular&gt;
+
+    ...
+
+ &lt;/ Row&gt; &lt;row&gt;
+
+  &lt;célula&gt; Valor Um &lt;/ celular&gt;
+
+  &lt;célula&gt; Valor Dois &lt;/ celular&gt;
+
+  &lt;célula&gt; Valor Três &lt;/ celular&gt;
+
+  ...
+
+ &lt;/ Row&gt;
+
+...
+</code></pre>
+
+<p>&lt;/ Table>
+mesa</p>
+
+<p>Elemento estrutural</p>
+
+<p>A tabela de elemento é um recipiente para informações apresentadas em formato tabular. Ele consiste em um conjunto de linhas elementos e um opcional cabeçalho .</p>
+
+<p>Parente</p>
+
+<p>div
+Crianças</p>
+
+<p>cabeça (zero ou um)
+linha (qualquer)
+Atributos</p>
+
+<p>cols : (obrigatório) O número de colunas na tabela.
+ID : (obrigatório) Um identificador exclusivo do elemento
+n : (obrigatório) Um identificador de local utilizado para diferenciar o elemento de seus irmãos
+rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+linhas : (obrigatório) O número de linhas na tabela.
+<Div n = "divisão-exemplo"
+    id = "XMLExample.div.division-exemplo" ></p>
+
+<pre><code> &lt;Table n = "tabela1" id = "XMLExample.table.table1" linhas = "2"
+cols = "3" &gt;
+
+    &lt;Papel linha = "cabeça" &gt;
+
+      &lt;Cols celulares = "2" &gt; Rótulo de Dados Um e
+Dois &lt;/ celular&gt;
+
+        Rótulo de Dados &lt;célula&gt; Três &lt;/ celular&gt;
+
+        ...
+
+    &lt;/ Row&gt;
+
+    &lt;row&gt;
+
+      &lt;célula&gt; Valor Um &lt;/ celular&gt;
+
+      &lt;célula&gt; Valor Dois &lt;/ celular&gt;
+
+      &lt;célula&gt; Valor Três &lt;/ celular&gt;
+
+      ...
+
+    &lt;/ Row&gt;
+
+    ...
+
+ &lt;/ Table&gt;
+...
+</code></pre>
+
+<p>&lt;/ Div>
+trilha</p>
+
+<p>Container Texto</p>
+
+<p>Metadados Elemento</p>
+
+<p>A trilha elemento traz informações sobre a localização atual do usuário no sistema relativo de página raiz do repositório. Cada instância do elemento serve como um link no caminho da raiz para a página atual.</p>
+
+<p>Parente</p>
+
+<p>pageMeta
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>rend : (opcional) Uma dica de renderização usado para substituir o padrão de exibição do elemento.
+alvo : (opcional) Um atributo opcional para especificar um URL de destino para um elemento trilha servindo como um hiperlink. O texto no interior do elemento vai ser utilizado como o texto da ligação.
+<pageMeta></p>
+
+<pre><code>&lt;Elemento de metadados = "title" &gt; Exemplo DRI
+página &lt;/ metadata&gt;
+
+&lt;Metadados
+elemento = "contextPath" &gt; / XMLUI / &lt;/ metadata&gt;
+
+&lt;metadata ...&gt; ... &lt;/ metadata&gt;
+
+...
+
+ &lt;Alvo trilha = "/ myDSpace" &gt; Um item de miolo de pão apontando para um
+página. &lt;/ Trilha&gt; &lt;trail ...&gt; ... &lt;/ trilha&gt;
+
+...
+</code></pre>
+
+<p>&lt;/ PageMeta>
+userMeta</p>
+
+<p>Metadados Elemento</p>
+
+<p>O userMeta elemento contém metadados associados com o usuário que solicitou o documento. Ele contém genéricos metadados elementos, que por sua vez transportam as informações. Valores obrigatórios e sugeridos para metadados elementos contidos no userMeta incluir, mas não limitado a:</p>
+
+<p>identificador (sugerido): um identificador único associado com o usuário.
+identifier.email (sugerido): endereço de e-mail do usuário solicitante.
+identifier.firstName (sugerido): O primeiro nome do usuário solicitante.
+identifier.lastName (sugerido): O sobrenome do usuário solicitante.
+identifier.logoutURL (sugerido): A URL que o usuário será levado para quando sair.
+identifier.url (sugerido): Uma referência url para a página do usuário no repositório.
+language.RFC3066 (sugerido): código de seleção de idioma de preferência do usuário solicitante como descrever por RFC3066
+rights.accessRights (obrigatório): determina o escopo de ações que um usuário pode executar no sistema. Os valores aceitos são:
+nenhum: O usuário está ou não autenticado ou não tem uma conta válida no sistema
+usuário: O usuário é autenticado e tem uma conta válida no sistema
+admin: O usuário é autenticado e pertence ao grupo administrativo do sistema
+Veja o metadados entrada tag para mais informações sobre a estrutura de metadados elementos.</p>
+
+<p>Parente</p>
+
+<p>meta
+Crianças</p>
+
+<p>metadados (qualquer)
+Atributos</p>
+
+<p>autenticados : (obrigatório) Os valores aceitos são “sim”, “não”. Determina se o usuário foi autenticado pelo sistema.
+<meta></p>
+
+<pre><code> &lt;userMeta&gt;
+
+    &lt;Elemento de metadados = "identificador" qualificador = "email" &gt; bobJones @ tamu . edu &lt;/ metadata&gt;
+
+    &lt;Elemento de metadados = "identificador" qualificador = "nome" &gt; Bob &lt;/ metadata&gt;
+
+    &lt;Elemento de metadados = "identificador" qualificador = "Sobrenome" &gt; Jones &lt;/ metadata&gt;
+
+    &lt;Elemento de metadados = "direitos" Qualificador = "accessRights" &gt; usuário &lt;/ metadata&gt;
+
+    &lt;metadata ...&gt; ... &lt;/ metadata&gt;
+
+    ...
+
+    &lt;Fonte trilha = "123456789/6" &gt; Um item de miolo de pão &lt;/ trilha&gt;
+
+    &lt;trail ...&gt; ... &lt;/ trilha&gt;
+
+    ...
+
+ &lt;/ UserMeta&gt;
+
+&lt;pageMeta&gt; ... &lt;/ pageMeta&gt;
+</code></pre>
+
+<p>&lt;/ Meta>
+valor</p>
+
+<p>Rich Text Container</p>
+
+<p>Elemento estrutural</p>
+
+<p>O elemento de valor contém o valor associado a um campo de formulário e podem servir a um propósito diferente para vários tipos de campo. O elemento de valor é composto por dois sub-elementos: o elemento bruto, que armazena o valor não processado diretamente do usuário de outra fonte, eo elemento interpretado que armazena o valor em um formato adequado para exibição para o usuário, possivelmente incluindo rico marcação de texto.</p>
+
+<p>Parente</p>
+
+<p>campo
+Crianças</p>
+
+<p>oi (qualquer)
+xref (qualquer)
+figura (qualquer)
+Atributos</p>
+
+<p>optionSelected : (opcional) Um atributo opcional para selecionar, caixa de seleção e campos de rádio para determinar se o valor deve ser selecionado ou não.
+optionValue : (opcional) Um atributo opcional para selecionar, caixa de seleção e campos de rádio para determinar o valor que deve ser retornado quando esse valor é selecionado.
+Tipo : (obrigatório) Um atributo necessário para especificar o tipo de valor. Tipos aceitos são:
+crua : O tipo de matéria-armazena o valor não processado diretamente do usuário de outra fonte.
+interpretado : O tipo interpretado armazena o valor em um formato adequado para exibição para o usuário, possivelmente incluindo rico marcação de texto.
+padrão : O tipo padrão armazena um valor fornecido pelo sistema, utilizado quando há outros valores são fornecidos.</p>
+
+<p>&lt;</p>
+
+<p>p>
+  <hi> ... &lt;/ oi>
+  <xref> ... &lt;/ xref></p>
+
+<p>&lt;</p>
+
+<p>figure> ... &lt;/ figure>
+  <Id = campo "XMLExample.field.name" n = "nome" type = "text"
+    required = "yes" >
+    <Tamanho params = "16" maxlength = "32" />
+    <help> algum texto de ajuda com <i18n> localizada
+    conteúdo &lt;/ i18n>. &lt;/ help>
+     <Tipo de valor = "default" > Autor,
+    John &lt;/ value>
+  &lt;/ Field>
+&lt;/ P>
+xref</p>
+
+<p>Container Texto</p>
+
+<p>Elemento estrutural</p>
+
+<p>O xref elemento é uma referência a um documento externo. Pode ser misturada livremente com o texto e todo o texto no interior da própria etiqueta irá ser usado como parte de corpo visual do elo.</p>
+
+<p>Parente</p>
+
+<p>célula
+p
+item
+oi
+Crianças</p>
+
+<p>nenhum
+Atributos</p>
+
+<p>alvo : (obrigatório) Um alvo para a referência, utilizando uma URL ou um ID de um elemento existente como um destino para a referência externa .</p>
+
+<p>&lt;</p>
+
+<p>p>
+     <Alvo xref = "/ url / link / target" > Este texto é mostrado como um link. &lt;/ xref>
+&lt;/ P></p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-09-25-eventos-no-doctrine-2.md"/>
+            <updated>2014-09-25T00:00:00-03:00</updated>
+            <id>/_posts/2014-09-25-eventos-no-doctrine-2.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Eventos no Doctrine 2",
+"author":"Royopa",
+"date":"04-09-2014",
+"tag":"Doctrine, PHP, ORM",
+"slug" : "eventos-no-doctrine-2",
+"category":"PHP"
+}</p>
+
+<p>O Doctrine 2 possui um sistema de eventos que faz parte do pacote Common. O
+doctrine usa esse sistema para disparar eventos de sistema, principalmente
+<code>lifecycle events</code>. Mas podemos também criar nossos próprios eventos personalizados.</p>
+
+<h3 id="o-sistema-de-eventos">O Sistema de Eventos</h3>
+
+<p>O sistema de eventos é controlado pelo <code>EventManager</code>. Ele é o ponto central do
+sistema de event listener do Doctrine. Os Listeners são registrados no manager e
+os eventos são disparados pelo manager.</p>
+
+<pre><code class="php">    &lt;?php
+    $evm = new EventManager();
+</code></pre>
+
+<p>Now we can add some event listeners to the <code>$evm</code>. Let's create a
+<code>TestEvent</code> class to play around with.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    class TestEvent
+    {
+        const preFoo = 'preFoo';
+        const postFoo = 'postFoo';
+
+        private $_evm;
+
+        public $preFooInvoked = false;
+        public $postFooInvoked = false;
+
+        public function __construct($evm)
+        {
+            $evm-&gt;addEventListener(array(self::preFoo, self::postFoo), $this);
+        }
+
+        public function preFoo(EventArgs $e)
+        {
+            $this-&gt;preFooInvoked = true;
+        }
+
+        public function postFoo(EventArgs $e)
+        {
+            $this-&gt;postFooInvoked = true;
+        }
+    }
+
+    // Create a new instance
+    $test = new TestEvent($evm);
+
+Events can be dispatched by using the ``dispatchEvent()`` method.
+
+```php
+
+    &lt;?php
+    $evm-&gt;dispatchEvent(TestEvent::preFoo);
+    $evm-&gt;dispatchEvent(TestEvent::postFoo);
+
+You can easily remove a listener with the ``removeEventListener()``
+method.
+
+```php
+
+    &lt;?php
+    $evm-&gt;removeEventListener(array(self::preFoo, self::postFoo), $this);
+
+The Doctrine 2 event system also has a simple concept of event
+subscribers. We can define a simple ``TestEventSubscriber`` class
+which implements the ``\Doctrine\Common\EventSubscriber`` interface
+and implements a ``getSubscribedEvents()`` method which returns an
+array of events it should be subscribed to.
+
+```php
+
+    &lt;?php
+    class TestEventSubscriber implements \Doctrine\Common\EventSubscriber
+    {
+        public $preFooInvoked = false;
+
+        public function preFoo()
+        {
+            $this-&gt;preFooInvoked = true;
+        }
+
+        public function getSubscribedEvents()
+        {
+            return array(TestEvent::preFoo);
+        }
+    }
+
+    $eventSubscriber = new TestEventSubscriber();
+    $evm-&gt;addEventSubscriber($eventSubscriber);
+
+.. note::
+
+    The array to return in the ``getSubscribedEvents`` method is a simple array
+    with the values being the event names. The subscriber must have a method
+    that is named exactly like the event.
+
+Now when you dispatch an event, any event subscribers will be
+notified for that event.
+
+```php
+
+    &lt;?php
+    $evm-&gt;dispatchEvent(TestEvent::preFoo);
+</code></pre>
+
+<p>Now you can test the <code>$eventSubscriber</code> instance to see if the
+<code>preFoo()</code> method was invoked.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    if ($eventSubscriber-&gt;preFooInvoked) {
+        echo 'pre foo invoked!';
+    }
+</code></pre>
+
+<p>Naming convention
+~~~~~~~~~~~~~~~~~</p>
+
+<p>Events being used with the Doctrine 2 EventManager are best named
+with camelcase and the value of the corresponding constant should
+be the name of the constant itself, even with spelling. This has
+several reasons:</p>
+
+<ul>
+<li>It is easy to read.</li>
+<li>Simplicity.</li>
+<li>Each method within an EventSubscriber is named after the
+corresponding constant's value. If the constant's name and value differ
+it contradicts the intention of using the constant and makes your code
+harder to maintain.</li>
+</ul>
+
+<p>An example for a correct notation can be found in the example
+<code>TestEvent</code> above.</p>
+
+<p>.. _reference-events-lifecycle-events:</p>
+
+<h2 id="lifecycle-events">Lifecycle Events</h2>
+
+<p>The EntityManager and UnitOfWork trigger a bunch of events during
+the life-time of their registered entities.</p>
+
+<ul>
+<li>preRemove - The preRemove event occurs for a given entity before
+the respective EntityManager remove operation for that entity is
+executed.  It is not called for a DQL DELETE statement.</li>
+<li>postRemove - The postRemove event occurs for an entity after the
+entity has been deleted. It will be invoked after the database
+delete operations. It is not called for a DQL DELETE statement.</li>
+<li>prePersist - The prePersist event occurs for a given entity
+before the respective EntityManager persist operation for that
+entity is executed. It should be noted that this event is only triggered on
+<em>initial</em> persist of an entity (i.e. it does not trigger on future updates).</li>
+<li>postPersist - The postPersist event occurs for an entity after
+the entity has been made persistent. It will be invoked after the
+database insert operations. Generated primary key values are
+available in the postPersist event.</li>
+<li>preUpdate - The preUpdate event occurs before the database
+update operations to entity data. It is not called for a DQL UPDATE statement.</li>
+<li>postUpdate - The postUpdate event occurs after the database
+update operations to entity data. It is not called for a DQL UPDATE statement.</li>
+<li>postLoad - The postLoad event occurs for an entity after the
+entity has been loaded into the current EntityManager from the
+database or after the refresh operation has been applied to it.</li>
+<li>loadClassMetadata - The loadClassMetadata event occurs after the
+mapping metadata for a class has been loaded from a mapping source
+(annotations/xml/yaml). This event is not a lifecycle callback.</li>
+<li>preFlush - The preFlush event occurs at the very beginning of a flush
+operation. This event is not a lifecycle callback.</li>
+<li>onFlush - The onFlush event occurs after the change-sets of all
+managed entities are computed. This event is not a lifecycle
+callback.</li>
+<li>postFlush - The postFlush event occurs at the end of a flush operation. This
+event is not a lifecycle callback.</li>
+<li>onClear - The onClear event occurs when the EntityManager#clear() operation is
+invoked, after all references to entities have been removed from the unit of
+work. This event is not a lifecycle callback.</li>
+</ul>
+
+<p>.. warning::</p>
+
+<pre><code>Note that the postLoad event occurs for an entity
+before any associations have been initialized. Therefore it is not
+safe to access associations in a postLoad callback or event
+handler.
+</code></pre>
+
+<p>.. warning::</p>
+
+<pre><code>Note that the postRemove event or any events triggered after an entity removal
+can receive an uninitializable proxy in case you have configured an entity to
+cascade remove relations. In this case, you should load yourself the proxy in
+the associated pre event.
+</code></pre>
+
+<p>You can access the Event constants from the <code>Events</code> class in the
+ORM package.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    use Doctrine\ORM\Events;
+    echo Events::preUpdate;
+
+These can be hooked into by two different types of event
+listeners:
+
+-  Lifecycle Callbacks are methods on the entity classes that are
+   called when the event is triggered. As of v2.4 they receive some kind
+   of ``EventArgs`` instance.
+-  Lifecycle Event Listeners and Subscribers are classes with specific callback
+   methods that receives some kind of ``EventArgs`` instance.
+
+The EventArgs instance received by the listener gives access to the entity,
+EntityManager and other relevant data.
+
+.. note::
+
+    All Lifecycle events that happen during the ``flush()`` of
+    an EntityManager have very specific constraints on the allowed
+    operations that can be executed. Please read the
+    :ref:`reference-events-implementing-listeners` section very carefully
+    to understand which operations are allowed in which lifecycle event.
+
+
+Lifecycle Callbacks
+-------------------
+
+Lifecycle Callbacks are defined on an entity class. They allow you to
+trigger callbacks whenever an instance of that entity class experiences
+a relevant lifecycle event. More than one callback can be defined for each
+lifecycle event. Lifecycle Callbacks are best used for simple operations
+specific to a particular entity class's lifecycle.
+
+```php
+
+    &lt;?php
+
+    /** @Entity @HasLifecycleCallbacks */
+    class User
+    {
+        // ...
+
+        /**
+         * @Column(type="string", length=255)
+         */
+        public $value;
+
+        /** @Column(name="created_at", type="string", length=255) */
+        private $createdAt;
+
+        /** @PrePersist */
+        public function doStuffOnPrePersist()
+        {
+            $this-&gt;createdAt = date('Y-m-d H:i:s');
+        }
+
+        /** @PrePersist */
+        public function doOtherStuffOnPrePersist()
+        {
+            $this-&gt;value = 'changed from prePersist callback!';
+        }
+
+        /** @PostPersist */
+        public function doStuffOnPostPersist()
+        {
+            $this-&gt;value = 'changed from postPersist callback!';
+        }
+
+        /** @PostLoad */
+        public function doStuffOnPostLoad()
+        {
+            $this-&gt;value = 'changed from postLoad callback!';
+        }
+
+        /** @PreUpdate */
+        public function doStuffOnPreUpdate()
+        {
+            $this-&gt;value = 'changed from preUpdate callback!';
+        }
+    }
+</code></pre>
+
+<p>Note that the methods set as lifecycle callbacks need to be public and,
+when using these annotations, you have to apply the
+<code>@HasLifecycleCallbacks</code> marker annotation on the entity class.</p>
+
+<p>If you want to register lifecycle callbacks from YAML or XML you
+can do it with the following.</p>
+
+<pre><code class="yaml"><br />    User:
+      type: entity
+      fields:
+    # ...
+        name:
+          type: string(50)
+      lifecycleCallbacks:
+        prePersist: [ doStuffOnPrePersist, doOtherStuffOnPrePersist ]
+        postPersist: [ doStuffOnPostPersist ]
+
+</code></pre>
+
+<p>In YAML the <code>key</code> of the lifecycleCallbacks entry is the event that you
+are triggering on and the value is the method (or methods) to call. The allowed
+event types are the ones listed in the previous Lifecycle Events section.</p>
+
+<p>XML would look something like this:</p>
+
+<pre><code class="xml"><br />    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+    &lt;doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                              /Users/robo/dev/php/Doctrine/doctrine-mapping.xsd"&gt;
+
+        &lt;entity name="User"&gt;
+
+            &lt;lifecycle-callbacks&gt;
+                &lt;lifecycle-callback type="prePersist" method="doStuffOnPrePersist"/&gt;
+                &lt;lifecycle-callback type="postPersist" method="doStuffOnPostPersist"/&gt;
+            &lt;/lifecycle-callbacks&gt;
+
+        &lt;/entity&gt;
+
+    &lt;/doctrine-mapping&gt;
+
+</code></pre>
+
+<p>In XML the <code>type</code> of the lifecycle-callback entry is the event that you
+are triggering on and the <code>method</code> is the method to call. The allowed event
+types are the ones listed in the previous Lifecycle Events section.</p>
+
+<p>When using YAML or XML you need to remember to create public methods to match the
+callback names you defined. E.g. in these examples <code>doStuffOnPrePersist()</code>,
+<code>doOtherStuffOnPrePersist()</code> and <code>doStuffOnPostPersist()</code> methods need to be
+defined on your <code>User</code> model.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    // ...
+
+    class User
+    {
+        // ...
+
+        public function doStuffOnPrePersist()
+        {
+            // ...
+        }
+
+        public function doOtherStuffOnPrePersist()
+        {
+            // ...
+        }
+
+        public function doStuffOnPostPersist()
+        {
+            // ...
+        }
+    }
+
+</code></pre>
+
+<h2 id="lifecycle-callbacks-event-argument">Lifecycle Callbacks Event Argument</h2>
+
+<p>.. versionadded:: 2.4</p>
+
+<p>Since 2.4 the triggered event is given to the lifecycle-callback.</p>
+
+<p>With the additional argument you have access to the
+<code>EntityManager</code> and <code>UnitOfWork</code> APIs inside these callback methods.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    // ...
+
+    class User
+    {
+        public function preUpdate(PreUpdateEventArgs $event)
+        {
+            if ($event-&gt;hasChangedField('username')) {
+                // Do something when the username is changed.
+            }
+        }
+    }
+
+</code></pre>
+
+<h2 id="listening-and-subscribing-to-lifecycle-events">Listening and subscribing to Lifecycle Events</h2>
+
+<p>Lifecycle event listeners are much more powerful than the simple
+lifecycle callbacks that are defined on the entity classes. They
+sit at a level above the entities and allow you to implement re-usable
+behaviors across different entity classes.</p>
+
+<p>Note that they require much more detailed knowledge about the inner
+workings of the EntityManager and UnitOfWork. Please read the
+<em>Implementing Event Listeners</em> section carefully if you are trying
+to write your own listener.</p>
+
+<p>For event subscribers, there are no surprises. They declare the
+lifecycle events in their <code>getSubscribedEvents</code> method and provide
+public methods that expect the relevant arguments.</p>
+
+<p>A lifecycle event listener looks like the following:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+
+    class MyEventListener
+    {
+        public function preUpdate(LifecycleEventArgs $args)
+        {
+            $entity = $args-&gt;getObject();
+            $entityManager = $args-&gt;getObjectManager();
+
+            // perhaps you only want to act on some "Product" entity
+            if ($entity instanceof Product) {
+                // do something with the Product
+            }
+        }
+    }
+
+</code></pre>
+
+<p>A lifecycle event subscriber may looks like this:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    use Doctrine\ORM\Events;
+    use Doctrine\Common\EventSubscriber;
+    use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+
+    class MyEventSubscriber implements EventSubscriber
+    {
+        public function getSubscribedEvents()
+        {
+            return array(
+                Events::postUpdate,
+            );
+        }
+
+        public function postUpdate(LifecycleEventArgs $args)
+        {
+            $entity = $args-&gt;getObject();
+            $entityManager = $args-&gt;getObjectManager();
+
+            // perhaps you only want to act on some "Product" entity
+            if ($entity instanceof Product) {
+                // do something with the Product
+            }
+        }
+
+</code></pre>
+
+<p>.. note::</p>
+
+<pre><code>Lifecycle events are triggered for all entities. It is the responsibility
+of the listeners and subscribers to check if the entity is of a type
+it wants to handle.
+</code></pre>
+
+<p>To register an event listener or subscriber, you have to hook it into the
+EventManager that is passed to the EntityManager factory:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    $eventManager = new EventManager();
+    $eventManager-&gt;addEventListener(array(Events::preUpdate), new MyEventListener());
+    $eventManager-&gt;addEventSubscriber(new MyEventSubscriber());
+
+    $entityManager = EntityManager::create($dbOpts, $config, $eventManager);
+
+</code></pre>
+
+<p>You can also retrieve the event manager instance after the
+EntityManager was created:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    $entityManager-&gt;getEventManager()-&gt;addEventListener(array(Events::preUpdate), new MyEventListener());
+    $entityManager-&gt;getEventManager()-&gt;addEventSubscriber(new MyEventSubscriber());
+
+</code></pre>
+
+<p>.. _reference-events-implementing-listeners:</p>
+
+<h2 id="implementing-event-listeners">Implementing Event Listeners</h2>
+
+<p>This section explains what is and what is not allowed during
+specific lifecycle events of the UnitOfWork. Although you get
+passed the EntityManager in all of these events, you have to follow
+these restrictions very carefully since operations in the wrong
+event may produce lots of different errors, such as inconsistent
+data and lost updates/persists/removes.</p>
+
+<p>For the described events that are also lifecycle callback events
+the restrictions apply as well, with the additional restriction
+that (prior to version 2.4) you do not have access to the
+EntityManager or UnitOfWork APIs inside these events.</p>
+
+<p>prePersist
+~~~~~~~~~~</p>
+
+<p>There are two ways for the <code>prePersist</code> event to be triggered.
+One is obviously when you call <code>EntityManager#persist()</code>. The
+event is also called for all cascaded associations.</p>
+
+<p>There is another way for <code>prePersist</code> to be called, inside the
+<code>flush()</code> method when changes to associations are computed and
+this association is marked as cascade persist. Any new entity found
+during this operation is also persisted and <code>prePersist</code> called
+on it. This is called "persistence by reachability".</p>
+
+<p>In both cases you get passed a <code>LifecycleEventArgs</code> instance
+which has access to the entity and the entity manager.</p>
+
+<p>The following restrictions apply to <code>prePersist</code>:</p>
+
+<ul>
+<li>If you are using a PrePersist Identity Generator such as
+sequences the ID value will <em>NOT</em> be available within any
+PrePersist events.</li>
+<li>Doctrine will not recognize changes made to relations in a prePersist
+event. This includes modifications to
+collections such as additions, removals or replacement.</li>
+</ul>
+
+<p>preRemove</p>
+
+<pre><code><br />The ``preRemove`` event is called on every entity when its passed
+to the ``EntityManager#remove()`` method. It is cascaded for all
+associations that are marked as cascade delete.
+
+There are no restrictions to what methods can be called inside the
+``preRemove`` event, except when the remove method itself was
+called during a flush operation.
+
+preFlush
+~~~~~~~~
+
+``preFlush`` is called at ``EntityManager#flush()`` before
+anything else. ``EntityManager#flush()`` can be called safely
+inside its listeners.
+
+```php
+
+    &lt;?php
+
+    use Doctrine\ORM\Event\PreFlushEventArgs;
+
+    class PreFlushExampleListener
+    {
+        public function preFlush(PreFlushEventArgs $args)
+        {
+            // ...
+        }
+    }
+
+```
+
+onFlush
+~~~~~~~
+
+OnFlush is a very powerful event. It is called inside
+``EntityManager#flush()`` after the changes to all the managed
+entities and their associations have been computed. This means, the
+``onFlush`` event has access to the sets of:
+
+
+-  Entities scheduled for insert
+-  Entities scheduled for update
+-  Entities scheduled for removal
+-  Collections scheduled for update
+-  Collections scheduled for removal
+
+To make use of the onFlush event you have to be familiar with the
+internal UnitOfWork API, which grants you access to the previously
+mentioned sets. See this example:
+
+```php
+
+    &lt;?php
+    class FlushExampleListener
+    {
+        public function onFlush(OnFlushEventArgs $eventArgs)
+        {
+            $em = $eventArgs-&gt;getEntityManager();
+            $uow = $em-&gt;getUnitOfWork();
+
+            foreach ($uow-&gt;getScheduledEntityInsertions() as $entity) {
+
+            }
+
+            foreach ($uow-&gt;getScheduledEntityUpdates() as $entity) {
+
+            }
+
+            foreach ($uow-&gt;getScheduledEntityDeletions() as $entity) {
+
+            }
+
+            foreach ($uow-&gt;getScheduledCollectionDeletions() as $col) {
+
+            }
+
+            foreach ($uow-&gt;getScheduledCollectionUpdates() as $col) {
+
+            }
+        }
+    }
+
+```
+
+The following restrictions apply to the onFlush event:
+
+
+-  If you create and persist a new entity in ``onFlush``, then
+   calling ``EntityManager#persist()`` is not enough.
+   You have to execute an additional call to
+   ``$unitOfWork-&gt;computeChangeSet($classMetadata, $entity)``.
+-  Changing primitive fields or associations requires you to
+   explicitly trigger a re-computation of the changeset of the
+   affected entity. This can be done by calling
+   ``$unitOfWork-&gt;recomputeSingleEntityChangeSet($classMetadata, $entity)``.
+
+postFlush
+</code></pre>
+
+<p><code>postFlush</code> is called at the end of <code>EntityManager#flush()</code>.
+<code>EntityManager#flush()</code> can <strong>NOT</strong> be called safely inside its listeners.</p>
+
+<pre><code class="php"><br />    &lt;?php
+
+    use Doctrine\ORM\Event\PostFlushEventArgs;
+
+    class PostFlushExampleListener
+    {
+        public function postFlush(PostFlushEventArgs $args)
+        {
+            // ...
+        }
+    }
+
+</code></pre>
+
+<p>preUpdate
+~~~~~~~~~</p>
+
+<p>PreUpdate is the most restrictive to use event, since it is called
+right before an update statement is called for an entity inside the
+<code>EntityManager#flush()</code> method.</p>
+
+<p>Changes to associations of the updated entity are never allowed in
+this event, since Doctrine cannot guarantee to correctly handle
+referential integrity at this point of the flush operation. This
+event has a powerful feature however, it is executed with a
+<code>PreUpdateEventArgs</code> instance, which contains a reference to the
+computed change-set of this entity.</p>
+
+<p>This means you have access to all the fields that have changed for
+this entity with their old and new value. The following methods are
+available on the <code>PreUpdateEventArgs</code>:</p>
+
+<ul>
+<li><code>getEntity()</code> to get access to the actual entity.</li>
+<li><code>getEntityChangeSet()</code> to get a copy of the changeset array.
+Changes to this returned array do not affect updating.</li>
+<li><code>hasChangedField($fieldName)</code> to check if the given field name
+of the current entity changed.</li>
+<li><code>getOldValue($fieldName)</code> and <code>getNewValue($fieldName)</code> to
+access the values of a field.</li>
+<li><code>setNewValue($fieldName, $value)</code> to change the value of a
+field to be updated.</li>
+</ul>
+
+<p>A simple example for this event looks like:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    class NeverAliceOnlyBobListener
+    {
+        public function preUpdate(PreUpdateEventArgs $eventArgs)
+        {
+            if ($eventArgs-&gt;getEntity() instanceof User) {
+                if ($eventArgs-&gt;hasChangedField('name') &amp;&amp; $eventArgs-&gt;getNewValue('name') == 'Alice') {
+                    $eventArgs-&gt;setNewValue('name', 'Bob');
+                }
+            }
+        }
+    }
+
+</code></pre>
+
+<p>You could also use this listener to implement validation of all the
+fields that have changed. This is more efficient than using a
+lifecycle callback when there are expensive validations to call:</p>
+
+<pre><code class="php"><br />    &lt;?php
+    class ValidCreditCardListener
+    {
+        public function preUpdate(PreUpdateEventArgs $eventArgs)
+        {
+            if ($eventArgs-&gt;getEntity() instanceof Account) {
+                if ($eventArgs-&gt;hasChangedField('creditCard')) {
+                    $this-&gt;validateCreditCard($eventArgs-&gt;getNewValue('creditCard'));
+                }
+            }
+        }
+
+        private function validateCreditCard($no)
+        {
+            // throw an exception to interrupt flush event. Transaction will be rolled back.
+        }
+    }
+
+</code></pre>
+
+<p>Restrictions for this event:</p>
+
+<ul>
+<li>Changes to associations of the passed entities are not
+recognized by the flush operation anymore.</li>
+<li>Changes to fields of the passed entities are not recognized by
+the flush operation anymore, use the computed change-set passed to
+the event to modify primitive field values, e.g. use
+<code>$eventArgs-&gt;setNewValue($field, $value);</code> as in the Alice to Bob example above.</li>
+<li>Any calls to <code>EntityManager#persist()</code> or
+<code>EntityManager#remove()</code>, even in combination with the UnitOfWork
+API are strongly discouraged and don't work as expected outside the
+flush operation.</li>
+</ul>
+
+<p>postUpdate, postRemove, postPersist
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+
+<p>The three post events are called inside <code>EntityManager#flush()</code>.
+Changes in here are not relevant to the persistence in the
+database, but you can use these events to alter non-persistable items,
+like non-mapped fields, logging or even associated classes that are
+directly mapped by Doctrine.</p>
+
+<p>postLoad
+~~~~~~~~</p>
+
+<p>This event is called after an entity is constructed by the
+EntityManager.</p>
+
+<h2 id="entity-listeners">Entity listeners</h2>
+
+<p>.. versionadded:: 2.4</p>
+
+<p>An entity listener is a lifecycle listener class used for an entity.</p>
+
+<ul>
+<li>The entity listener's mapping may be applied to an entity class or mapped superclass.</li>
+<li><p>An entity listener is defined by mapping the entity class with the corresponding mapping.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    namespace MyProject\Entity;
+
+    /** @Entity @EntityListeners({"UserListener"}) */
+    class User
+    {
+        // ....
+    }
+</code></pre>
+
+<pre><code class="xml"><br />    &lt;doctrine-mapping&gt;
+        &lt;entity name="MyProject\Entity\User"&gt;
+            &lt;entity-listeners&gt;
+                &lt;entity-listener class="UserListener"/&gt;
+            &lt;/entity-listeners&gt;
+            &lt;!-- .... --&gt;
+        &lt;/entity&gt;
+    &lt;/doctrine-mapping&gt;
+</code></pre>
+
+<pre><code class="yaml"><br />    MyProject\Entity\User:
+      type: entity
+      entityListeners:
+        UserListener:
+      # ....
+</code></pre></li>
+</ul>
+
+<p>.. _reference-entity-listeners:</p>
+
+<p>Entity listeners class
+~~~~~~~~~~~~~~~~~~~~~~</p>
+
+<p>An <code>Entity Listener</code> could be any class, by default it should be a class with a no-arg constructor.</p>
+
+<ul>
+<li>Different from :ref:<code>reference-events-implementing-listeners</code> an <code>Entity Listener</code> is invoked just to the specified entity</li>
+<li>An entity listener method receives two arguments, the entity instance and the lifecycle event.</li>
+<li>The callback method can be defined by naming convention or specifying a method mapping.</li>
+<li>When a listener mapping is not given the parser will use the naming convention to look for a matching method,
+e.g. it will look for a public <code>preUpdate()</code> method if you are listening to the <code>preUpdate</code> event.</li>
+<li>When a listener mapping is given the parser will not look for any methods using the naming convention.</li>
+</ul>
+
+<pre><code class="php"><br />    &lt;?php
+    class UserListener
+    {
+        public function preUpdate(User $user, PreUpdateEventArgs $event)
+        {
+            // Do something on pre update.
+        }
+    }
+
+</code></pre>
+
+<p>To define a specific event listener method (one that does not follow the naming convention)
+you need to map the listener method using the event type mapping:</p>
+
+<p>.. configuration-block::</p>
+
+<pre><code>```php
+
+    &lt;?php
+    class UserListener
+    {
+        /** @PrePersist */
+        public function prePersistHandler(User $user, LifecycleEventArgs $event) { // ... }
+
+        /** @PostPersist */
+        public function postPersistHandler(User $user, LifecycleEventArgs $event) { // ... }
+
+        /** @PreUpdate */
+        public function preUpdateHandler(User $user, PreUpdateEventArgs $event) { // ... }
+
+        /** @PostUpdate */
+        public function postUpdateHandler(User $user, LifecycleEventArgs $event) { // ... }
+
+        /** @PostRemove */
+        public function postRemoveHandler(User $user, LifecycleEventArgs $event) { // ... }
+
+        /** @PreRemove */
+        public function preRemoveHandler(User $user, LifecycleEventArgs $event) { // ... }
+
+        /** @PreFlush */
+        public function preFlushHandler(User $user, PreFlushEventArgs $event) { // ... }
+
+        /** @PostLoad */
+        public function postLoadHandler(User $user, LifecycleEventArgs $event) { // ... }
+    }
+```
+
+```xml
+
+    &lt;doctrine-mapping&gt;
+        &lt;entity name="MyProject\Entity\User"&gt;
+             &lt;entity-listeners&gt;
+                &lt;entity-listener class="UserListener"&gt;
+                    &lt;lifecycle-callback type="preFlush"      method="preFlushHandler"/&gt;
+                    &lt;lifecycle-callback type="postLoad"      method="postLoadHandler"/&gt;
+
+                    &lt;lifecycle-callback type="postPersist"   method="postPersistHandler"/&gt;
+                    &lt;lifecycle-callback type="prePersist"    method="prePersistHandler"/&gt;
+
+                    &lt;lifecycle-callback type="postUpdate"    method="postUpdateHandler"/&gt;
+                    &lt;lifecycle-callback type="preUpdate"     method="preUpdateHandler"/&gt;
+
+                    &lt;lifecycle-callback type="postRemove"    method="postRemoveHandler"/&gt;
+                    &lt;lifecycle-callback type="preRemove"     method="preRemoveHandler"/&gt;
+                &lt;/entity-listener&gt;
+            &lt;/entity-listeners&gt;
+            &lt;!-- .... --&gt;
+        &lt;/entity&gt;
+    &lt;/doctrine-mapping&gt;
+```
+
+```yaml
+
+    MyProject\Entity\User:
+      type: entity
+      entityListeners:
+        UserListener:
+          preFlush: [preFlushHandler]
+          postLoad: [postLoadHandler]
+
+          postPersist: [postPersistHandler]
+          prePersist: [prePersistHandler]
+
+          postUpdate: [postUpdateHandler]
+          preUpdate: [preUpdateHandler]
+
+          postRemove: [postRemoveHandler]
+          preRemove: [preRemoveHandler]
+      # ....
+```
+</code></pre>
+
+<p>Entity listeners resolver
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Doctrine invokes the listener resolver to get the listener instance.</p>
+
+<ul>
+<li>A resolver allows you register a specific entity listener instance.</li>
+<li>You can also implement your own resolver by extending <code>Doctrine\ORM\Mapping\DefaultEntityListenerResolver</code> or implementing <code>Doctrine\ORM\Mapping\EntityListenerResolver</code></li>
+</ul>
+
+<p>Specifying an entity listener instance :</p>
+
+<pre><code class="php"><br />    &lt;?php
+    // User.php
+
+    /** @Entity @EntityListeners({"UserListener"}) */
+    class User
+    {
+        // ....
+    }
+
+    // UserListener.php
+    class UserListener
+    {
+        public function __construct(MyService $service)
+        {
+            $this-&gt;service = $service;
+        }
+
+        public function preUpdate(User $user, PreUpdateEventArgs $event)
+        {
+            $this-&gt;service-&gt;doSomething($user);
+        }
+    }
+
+    // register a entity listener.
+    $listener = $container-&gt;get('user_listener');
+    $em-&gt;getConfiguration()-&gt;getEntityListenerResolver()-&gt;register($listener);
+
+</code></pre>
+
+<p>Implementing your own resolver :</p>
+
+<pre><code class="php"><br />    &lt;?php
+    class MyEntityListenerResolver extends \Doctrine\ORM\Mapping\DefaultEntityListenerResolver
+    {
+        public function __construct($container)
+        {
+            $this-&gt;container = $container;
+        }
+
+        public function resolve($className)
+        {
+            // resolve the service id by the given class name;
+            $id = 'user_listener';
+
+            return $this-&gt;container-&gt;get($id);
+        }
+    }
+
+    // configure the listener resolver.
+    $em-&gt;getConfiguration()-&gt;setEntityListenerResolver($container-&gt;get('my_resolver'));
+
+</code></pre>
+
+<h2 id="load-classmetadata-event">Load ClassMetadata Event</h2>
+
+<p>When the mapping information for an entity is read, it is populated
+in to a <code>ClassMetadataInfo</code> instance. You can hook in to this
+process and manipulate the instance.</p>
+
+<pre><code class="php"><br />    &lt;?php
+    $test = new TestEvent();
+    $metadataFactory = $em-&gt;getMetadataFactory();
+    $evm = $em-&gt;getEventManager();
+    $evm-&gt;addEventListener(Events::loadClassMetadata, $test);
+
+    class TestEvent
+    {
+        public function loadClassMetadata(\Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs)
+        {
+            $classMetadata = $eventArgs-&gt;getClassMetadata();
+            $fieldMapping = array(
+                'fieldName' =&gt; 'about',
+                'type' =&gt; 'string',
+                'length' =&gt; 255
+            );
+            $classMetadata-&gt;mapField($fieldMapping);
+        }
+    }
+
+</code></pre>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-09-25-events-listeners-e-subscribers-no-symfony-2.md"/>
+            <updated>2014-09-25T00:00:00-03:00</updated>
+            <id>/_posts/2014-09-25-events-listeners-e-subscribers-no-symfony-2.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Event Listeners e Subscribers no Symfony 2",
+"author":"Royopa",
+"date":"25-09-2014",
+"tag":"doctrine, php, symfony, listeners",
+"slug" : "events-listeners-e-subscribers-no-symfony-2",
+"category":"PHP"
+}</p>
+
+<p>Doctrine packages a rich event system that fires events when almost anything
+happens inside the system. For you, this means that you can create arbitrary
+:doc:<code>services &lt;/book/service_container&gt;</code> and tell Doctrine to notify those
+objects whenever a certain action (e.g. <code>prePersist</code>) happens within Doctrine.
+This could be useful, for example, to create an independent search index
+whenever an object in your database is saved.</p>
+
+<p>Doctrine defines two types of objects that can listen to Doctrine events:
+listeners and subscribers. Both are very similar, but listeners are a bit
+more straightforward. For more, see <code>The Event System</code>_ on Doctrine's website.</p>
+
+<p>The Doctrine website also explains all existing events that can be listened to.</p>
+
+<h2 id="configuring-the-listener%2Fsubscriber">Configuring the Listener/Subscriber</h2>
+
+<p>To register a service to act as an event listener or subscriber you just have
+to :ref:<code>tag &lt;book-service-container-tags&gt;</code> it with the appropriate name. Depending
+on your use-case, you can hook a listener into every DBAL connection and ORM
+entity manager or just into one specific DBAL connection and all the entity
+managers that use this connection.</p>
+
+<p>.. configuration-block::</p>
+
+<pre><code>.. code-block:: yaml
+
+    doctrine:
+        dbal:
+            default_connection: default
+            connections:
+                default:
+                    driver: pdo_sqlite
+                    memory: true
+
+    services:
+        my.listener:
+            class: Acme\SearchBundle\EventListener\SearchIndexer
+            tags:
+                - { name: doctrine.event_listener, event: postPersist }
+        my.listener2:
+            class: Acme\SearchBundle\EventListener\SearchIndexer2
+            tags:
+                - { name: doctrine.event_listener, event: postPersist, connection: default }
+        my.subscriber:
+            class: Acme\SearchBundle\EventListener\SearchIndexerSubscriber
+            tags:
+                - { name: doctrine.event_subscriber, connection: default }
+
+.. code-block:: xml
+
+    &lt;?xml version="1.0" ?&gt;
+    &lt;container xmlns="http://symfony.com/schema/dic/services"
+        xmlns:doctrine="http://symfony.com/schema/dic/doctrine"&gt;
+
+        &lt;doctrine:config&gt;
+            &lt;doctrine:dbal default-connection="default"&gt;
+                &lt;doctrine:connection driver="pdo_sqlite" memory="true" /&gt;
+            &lt;/doctrine:dbal&gt;
+        &lt;/doctrine:config&gt;
+
+        &lt;services&gt;
+            &lt;service id="my.listener" class="Acme\SearchBundle\EventListener\SearchIndexer"&gt;
+                &lt;tag name="doctrine.event_listener" event="postPersist" /&gt;
+            &lt;/service&gt;
+            &lt;service id="my.listener2" class="Acme\SearchBundle\EventListener\SearchIndexer2"&gt;
+                &lt;tag name="doctrine.event_listener" event="postPersist" connection="default" /&gt;
+            &lt;/service&gt;
+            &lt;service id="my.subscriber" class="Acme\SearchBundle\EventListener\SearchIndexerSubscriber"&gt;
+                &lt;tag name="doctrine.event_subscriber" connection="default" /&gt;
+            &lt;/service&gt;
+        &lt;/services&gt;
+    &lt;/container&gt;
+
+.. code-block:: php
+
+    use Symfony\Component\DependencyInjection\Definition;
+
+    $container-&gt;loadFromExtension('doctrine', array(
+        'dbal' =&gt; array(
+            'default_connection' =&gt; 'default',
+            'connections' =&gt; array(
+                'default' =&gt; array(
+                    'driver' =&gt; 'pdo_sqlite',
+                    'memory' =&gt; true,
+                ),
+            ),
+        ),
+    ));
+
+    $container
+        -&gt;setDefinition(
+            'my.listener',
+            new Definition('Acme\SearchBundle\EventListener\SearchIndexer')
+        )
+        -&gt;addTag('doctrine.event_listener', array('event' =&gt; 'postPersist'))
+    ;
+    $container
+        -&gt;setDefinition(
+            'my.listener2',
+            new Definition('Acme\SearchBundle\EventListener\SearchIndexer2')
+        )
+        -&gt;addTag('doctrine.event_listener', array('event' =&gt; 'postPersist', 'connection' =&gt; 'default'))
+    ;
+    $container
+        -&gt;setDefinition(
+            'my.subscriber',
+            new Definition('Acme\SearchBundle\EventListener\SearchIndexerSubscriber')
+        )
+        -&gt;addTag('doctrine.event_subscriber', array('connection' =&gt; 'default'))
+    ;
+</code></pre>
+
+<h2 id="creating-the-listener-class">Creating the Listener Class</h2>
+
+<p>In the previous example, a service <code>my.listener</code> was configured as a Doctrine
+listener on the event <code>postPersist</code>. The class behind that service must have
+a <code>postPersist</code> method, which will be called when the event is dispatched::</p>
+
+<pre><code>// src/Acme/SearchBundle/EventListener/SearchIndexer.php
+namespace Acme\SearchBundle\EventListener;
+
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Acme\StoreBundle\Entity\Product;
+
+class SearchIndexer
+{
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $entity = $args-&gt;getEntity();
+        $entityManager = $args-&gt;getEntityManager();
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof Product) {
+            // ... do something with the Product
+        }
+    }
+}
+</code></pre>
+
+<p>In each event, you have access to a <code>LifecycleEventArgs</code> object, which
+gives you access to both the entity object of the event and the entity manager
+itself.</p>
+
+<p>One important thing to notice is that a listener will be listening for <em>all</em>
+entities in your application. So, if you're interested in only handling a
+specific type of entity (e.g. a <code>Product</code> entity but not a <code>BlogPost</code>
+entity), you should check for the entity's class type in your method
+(as shown above).</p>
+
+<p>.. tip::</p>
+
+<pre><code>In Doctrine 2.4, a feature called Entity Listeners was introduced.
+It is a lifecycle listener class used for an entity. You can read
+about it in `the Doctrine Documentation`_.
+</code></pre>
+
+<h2 id="creating-the-subscriber-class">Creating the Subscriber Class</h2>
+
+<p>A Doctrine event subscriber must implement the <code>Doctrine\Common\EventSubscriber</code>
+interface and have an event method for each event it subscribes to::</p>
+
+<pre><code>// src/Acme/SearchBundle/EventListener/SearchIndexerSubscriber.php
+namespace Acme\SearchBundle\EventListener;
+
+use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+// for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Acme\StoreBundle\Entity\Product;
+
+class SearchIndexerSubscriber implements EventSubscriber
+{
+    public function getSubscribedEvents()
+    {
+        return array(
+            'postPersist',
+            'postUpdate',
+        );
+    }
+
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $this-&gt;index($args);
+    }
+
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $this-&gt;index($args);
+    }
+
+    public function index(LifecycleEventArgs $args)
+    {
+        $entity = $args-&gt;getEntity();
+        $entityManager = $args-&gt;getEntityManager();
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof Product) {
+            // ... do something with the Product
+        }
+    }
+}
+</code></pre>
+
+<p>.. tip::</p>
+
+<pre><code>Doctrine event subscribers can not return a flexible array of methods to
+call for the events like the :ref:`Symfony event subscriber &lt;event_dispatcher-using-event-subscribers&gt;`
+can. Doctrine event subscribers must return a simple array of the event
+names they subscribe to. Doctrine will then expect methods on the subscriber
+with the same name as each subscribed event, just as when using an event listener.
+</code></pre>
+
+<p>For a full reference, see chapter <code>The Event System</code>_ in the Doctrine documentation.</p>
+
+<p>.. _<code>The Event System</code>: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html
+.. _<code>the Doctrine Documentation</code>: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2014-10-25-criando-um-service-provider-no-silex-framework.md"/>
+            <updated>2014-10-25T00:00:00-02:00</updated>
+            <id>/_posts/2014-10-25-criando-um-service-provider-no-silex-framework.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Criando um Service Provider no Silex Framework",
+"author":"Royopa",
+"date":"25-10-2014",
+"tag":"php, silex, validator, respect, service, provider",
+"slug" : "criando-um-service-provider-no-silex-framework",
+"category":"PHP"
+}</p>
+
+<p>Comecei a utilizar há pouco tempo o microframework Silex para desenvolver
+algumas aplicações mais simples.
+Lendo o artigo <a href="http://phpsp.org.br/silex-respectrelational-uma-boa-dupla/">Silex + Respect\Relational – Uma boa dupla</a>, do <a href="https://github.com/williancarminato/">Willian
+Carminato</a>, resolvi fazer um parecido usando o Respect Validation.</p>
+
+<h2 id="respect-validation">Respect Validation</h2>
+
+<p>O <a href="http://documentup.com/Respect/Validation/">Respect Validation</a> é um componente criado pelo <a href="http://gaigalas.net/#home">Alexandre Gaigalas (alganet)</a>
+para validar vários tipos de informação. Veja nesse <a href="http://imasters.com.br/linguagens/php/respect-um-microframework-de-respeito/">artigo</a> do Gaigalas em português
+sobre o Respect Validation.</p>
+
+<h2 id="iniciando-a-cria%C3%A7%C3%A3o-do-provider">Iniciando a criação do Provider</h2>
+
+<p>O primeiro passo é criar uma classe que implementa a interface
+Silex\ServiceProviderInterface com seus métodos boot() e register().</p>
+
+<pre><code class="php">use Silex\Application;
+use Silex\ServiceProviderInterface;
+use Respect\Validation\Validator;
+
+class RespectValidationServiceProvider implements ServiceProviderInterface
+{
+    public function register(Application $app)
+    {
+    }
+
+    public function boot(Application $app)
+    {
+    }
+}
+</code></pre>
+
+<h2 id="incluindo-as-depend%C3%AAncias-necess%C3%A1rias">Incluindo as dependências necessárias</h2>
+
+<p>Para que a aplicação rode precisaremos incluir a dependência para o Respect/Validation.
+Para isso criamos um arquivo composer.json na pasta raiz do nosso Service Provider
+contendo essa dependência:</p>
+
+<pre><code class="json">    "require": {
+        "respect/validation": "~0.6"
+    },
+</code></pre>
+
+<h2 id="implementa%C3%A7%C3%A3o-do-m%C3%A9todo-register">Implementação do método register()</h2>
+
+<p>Agora vamos implementar o serviço 'respect.validator' no método register() da
+classe.</p>
+
+<p>Em nosso caso não é necessário nenhum argumento na Closure, basta a
+criação e retorno do objeto Validator do Respect.</p>
+
+<pre><code class="php">    public function register(Application $app)
+    {
+        $app['respect.validator'] = $app-&gt;share(function ($app) {
+            return new Validator();
+        });
+    }
+</code></pre>
+
+<h2 id="registrando-e-utilizando-o-provider">Registrando e utilizando o Provider</h2>
+
+<p>Após a implementação do serviço, basta registrar o Provider criado para utilizá-lo
+em sua aplicação.</p>
+
+<pre><code class="php">    $app-&gt;register(new RespectValidationServiceProvider());
+</code></pre>
+
+<p>Após o registro você poderá utilizá-lo em qualquer parte de sua página através da
+variável $app['respect.validator']. Vejamos alguns exemplos de utilização:</p>
+
+<pre><code class="php">    $app['respect.validator']::countryCode()-&gt;validate('BR'); //true
+
+    $app['respect.validator']::numeric()-&gt;validate(123); //true
+
+    $app['respect.validator']::not(
+        $app['respect.validator']::int()
+    )-&gt;validate(10); //false, input must not be integer
+</code></pre>
+
+<h2 id="conclus%C3%A3o">Conclusão</h2>
+
+<p>Como podemos ver, o processo de criação de Providers é bastante simples.</p>
+
+<p>Existem alguns outros Providers já incluídos no Silex por padrão, que podem ser
+encontrados <a href="http://silex.sensiolabs.org/doc/providers.html#included-providers">aqui</a> e alguns outros de terceiros podem ser localizados <a href="https://github.com/silexphp/Silex/wiki/Third-Party-ServiceProviders">nessa página</a>.</p>
+
+<p>Criei um <a href="https://github.com/royopa/respect-validation-service-provider">repositório no GitHub</a> para os arquivos desse projeto, caso você queira testá-lo
+ou utilizá-lo.</p>
+
+<p>Mais informações podem ser obtidas na <a href="http://silex.sensiolabs.org/doc/providers.html">documentação do Silex</a>.</p>
+]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2015-01-09-mudando-a-origin-do-seu-repositorio-git.md"/>
+            <updated>2015-01-09T00:00:00-02:00</updated>
+            <id>/_posts/2015-01-09-mudando-a-origin-do-seu-repositorio-git.md</id>
+            <content type="html"><![CDATA[<p>{
+"title" : "Mudando a origin do seu repositório GIT",
+"author":"Royopa",
+"date":"09-01-2014",
+"tag":"git, vcs",
+"slug" : "mudando-a-origin-do-seu-repositorio-git",
+"category":"GIT"
+}</p>
+
+<p>Tradução do artigo <a href="http://blog.aplikacja.info/2010/08/switch-origin-of-your-git-repository/">Change "origin" of your GIT repository</a> do blog do Dariusz Cieslak.</p>
+
+<p>Na <a href="https://help.github.com/articles/changing-a-remote-s-url/">documentação oficial do GitHub</a> também tem essa informação de forma mais detalhada.</p>
+
+<h2 id="mudando-a-%22origin%22-do-seu-reposit%C3%B3rio-git">Mudando a "origin" do seu repositório GIT</h2>
+
+<p>O GIT é um sistema de controle de versão distribuído - o que significa que ele não precisa ter um repositório central. É possível construir um sistema através da troca de commits entre nós iguais.
+É conveniente, no entanto, marcar um repositório como o central. É claro que você pode mudar a sua decisão a qualquer momento. Eu vou te mostrar como fazer isso.</p>
+
+<p>Se você criou um sua cópia do repo com a operação "clone" você terá o branch "origin" definido. Esse remote pode ser usado para fazer mudanças pull/push.</p>
+
+<pre><code>$ git remote -v
+
+origin  https://github.com/royopa/api-rosetta-code (fetch)
+origin  https://github.com/royopa/api-rosetta-code (push)
+</code></pre>
+
+<p>Se você decidir alterar esta definição mais tarde você pode rodar os seguintes comandos:</p>
+
+<pre><code>$ git remote rm origin
+$ git remote add origin https://github.com/twitterdev/api-rosetta-code
+$ git config master.remote origin
+$ git config master.merge refs/heads/master
+</code></pre>
+
+<p>Depois de rodar os comandos acima, verifique se a origin foi alterada, com o comando abaixo:</p>
+
+<pre><code>$ git remote -v
+
+origin  https://github.com/twitterdev/api-rosetta-code (fetch)
+origin  https://github.com/twitterdev/api-rosetta-code (push)
+</code></pre>
+
+<p>Depois dessa mudança você poderá fazer push de seus commits para o novo local do repositório (o origin é selecionado como o branch remote padrão para o master e é configurado em .git/config):</p>
+
+<pre><code>$ git push
+</code></pre>
+
+<p>Isso é tudo. Muito mais simples do que mover um repositório do Subversion.</p>
+]]></content>
+        </entry>
+    </feed>

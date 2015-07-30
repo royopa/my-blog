@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta name="robots" content="noindex, follow">
+                <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="apple-touch-startup-image" href="/images/jackson/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+                                    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/blog/categories">Categories</a></li>
+                                <li><a href="/blog/tags">Tags</a></li>
+                                <li><a href="/about">About</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2><a href="/_posts/2015-03-13-configurando-um-remote-para-um-fork.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Configurando um remote para um fork",
+"author":"Royopa",
+"date":"13-03-2015",
+"tag":"git",
+"slug" : "configurando-um-remote-para-um-fork",
+"category":"GIT"
+}</p>
+
+<p>Para <a href="http://royopa.url.ph/2015/03/13/sincronizando-um-fork-no-git">sincronizar alterações que você faz em um fork</a> com o repositório original, você deve configurar um remote que aponte para o repositório upstream no Git.</p>
+
+<p>O texto foi uma tradução do artigo <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/">Configuring a remote for a fork</a> do <a href="https://github.com">GitHub</a>.</p>
+
+<p>1 - Abra o terminal.</p>
+
+<p>2 - Mude para o diretório do seu projeto local.</p>
+
+<p>3 - Liste o remote atual configurado para seu fork.</p>
+
+<pre><code>$ git remote -v
+# origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+# origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+</code></pre>
+
+<p>4- Especifique um novo remote para o repositório upstream  que será sincronizado com o fork.</p>
+
+<pre><code>$ git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+</code></pre>
+
+<p>5 - Verifique o novo repositório upstream que você especificou para seu fork.</p>
+
+<pre><code>$ git remote -v
+# origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+# origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+# upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)
+# upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
+</code></pre>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-03-13-sincronizando-um-fork-no-git.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Sincronizando um fork no git",
+"author":"Royopa",
+"date":"13-03-2015",
+"tag":"git",
+"slug" : "sincronizando-um-fork-no-git",
+"category":"GIT"
+}</p>
+
+<p>Para quem trabalha com projetos open source é comum acontecer de após fazer um pull request precisarmos ter nosso fork sincronizado com o repositório upstream para permitir fazer novos PRs com código o atualizado.</p>
+
+<p>Veremos abaixo como sincronizar um fork para manter seu código atualizado com o repositório upstream. O texto abaixo foi uma tradução do arquivo <a href="https://help.github.com/articles/syncing-a-fork/">Syncing a fork</a> do <a href="https://github.com">GitHub</a>.</p>
+
+<p><strong><em>Dica:</em></strong> Antes de você sincronizar o seu fork com o repositório upstream, você deve <a href="https://help.github.com/articles/configurando-um-remote-para-um-fork/">configurar o remote para que aponte para o repositório upstream</a> no Git.</p>
+
+<p>1 - Abra o terminal.</p>
+
+<p>2 - Mude para o diretório do seu projeto local.</p>
+
+<p>3 - Busque os branches e seus respectivos commits do repositório upstream. Os commits para o branch master serão armazenados em um branch local chamado upstream/master.</p>
+
+<pre><code>$ git fetch upstream
+# remote: Counting objects: 75, done.
+# remote: Compressing objects: 100% (53/53), done.
+# remote: Total 62 (delta 27), reused 44 (delta 9)
+# Unpacking objects: 100% (62/62), done.
+# From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY
+#  * [new branch]      master     -&gt; upstream/master
+</code></pre>
+
+<p>4- Faça checkout do branch <strong><em>master</em></strong> do seu fork local</p>
+
+<pre><code>$ git checkout master
+# Switched to branch 'master'
+</code></pre>
+
+<p>5 - Faça um merge das mudanças do upstream/master no seu branch master local. Isso sincroniza o seu branch master sem perder suas alterações locais.</p>
+
+<pre><code>$ git merge upstream/master
+# Updating a422352..5fdff0f
+# Fast-forward
+#  README                    |    9 -------
+#  README.md                 |    7 ++++++
+#  2 files changed, 7 insertions(+), 9 deletions(-)
+#  delete mode 100644 README
+#  create mode 100644 README.md
+</code></pre>
+
+<p>Se seu branch local não tiver nenhum commit único, o Git em vez disso fará um "fast-forward":</p>
+
+<pre><code>$ git merge upstream/master
+# Updating 34e91da..16c56ad
+# Fast-forward
+#  README.md                 |    5 +++--
+#  1 file changed, 3 insertions(+), 2 deletions(-)
+</code></pre>
+
+<p><strong><em>Dica:</em></strong> Sincronizar o seu fork somente atualiza a sua cópia local do repositório. Para atualizar seu fork no GitHub, você precisa fazer um push das suas alterações.</p>
+
+<p>Mais informações podem ser obtidas no <a href="https://help.github.com/articles/syncing-a-fork/">documentação do Silex</a>.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-03-17-como-gerar-um-novo-bootstrap.php.cache-no-symfony.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title":"Como gerar um novo 'bootstrap.php.cache' no Symfony",
+"author":"Royopa",
+"date":"17-03-2015",
+"tag":"php",
+"slug":"como-gerar-um-novo-bootstrap-php-cache-no-symfony",
+"category":"PHP"
+}</p>
+
+<p>É muito comum num projeto ter diversos componentes de terceiros em uma aplicação (vendors). Veja na pasta vendor da sua aplicação a quantidade de arquivos que o seu projeto possui, imagine então ter que carregar um por um para utilizá-los!</p>
+
+<p>O Symfony possui um mecanismo para tentar diminuir a utilização do disco ao ter que carregar cada uma das classes de terceiros em arquivos separados. O framework cria um arquivo de inicialização que contém várias classes juntas em um único arquivo chamado de <strong><em>bootstrap.php.cache</em></strong>.</p>
+
+<p>O arquivo bootstrap.php.cache é recriado toda vez que você utilizar o comando <strong><em>composer install</em></strong>. Poŕem quando você utiliza o comando <strong><em>composer update</em></strong> o bootstrap.php.cache não é regerado. Veja abaixo como gerar um novo arquivo bootstrap.php.cache.</p>
+
+<h2 id="gerando-um-novo-%22bootstrap.php.cache%22-no-symfony-%2B2.1">Gerando um novo "bootstrap.php.cache" no Symfony +2.1</h2>
+
+<p>Para gerar um novo arquivo bootstrap.php.cache no Symfony2 (versão +2.1), basta executar o seguinte comando:</p>
+
+<pre><code>$ cd [your_app_dir]
+$ php ./vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
+</code></pre>
+
+<p>Mais informação sobre o arquivo de cache pode ser encontrada na <a href="(http://symfony.com/doc/current/book/performance.html#use-bootstrap-files)">Documentação Oficial do Symfony</a></p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/4">Newer Posts</a><br />
+        <a href="/page/6">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <h4>Links</h4>
+                        <ul class="nav">
+                            <li><a href="http://sculpin.io">sculpin.io</a></li>
+                            <li><a href="http://twitter.com/getsculpin">@getsculpin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2015 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+                    </body>
+</html>

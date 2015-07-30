@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home &mdash; Sculpin Blog Skeleton &mdash; To Get You Started</title>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta name="robots" content="noindex, follow">
+                <link href="/components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/components/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css" rel="stylesheet" type="text/css" />
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link rel="apple-touch-startup-image" href="/images/jackson/2048x2048.png">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="shortcut icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="shortcut icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="shortcut icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="shortcut icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="shortcut icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="shortcut icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="shortcut icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/jackson/76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/jackson/120x120.png">
+        <link rel="apple-touch-icon" sizes="128x128" href="/images/jackson/128x128.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/jackson/152x152.png">
+        <link rel="apple-touch-icon" sizes="196x196" href="/images/jackson/196x196.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="/images/jackson/512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="/images/jackson/1024x1024.png">
+        <link rel="apple-touch-icon" sizes="2048x2048" href="/images/jackson/2048x2048.png">
+
+        <link rel="stylesheet" href="/components/highlightjs/styles/github.css" />
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Sculpin Blog Skeleton activity feed" />
+        <style>
+        /** quick fix because bootstrap <pre> has a background-color. */
+        pre code { background-color: inherit; }
+        </style>
+                                    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/">Sculpin Blog Skeleton</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/blog">Posts Archive</a></li>
+                                <li><a href="/blog/categories">Categories</a></li>
+                                <li><a href="/blog/tags">Tags</a></li>
+                                <li><a href="/about">About</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mainContent container">
+            <div class="row-fluid">
+                <div class="span8">
+                        <article>
+        <header>
+            <h2><a href="/_posts/2015-01-09-mudando-a-origin-do-seu-repositorio-git.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Mudando a origin do seu repositório GIT",
+"author":"Royopa",
+"date":"09-01-2014",
+"tag":"git, vcs",
+"slug" : "mudando-a-origin-do-seu-repositorio-git",
+"category":"GIT"
+}</p>
+
+<p>Tradução do artigo <a href="http://blog.aplikacja.info/2010/08/switch-origin-of-your-git-repository/">Change "origin" of your GIT repository</a> do blog do Dariusz Cieslak.</p>
+
+<p>Na <a href="https://help.github.com/articles/changing-a-remote-s-url/">documentação oficial do GitHub</a> também tem essa informação de forma mais detalhada.</p>
+
+<h2 id="mudando-a-%22origin%22-do-seu-reposit%C3%B3rio-git">Mudando a "origin" do seu repositório GIT</h2>
+
+<p>O GIT é um sistema de controle de versão distribuído - o que significa que ele não precisa ter um repositório central. É possível construir um sistema através da troca de commits entre nós iguais.
+É conveniente, no entanto, marcar um repositório como o central. É claro que você pode mudar a sua decisão a qualquer momento. Eu vou te mostrar como fazer isso.</p>
+
+<p>Se você criou um sua cópia do repo com a operação "clone" você terá o branch "origin" definido. Esse remote pode ser usado para fazer mudanças pull/push.</p>
+
+<pre><code>$ git remote -v
+
+origin  https://github.com/royopa/api-rosetta-code (fetch)
+origin  https://github.com/royopa/api-rosetta-code (push)
+</code></pre>
+
+<p>Se você decidir alterar esta definição mais tarde você pode rodar os seguintes comandos:</p>
+
+<pre><code>$ git remote rm origin
+$ git remote add origin https://github.com/twitterdev/api-rosetta-code
+$ git config master.remote origin
+$ git config master.merge refs/heads/master
+</code></pre>
+
+<p>Depois de rodar os comandos acima, verifique se a origin foi alterada, com o comando abaixo:</p>
+
+<pre><code>$ git remote -v
+
+origin  https://github.com/twitterdev/api-rosetta-code (fetch)
+origin  https://github.com/twitterdev/api-rosetta-code (push)
+</code></pre>
+
+<p>Depois dessa mudança você poderá fazer push de seus commits para o novo local do repositório (o origin é selecionado como o branch remote padrão para o master e é configurado em .git/config):</p>
+
+<pre><code>$ git push
+</code></pre>
+
+<p>Isso é tudo. Muito mais simples do que mover um repositório do Subversion.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-02-20-configurando-o-google-analytics-no-dspace.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Configurando o Google Analytics no DSpace",
+"author":"Royopa",
+"date":"20-02-2015",
+"tag":"dspace",
+"slug" : "configurando-o-google-analytics-no-dspace",
+"category":"DSpace"
+}</p>
+
+<p>O <a href="http://www.google.com/analytics/">Google Analytics</a> é um serviço oferecido pelo Google no qual, ao ativar-se o serviço por intermédio de uma conta do Google, e ao cadastrar-se um site recebe-se um código para ser inserido na página cadastrada e, a cada exibição, estatísticas de visitação são enviadas ao sistema e apresentadas ao dono do site.</p>
+
+<p>Temos um <a href="http://pt.slideshare.net/royopa1/mdulo-11-estatsticas-dspace-e-google-analytics">módulo no treinamento</a> para tratar dessa característica, os slides estão disponíveis <a href="http://pt.slideshare.net/royopa1/mdulo-11-estatsticas-dspace-e-google-analytics">aqui</a>.</p>
+
+<p>O DSpace já vem pré-habilitado para utilização desse serviço, veremos adiante os passos para fazer essa configuração na interface XMLUI.</p>
+
+<h3 id="crie-sua-conta-no-google-analytics">Crie sua conta no Google Analytics</h3>
+
+<p>Crie uma conta no <a href="http://www.google.com/analytics/">Google Analytics</a> e cria uma entrada para o site do seu repositório. Você receberá um javascript para ser inserido em seu site, procure no javascript a chave do seu site, que deve ser parecida com isso "UA-XXXXXXX-X".</p>
+
+<h3 id="configure-a-propriedade-no-arquivo-dspace.cfg">Configure a propriedade no arquivo dspace.cfg</h3>
+
+<p>Abra o arquivo dspace.cfg e procure pela propriedade "xmlui.google.analytics.key" e preencha com o código do Google Analytics (UA-XXXXXXX-X) de seu repositório.</p>
+
+<pre><code>xmlui.google.analytics.key=UA-XXXXXX-X
+</code></pre>
+
+<h3 id="reinicie-o-servidor-tomcat">Reinicie o servidor tomcat</h3>
+
+<p>Reinicie o servidor tomcat e o código já estará lá para utilização.</p>
+
+<pre><code>sudo service tomcat7 restart
+</code></pre>
+
+<h3 id="conclus%C3%A3o">Conclusão</h3>
+
+<p>A partir daí o seu repositório já está sendo monitorado e você já poderá verificar as estatísticas no site do <a href="http://www.google.com/analytics/">Google Analytics</a>.</p>
+
+<p>Não existe a necessidade de incluir o javascript completo em cada página pois os temas XMLUI já possuem o javascript que será carregado apenas se a propriedade xmlui.google.analytics.key tiver sido preenchida no DSpace.cfg.</p>
+
+<p>Veja o trecho do arquivo responsável por isso (page-structure.xsl):</p>
+
+<pre><code>&lt;!-- Add a google analytics script if the key is present --&gt;
+&lt;xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"&gt;
+    &lt;script type="text/javascript"&gt;&lt;xsl:text&gt;
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '&lt;/xsl:text&gt;&lt;xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='google'][@qualifier='analytics']"/&gt;&lt;xsl:text&gt;']);
+               _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+    &lt;/xsl:text&gt;&lt;/script&gt;
+&lt;/xsl:if&gt;
+</code></pre>
+
+<h2 id="novas-funcionalidades-no-dspace-5">Novas funcionalidades no DSpace 5</h2>
+
+<p>A partir da versão 5 do DSpace existem algumas novidades para a gravação e relatórios do Google Analytics.</p>
+
+<h3 id="grava%C3%A7%C3%A3o-google-analytics">Gravação Google Analytics</h3>
+
+<p>Até a versão 5.0 somente a atividade da interface com usuário podia ser gravada, ou seja, os downloads iniciados diretamente através de uma pesquisa no Google (ou qualquer outro mecanismo de busca) não eram registrados. A partir da versão 5.0 do DSpace os downloads são registrados como 'Eventos' Google, de modo que todas as visualizações de páginas e downloads de bitstreams passaram a ser registrados também.</p>
+
+<h3 id="relat%C3%B3rios-do-google-analytics">Relatórios do Google Analytics</h3>
+
+<p>É possível expor os dados gravados do Google Analytics dentro DSpace. Atualmente, só está disponível para sites que usem temas com base no XMLUI Mirage2. 
+Os dados são recuperados a partir do Google usando a API <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/">Google Analytics Reporting API v3</a>. Este recurso vem desabilitado por padrão. 
+Para mais informações de como habilitar essa funcionalidade, siga as instruções contidas na <a href="https://wiki.duraspace.org/display/DSDOC5x/DSpace+Google+Analytics+Statistics">DSpace Wiki</a>.</p>
+
+        </div>
+            </article>
+    <article>
+        <header>
+            <h2><a href="/_posts/2015-02-22-utilizando-a-funcionalidade-de-embargo-no-dspace.md"></a></h2>
+        </header>
+        <div>
+            <p>{
+"title" : "Utilizando a funcionalidade de embargo no DSpace",
+"author":"Royopa",
+"date":"22-02-2015",
+"tag":"dspace",
+"slug" : "utilizando-a-funcionalidade-de-embargo-no-dspace",
+"category":"DSpace"
+}</p>
+
+<p>https://wiki.duraspace.org/display/DSDOC4x/Embargo</p>
+
+<p>Um <a href="https://wiki.duraspace.org/display/DSDOC5x/Embargo">Embargo</a> é uma restrição de acesso temporária colocada em metadados ou bitstreams. Sua abrangência ou duração pode variar, mas a expiração é o que a distingue de outras restrições de conteúdo. Por exemplo, é comum conteúdos no DSpace terem restrições de acesso permanente para grupos de usuários. Essas restrições são gerenciadas usando a ferramenta administrativa padrão do DSpace, incluindo políticas para coleções, itens, bitstreams, etc. 
+A funcionalidade Embargo foi introduzida no DSpace 1.6 permitindo embargos sobre itens e aplicada a <strong><em>todos os bitstreams do item</em></strong>. Na versão 3.0 do DSpace, essa funcionalidade foi estendida para a interface XMLUI, permitindo fazer embargo sobre <strong><em>bistreams individuais</em></strong>.</p>
+
+<p>Existem dois tipos de embargo no DSpace: o simples e o avançado, veremos adiante como cada um funciona.</p>
+
+<h4 id="embargo-simples">Embargo Simples</h4>
+
+<p>Quando habilitado, permite ao submitter de um novo item a possibilidade de aplicar restrição de acesso para os metadados e qualquer bitstream carregado.</p>
+
+<p>Um novo step "Access" no processo de submissão permite que o submitter escolha todos os metadados do item como "private". Dessa forma, os metadados não serão pesquisáveis e o item não aparecerá nos índices de busca. Somente administradores tem acesso a esses items privados.</p>
+
+<h5 id="accessstep">AccessStep</h5>
+
+<p>O formulário do step "AccessStep" no Embargo Simples exibe três opções para o usuário:</p>
+
+<ul>
+<li><strong><em>Private item</em></strong>: para esconder os metadados de um item de todos os índices de pesquisa e navegação, bem como interfaces extrnas como o OAI_PMH.</li>
+<li><strong><em>Embargo Access until Specific Date</em></strong>: para indicar a data até a qual o item será embargado.</li>
+<li><strong><em>Reason</em></strong>: para elaborar o motivo específico para o item estar sob embargo.</li>
+</ul>
+
+<p>Quando o Embargo é definido, ele se aplica para usuários anônimos ou para qualquer outro grupo que tenha o acesso padrão de leitura para essa coleção específica.</p>
+
+<p>Veja na figura abaixo como o AccessStep é exibido:</p>
+
+<p><img src="http://www.royopa.url.ph/themes/royopa-blog/assets/img/embargo-simples.png" alt="" /></p>
+
+<h5 id="uploadwithembargostep">UploadWithEmbargoStep</h5>
+
+<p>O formulário do step "UploadWithEmbargoStep" no Embargo Simples exibe dois novos campos para o usuário:</p>
+
+<ul>
+<li><strong><em>Embargo Access until Specific Date</em></strong>: para indicar a data até a qual o bitstream será embargado. Se ficar vazio, nenhum embargo será aplicado.</li>
+<li><strong><em>Reason</em></strong>: para elaborar o motivo específico para o bitstream estar sob embargo.</li>
+</ul>
+
+<p>Veja na figura abaixo como o UploadWithEmbargoStep é exibido:</p>
+
+<p><img src="http://www.royopa.url.ph/themes/royopa-blog/assets/img/embargo-simples-UploadWithEmbargoStep.png" alt="" /></p>
+
+<h4 id="embargo-avan%C3%A7ado">Embargo Avançado</h4>
+
+<p>O Embargo Simples é limitado no sentido de que afeta apenas usuários anônimos e todos os grupos que têm acesso de leitura padrão.  Já o Embargo Avançado é mais poderoso, pois permite definir os embargos a grupos específicos de usuários. É aconselhável que esta funcionalidade só esteja habilitada para os usuários que conheçam quais os tipos de grupos que foram definidos no repositório, a fim de fazer um correto julgamento de quais embargos devem ser aplicados para cada grupo.</p>
+
+<h3 id="habilitando-o-embargo-no-dspace">Habilitando o Embargo no DSpace</h3>
+
+<p>Veja abaixo as configurações para habilitar a funcionalidade no DSpace 3.0+.</p>
+
+<h5 id="embargo-simples-ou-avan%C3%A7ado">Embargo simples ou avançado</h5>
+
+<h6 id="dspace.cfg">dspace.cfg</h6>
+
+<p>Para escolher entre os dois tipos de embargo, você deve preencher a propriedade <strong>webui.submission.restrictstep.enableAdvancedForm</strong> no arquivo <strong>[dsapce]/config/dspace.cfg</strong>. O valor padrão é false, que habilita o modo simples enquanto o valor true habilita o embargo avançado.</p>
+
+<pre><code>webui.submission.restrictstep.enableAdvancedForm=false
+</code></pre>
+
+<h5 id="processo-de-submiss%C3%A3o">Processo de submissão</h5>
+
+<h6 id="item-submission.xml">item-submission.xml</h6>
+
+<p>Para habilitar o embargo, o arquivo <strong>[dspace]/config/item-submission.xml</strong> também deverá ser alterado. Esse arquivo determina os steps que são executados na submissão de um novo item.
+Dois novos steps são introduzidos no arquivo. Por padrão eles ainda não estão ativados:</p>
+
+<ul>
+<li><strong>AccessStep</strong>: step no qual o usuário define o embargo no nível de item, restringindo o acesso aos metadados do item.</li>
+<li><strong>UploadWithEmbargoStep</strong>: step no qual o usuário define o embargo no nível de bitstream. Se esse step estiver habilitado, o antigo <em>UploadStep</em> deve estar desabilitado. Manter os dois steps habilitados resultará numa falha de sistema.</li>
+</ul>
+
+<p>Veja um trecho do arquivo alterado:</p>
+
+<ul>
+<li>Step 3 - AccessStep*</li>
+</ul>
+
+<pre><code class="xml">&lt;step&gt;
+    &lt;heading&gt;submit.progressbar.access&lt;/heading&gt;
+    &lt;processing-class&gt;org.dspace.submit.step.AccessStep&lt;/processing-class&gt;
+    &lt;jspui-binding&gt;org.dspace.app.webui.submit.step.JSPAccessStep&lt;/jspui-binding&gt;
+    &lt;xmlui-binding&gt;org.dspace.app.xmlui.aspect.submission.submit.AccessStep&lt;/xmlui-binding&gt;
+    &lt;workflow-editable&gt;true&lt;/workflow-editable&gt;
+&lt;/step&gt;
+</code></pre>
+
+<ul>
+<li>Step 4 - UploadWithEmbargoStep*</li>
+</ul>
+
+<pre><code class="xml">&lt;step&gt;
+    &lt;heading&gt;submit.progressbar.access&lt;/heading&gt;
+    &lt;processing-class&gt;org.dspace.submit.step.AccessStep&lt;/processing-class&gt;
+    &lt;jspui-binding&gt;org.dspace.app.webui.submit.step.JSPAccessStep&lt;/jspui-binding&gt;
+    &lt;xmlui-binding&gt;org.dspace.app.xmlui.aspect.submission.submit.AccessStep&lt;/xmlui-binding&gt;
+    &lt;workflow-editable&gt;true&lt;/workflow-editable&gt;
+&lt;/step&gt;
+</code></pre>
+
+<p>Mais informações sobre a funcionalidade de embargo podem ser vistas na <a href="https://wiki.duraspace.org/display/DSDOC5x/Embargo">Wiki do DSpace</a></p>
+
+        </div>
+            </article>
+    <nav>
+        <a href="/page/3">Newer Posts</a><br />
+        <a href="/page/5">Older Posts</a><br />
+    </nav>
+                </div>
+                <div class="span4 sidebar">
+                    <div class="well">
+                        <h4>Sculpin Blog Skeleton <small>To Get You Started</small></h4>
+                    </div>
+                    <div class="well sidebar-nav">
+                        <h4>Links</h4>
+                        <ul class="nav">
+                            <li><a href="http://sculpin.io">sculpin.io</a></li>
+                            <li><a href="http://twitter.com/getsculpin">@getsculpin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container">
+            &copy; 2015 Sculpin Blog Skeleton
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/components/jquery/jquery.min.js"><\/script>')</script>
+        <script src="/components/bootstrap/js/bootstrap.min.js"></script>
+                
+                <script src="/components/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+                    </body>
+</html>
