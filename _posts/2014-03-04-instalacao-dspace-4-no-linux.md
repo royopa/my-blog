@@ -1,69 +1,64 @@
-{
+<p>{
 "title" : "Instalação DSpace 4 no Linux",
 "author":"Royopa",
 "date":"04-03-2014",
 "tag":"DSpace, DSpace install",
 "slug" : "instalacao-dspace-4-no-linux",
 "category":"DSpace"
-}
+}</p>
 
-Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em [Wordpress](http://royopa.wordpress.com/2014/03/04/instalacao-do-dspace-4-1-em-sistemas-ubuntu-like/).
+<p>Este é a replicação com algumas atualizações de um artigo que publiquei no meu blog em <a href="http://royopa.wordpress.com/2014/03/04/instalacao-do-dspace-4-1-em-sistemas-ubuntu-like/">Wordpress</a>.</p>
 
-Após o lançamento da versão 4.1 do DSpace em 03/03/2014, resolvi criar uma máquina virtual para testar a estabilidade e novas funcionalidades da versão.
+<p>Após o lançamento da versão 4.1 do DSpace em 03/03/2014, resolvi criar uma máquina virtual para testar a estabilidade e novas funcionalidades da versão.</p>
 
-Devido ao processo de instalação ser um pouco <del>difícil</del> chato, com diversas configurações para se fazer e tudo mais (como já havia publicado no [Slideshare](http://www.slideshare.net/royopa1/instalao-dspace-3x-windows-e-linux) o guia para a instalação da versão 3, resolvi criar um script para instalação de forma quase que automática do DSpace.
+<p>Devido ao processo de instalação ser um pouco <del>difícil</del> chato, com diversas configurações para se fazer e tudo mais (como já havia publicado no <a href="http://www.slideshare.net/royopa1/instalao-dspace-3x-windows-e-linux">Slideshare</a> o guia para a instalação da versão 3, resolvi criar um script para instalação de forma quase que automática do DSpace.</p>
 
-Para esse processo utilizei como base o artigo DSpace LiveCD da [Wiki do DSpace](https://wiki.duraspace.org/display/DSPACE/LiveCD).
+<p>Para esse processo utilizei como base o artigo DSpace LiveCD da <a href="https://wiki.duraspace.org/display/DSPACE/LiveCD">Wiki do DSpace</a>.</p>
 
-Meu projeto está no [GitHub](https://github.com/royopa/dspace-auto-install/), então quem tiver interesse de melhorá-lo, adequá-lo conforme as suas necessidades fiquem à vontade!.
+<p>Meu projeto está no <a href="https://github.com/royopa/dspace-auto-install/">GitHub</a>, então quem tiver interesse de melhorá-lo, adequá-lo conforme as suas necessidades fiquem à vontade!.</p>
 
-##1º Passo - Baixar uma imagem do Ubuntu
+<h2 id="1%C2%BA-passo---baixar-uma-imagem-do-ubuntu">1º Passo - Baixar uma imagem do Ubuntu</h2>
 
-Para evitar o processo de instalação do Linux foi baixada uma imagem do [XUbuntu](http://downloads.sourceforge.net/virtualboximage/xubuntu_1204.7z), localizada no site [Virtual Box Images](http://virtualboxes.org/images/), conforme abaixo:
+<p>Para evitar o processo de instalação do Linux foi baixada uma imagem do <a href="http://downloads.sourceforge.net/virtualboximage/xubuntu_1204.7z">XUbuntu</a>, localizada no site <a href="http://virtualboxes.org/images/">Virtual Box Images</a>, conforme abaixo:</p>
 
-```
-Xubuntu 12.04 codename Precise Pangolin
+<pre><code>Xubuntu 12.04 codename Precise Pangolin
 Size (compressed/uncompressed): 502.2 MBytes / 2.6 GBytes
 Active user account(s) (username/password): xubuntu/reverse
-```
+</code></pre>
 
-Outra alternativa é usar uma versão de Linux bem pequena, chamada Puppy Linux, através da [imagem](http://sourceforge.net/projects/virtualboximage/files/Puppy%20Linux/5.2.0/LucidPuppy-520.7z/download) baixada no mesmo site.
+<p>Outra alternativa é usar uma versão de Linux bem pequena, chamada Puppy Linux, através da <a href="http://sourceforge.net/projects/virtualboximage/files/Puppy%20Linux/5.2.0/LucidPuppy-520.7z/download">imagem</a> baixada no mesmo site.</p>
 
-```
-Puppy Linux 5.2.0 Lucid
+<pre><code>Puppy Linux 5.2.0 Lucid
 Size (compressed/uncompressed): 167.0 MBytes/ 655 MBytes
 Link:LucidPuppy-520.7z
-```
+</code></pre>
 
-Após ter a máquina virtual baixada e funcionando siga para os próximos passos. Esse artigo não tem a intenção de ensinar como criar uma máquina virtual, mas procurando no Google você verá que o processo é bem fácil.
+<p>Após ter a máquina virtual baixada e funcionando siga para os próximos passos. Esse artigo não tem a intenção de ensinar como criar uma máquina virtual, mas procurando no Google você verá que o processo é bem fácil.</p>
 
-##2º Passo - Baixar os arquivos/scripts para instalação do DSpace
+<h2 id="2%C2%BA-passo---baixar-os-arquivos%2Fscripts-para-instala%C3%A7%C3%A3o-do-dspace">2º Passo - Baixar os arquivos/scripts para instalação do DSpace</h2>
 
-Baixe os [arquivos do GitHub](https://github.com/royopa/dspace-auto-install/archive/master.zip) para a instalação do DSpace e extraia-os numa pasta no diretório home da máquina virtual.
+<p>Baixe os <a href="https://github.com/royopa/dspace-auto-install/archive/master.zip">arquivos do GitHub</a> para a instalação do DSpace e extraia-os numa pasta no diretório home da máquina virtual.</p>
 
-##3º Passo - Alterar os parâmetros de instalação
+<h2 id="3%C2%BA-passo---alterar-os-par%C3%A2metros-de-instala%C3%A7%C3%A3o">3º Passo - Alterar os parâmetros de instalação</h2>
 
-Altere e salve os arquivos abaixo, localizados na pasta que você extraiu no passo acima, com os parâmetros que você deseja.
+<p>Altere e salve os arquivos abaixo, localizados na pasta que você extraiu no passo acima, com os parâmetros que você deseja.</p>
 
-No meu caso eu utilizei como servidor de e-mail o Gmail, portanto caso você utilize uma conta do Gmail também basta alterar o endereço de e-mail e a senha com os dados da sua conta.
+<p>No meu caso eu utilizei como servidor de e-mail o Gmail, portanto caso você utilize uma conta do Gmail também basta alterar o endereço de e-mail e a senha com os dados da sua conta.</p>
 
-###build-dspace (altere para a versão do DSpace que se deseja instalar)
+<h3 id="build-dspace-altere-para-a-vers%C3%A3o-do-dspace-que-se-deseja-instalar">build-dspace (altere para a versão do DSpace que se deseja instalar)</h3>
 
-~~~
-VERSION_DSPACE="4.1"
-~~~
+<pre><code>VERSION_DSPACE="4.1"
+</code></pre>
 
-###build.properties
+<h3 id="build.properties">build.properties</h3>
 
-~~~
-dspace.name = DSpace
+<pre><code>dspace.name = DSpace
 default.language = pt_BR
-~~~
+</code></pre>
 
-###dspace.cfg
+<h3 id="dspace.cfg">dspace.cfg</h3>
 
-~~~
-dspace.name = DSpace
+<pre><code>dspace.name = DSpace
 default.language = pt_BR
 mail.server=smtp.gmail.com
 mail.server.username = treinamento.dspace@gmail.com
@@ -76,34 +71,33 @@ feedback.recipient = treinamento.dspace@gmail.com
 mail.admin = treinamento.dspace@gmail.com
 alert.recipient = treinamento.dspace@gmail.com
 registration.notify = treinamento.dspace@gmail.com
-~~~
+</code></pre>
 
-##4º Passo - Iniciar o processo de instalação
+<h2 id="4%C2%BA-passo---iniciar-o-processo-de-instala%C3%A7%C3%A3o">4º Passo - Iniciar o processo de instalação</h2>
 
-Abra o terminal, vá até a pasta onde os arquivos estão localizados e execute o script de instalação:
+<p>Abra o terminal, vá até a pasta onde os arquivos estão localizados e execute o script de instalação:</p>
 
-~~~
-$ ./build-dspace
-~~~
+<pre><code>$ ./build-dspace
+</code></pre>
 
-Algumas vezes o script solicitará a senha do root ou alguma confirmação, basta responder a solicitação que o script continua sem problemas.
+<p>Algumas vezes o script solicitará a senha do root ou alguma confirmação, basta responder a solicitação que o script continua sem problemas.</p>
 
-Esse processo baixa todas as depêndencias necessárias, instala e compila o DSpace, portanto é um processo um pouco demorado, dependendo da velocidade da sua conexão de internet.
+<p>Esse processo baixa todas as depêndencias necessárias, instala e compila o DSpace, portanto é um processo um pouco demorado, dependendo da velocidade da sua conexão de internet.</p>
 
-Caso tenha ocorrido tudo bem, será exibida a mensagem ***Build completed***.
+<p>Caso tenha ocorrido tudo bem, será exibida a mensagem <strong><em>Build completed</em></strong>.</p>
 
-Pronto, o DSpace está instalado, basta acessar através do endereço: <http://localhost:8080/xmlui> para a interface XMLUI e <http://localhost:8080/jspui> para a interface JSPUI.
+<p>Pronto, o DSpace está instalado, basta acessar através do endereço: <a href="http://localhost:8080/xmlui">http://localhost:8080/xmlui</a> para a interface XMLUI e <a href="http://localhost:8080/jspui">http://localhost:8080/jspui</a> para a interface JSPUI.</p>
 
-O usuário administrador criado foi o dspace com a senha dspace.
+<p>O usuário administrador criado foi o dspace com a senha dspace.</p>
 
-###Senhas da aplicação
+<h3 id="senhas-da-aplica%C3%A7%C3%A3o">Senhas da aplicação</h3>
 
-**DSpace admin**
+<p><strong>DSpace admin</strong>
 Usuário: dspace
-Senha: dspace
+Senha: dspace</p>
 
-**PostgreSQL**
+<p><strong>PostgreSQL</strong>
 Usuário: postgres
-Senha: dspace
+Senha: dspace</p>
 
-Mais informações sobre a instalação podem ser encontradas na [documentação oficial do DSpace](https://wiki.duraspace.org/display/DSDOC4x/Installing+DSpace).
+<p>Mais informações sobre a instalação podem ser encontradas na <a href="https://wiki.duraspace.org/display/DSDOC4x/Installing+DSpace">documentação oficial do DSpace</a>.</p>

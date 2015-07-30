@@ -1,35 +1,32 @@
-{
+<p>{
 "title" : "Otimização de portfólio de Markovitz no Python",
 "author":"Royopa",
 "date":"21-04-2015",
 "tag":"python, finance",
 "slug" : "otimizacao-de-portfolio-de-markovitz-no-python",
 "category":"finance"
-}
+}</p>
 
-Tradução e adaptação dos artigos abaixo:
+<p>Tradução e adaptação dos artigos abaixo:</p>
 
-(http://blog.quantopian.com/markowitz-portfolio-optimization-2/)
+<p>(http://blog.quantopian.com/markowitz-portfolio-optimization-2/)
 (http://work.ange.le.free.fr/works/MarkowitzPortfolio/MarkowitzPortfolio.pdf)
 (http://www.rodrigofernandez.com.br/ecomp/ref/excel_markowitz.pdf)
-(http://hcinvestimentos.com/2009/08/14/harry-markowitz-fronteira-eficiente/)
+(http://hcinvestimentos.com/2009/08/14/harry-markowitz-fronteira-eficiente/)</p>
 
-Introdução
-----------
+<h2 id="introdu%C3%A7%C3%A3o">Introdução</h2>
 
-De acordo com a Wikipédia, o Modelo de Markowitz permite que se calcule o risco de uma carteira de investimentos, não importando se é composta por ações, opções, renda fixa ou qualquer outro ativo. Um ponto interessante é que usando o Modelo de Markowitz é possível construir carteiras de investimento em que o risco é inferior ao ativo de menor risco da carteira. Isto é, imagine uma carteira com PETR4 (suponha risco de 3% ao dia) e TAMM4 (risco de 4% ao dia) em que o risco da carteira é inferior ao ativo de menor risco - o que significaria dizer que posso investir em Petrobrás e Tam e ainda assim obter um risco menor que 3% ao dia.
+<p>De acordo com a Wikipédia, o Modelo de Markowitz permite que se calcule o risco de uma carteira de investimentos, não importando se é composta por ações, opções, renda fixa ou qualquer outro ativo. Um ponto interessante é que usando o Modelo de Markowitz é possível construir carteiras de investimento em que o risco é inferior ao ativo de menor risco da carteira. Isto é, imagine uma carteira com PETR4 (suponha risco de 3% ao dia) e TAMM4 (risco de 4% ao dia) em que o risco da carteira é inferior ao ativo de menor risco - o que significaria dizer que posso investir em Petrobrás e Tam e ainda assim obter um risco menor que 3% ao dia.</p>
 
-Neste post você vai aprender sobre a idéia básica por trás de otimização de carteiras de Markowitz, bem como a forma de calcular em Python. Veremos também como criar um backtest simples que reequilibra seu portfólio da melhor forma.
+<p>Neste post você vai aprender sobre a idéia básica por trás de otimização de carteiras de Markowitz, bem como a forma de calcular em Python. Veremos também como criar um backtest simples que reequilibra seu portfólio da melhor forma.</p>
 
-Vamos começar usando dados aleatórios e só mais tarde usar dados de estoque reais. Esperamos que possa ajudá-lo a ter uma noção de como usar modelagem e simulação para melhorar a sua compreensão dos conceitos teóricos. Não se esqueça que a habilidade de um [algotrader](https://fernandonogueiracosta.wordpress.com/2012/09/06/seguidor-automatico-de-estrategias-financeiras-algotrader-real-people-real-money/) é colocar modelos matemáticos em código e este exemplo é ótimo para praticar.
+<p>Vamos começar usando dados aleatórios e só mais tarde usar dados de estoque reais. Esperamos que possa ajudá-lo a ter uma noção de como usar modelagem e simulação para melhorar a sua compreensão dos conceitos teóricos. Não se esqueça que a habilidade de um <a href="https://fernandonogueiracosta.wordpress.com/2012/09/06/seguidor-automatico-de-estrategias-financeiras-algotrader-real-people-real-money/">algotrader</a> é colocar modelos matemáticos em código e este exemplo é ótimo para praticar.</p>
 
-Vamos começar com a importação de alguns módulos, que precisaremos mais tarde para produzir uma série de retornos normalmente distribuídos. O [***cvxopt***](http://cvxopt.org/) é um pacote para otimização convexa que pode ser facilmente fazer a instalação com comando ***sudo pip instalar cvxopt*** ou num sistema Ubuntu like ***sudo apt-get install python-cvxopt***.
+<p>Vamos começar com a importação de alguns módulos, que precisaremos mais tarde para produzir uma série de retornos normalmente distribuídos. O <a href="http://cvxopt.org/"><strong><em>cvxopt</em></strong></a> é um pacote para otimização convexa que pode ser facilmente fazer a instalação com comando <strong><em>sudo pip instalar cvxopt</em></strong> ou num sistema Ubuntu like <strong><em>sudo apt-get install python-cvxopt</em></strong>.</p>
 
-Simulações
-----------
+<h2 id="simula%C3%A7%C3%B5es">Simulações</h2>
 
-```python
-#!/usr/bin/env python3
+<pre><code class="python">#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
@@ -81,7 +78,7 @@ def random_portfolio(returns):
     sigma = np.sqrt(w * C * w.T)
 
     # This recursion reduces outliers to keep plots pretty
-    if sigma > 2:
+    if sigma &gt; 2:
         return random_portfolio(returns)
     return mu, sigma
 
@@ -217,7 +214,7 @@ def handle_data(context, data):
     # Allow history to accumulate 100 days of prices before trading
     # and rebalance every day thereafter.
     context.tick += 1
-    if context.tick < 100:
+    if context.tick &lt; 100:
         return
     # Get rolling window of past prices and compute returns
     prices = history(100, '1d', 'price').dropna()
@@ -230,7 +227,7 @@ def handle_data(context, data):
             order_target_percent(stock, weight)
     except ValueError as e:
         # Sometimes this error is thrown
-        # ValueError: Rank(A) < p or Rank([P; A; G]) < n
+        # ValueError: Rank(A) &lt; p or Rank([P; A; G]) &lt; n
         print(e)
         pass
 
@@ -241,4 +238,4 @@ results = algo.run(data)
 results.portfolio_value.plot()
 
 plt.show()
-```
+</code></pre>

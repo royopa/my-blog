@@ -1,75 +1,71 @@
-{
+<p>{
 "title" : "Calculando o Beta de uma ação com Python",
 "author":"Royopa",
 "date":"24-04-2015",
 "tag":"python, finance",
 "slug" : "calculando-o-beta-de-uma-acao-com-python",
 "category":"finance"
-}
+}</p>
 
-Tradução e adaptação do artigo [Calculating Portfolio Beta with Python](https://composmachina.com/blog/2013/03/calculating-portfolio-beta-with-python/) do [Dave Tucker](https://composmachina.com/blog/).
+<p>Tradução e adaptação do artigo <a href="https://composmachina.com/blog/2013/03/calculating-portfolio-beta-with-python/">Calculating Portfolio Beta with Python</a> do <a href="https://composmachina.com/blog/">Dave Tucker</a>.</p>
 
-A teoria
---------
+<h2 id="a-teoria">A teoria</h2>
 
-O Índice Beta é um indicador que mede a sensibilidade de um ativo em relação ao comportamento de uma carteira que represente o mercado.
+<p>O Índice Beta é um indicador que mede a sensibilidade de um ativo em relação ao comportamento de uma carteira que represente o mercado.</p>
 
-É a relação entre a variação do retorno de uma ação (ativo) e o Ibovespa (mercado), por exemplo.
+<p>É a relação entre a variação do retorno de uma ação (ativo) e o Ibovespa (mercado), por exemplo.</p>
 
-Portanto, o Índice Beta é uma medida do risco que um investidor está exposto ao investir em um ativo em particular em comparação com o mercado como um todo.
+<p>Portanto, o Índice Beta é uma medida do risco que um investidor está exposto ao investir em um ativo em particular em comparação com o mercado como um todo.</p>
 
-A fórmula do Índice Beta é bem simples:
+<p>A fórmula do Índice Beta é bem simples:</p>
 
-Beta = Covariância entre o Retorno do Ativo e do Mercado / Variância do Retorno do Mercado
+<p>Beta = Covariância entre o Retorno do Ativo e do Mercado / Variância do Retorno do Mercado</p>
 
-Ou desta maneira:
+<p>Ou desta maneira:</p>
 
+<p><img src="http://hcinvestimentos.com/wp-content/uploads/2011/12/formula-beta.png" alt="Fórmula do Índice Beta" title="Fórmula do Índice Beta" /></p>
 
-![Fórmula do Índice Beta](http://hcinvestimentos.com/wp-content/uploads/2011/12/formula-beta.png "Fórmula do Índice Beta")
+<p>onde:</p>
 
-onde:
+<p>βa = Beta</p>
 
-βa = Beta
+<p>ra = Retorno do Ativo</p>
 
-ra = Retorno do Ativo
+<p>rp = Retorno do Portfólio (Também pode ser usado como rm = Retorno do Mercado)</p>
 
-rp = Retorno do Portfólio (Também pode ser usado como rm = Retorno do Mercado)
+<p>O coeficiente β é usado para medir o risco não-diversificável, isto é, fatores de mercado que afetam todas as empresas, como guerra, inflação, crises internacionais, etc. Ou seja, quanto o ativo está sujeito às variações não controláveis do mercado e do ambiente. É um índice que mede a relação entre o retorno de um ativo e o retorno do mercado. Desta forma, o prêmio por risco será sempre multiplicado por este coeficiente, exigindo um prêmio maior por risco quanto maior a variação do ativo em relação à carteira de mercado.</p>
 
-O coeficiente β é usado para medir o risco não-diversificável, isto é, fatores de mercado que afetam todas as empresas, como guerra, inflação, crises internacionais, etc. Ou seja, quanto o ativo está sujeito às variações não controláveis do mercado e do ambiente. É um índice que mede a relação entre o retorno de um ativo e o retorno do mercado. Desta forma, o prêmio por risco será sempre multiplicado por este coeficiente, exigindo um prêmio maior por risco quanto maior a variação do ativo em relação à carteira de mercado.
+<p>O beta da carteira de ações padrão, IBOVESPA, é sempre igual a 1, uma vez que ela é a base para o cálculo comparativo. O beta desta carteira é o beta médio de todos os títulos disponíveis. Desta forma, concluímos:</p>
 
-O beta da carteira de ações padrão, IBOVESPA, é sempre igual a 1, uma vez que ela é a base para o cálculo comparativo. O beta desta carteira é o beta médio de todos os títulos disponíveis. Desta forma, concluímos:
+<p>β = 1 Ativo médio.</p>
 
-β = 1 Ativo médio.
+<p>Sua variação tende a acompanhar perfeitamente o mercado. Quando o IBOVESPA valoriza 5%, o ativo valoriza na mesma proporção.</p>
 
-Sua variação tende a acompanhar perfeitamente o mercado. Quando o IBOVESPA valoriza 5%, o ativo valoriza na mesma proporção.
+<p>β &lt; 1 Ativo defensivo.</p>
 
-β < 1 Ativo defensivo.
+<p>Possui oscilações inferiores ao mercado e no mesmo sentido. Quando o IBOVESPA valoriza 5%, o ativo tende a valorizar menos do que 5%.</p>
 
-Possui oscilações inferiores ao mercado e no mesmo sentido. Quando o IBOVESPA valoriza 5%, o ativo tende a valorizar menos do que 5%.
+<p>β > 1 Ativo agressivo.</p>
 
-β > 1 Ativo agressivo.
+<p>Possui oscilações maiores do que o mercado e no mesmo sentido. Por exemplo, uma ação com β=2,0 tende a valorizar/desvalorizar o dobro do mercado (IBOVESPA).</p>
 
-Possui oscilações maiores do que o mercado e no mesmo sentido. Por exemplo, uma ação com β=2,0 tende a valorizar/desvalorizar o dobro do mercado (IBOVESPA).
+<p>Suponha-se que seja necessário fazer a escolha entre três ações que farão parte de um portfólio agressivo de médio prazo (até 1 ano). As ações são: VALE5, TNLP4 e ELPL5. Iremos determinar o risco do ativo a partir do índice beta.</p>
 
-Suponha-se que seja necessário fazer a escolha entre três ações que farão parte de um portfólio agressivo de médio prazo (até 1 ano). As ações são: VALE5, TNLP4 e ELPL5. Iremos determinar o risco do ativo a partir do índice beta.
+<p>Considere-se, para este exemplo, que o mercado encontra-se em alta, com boas perspectivas para o próximo ano.</p>
 
-Considere-se, para este exemplo, que o mercado encontra-se em alta, com boas perspectivas para o próximo ano.
+<p>Analisando a explicação sobre o índice beta fornecida acima, concluímos que devemos escolher ativos com betas superiores a 1, pois pertencem a ativos que possuem oscilações maiores do que a carteira. Tanto positivamente quanto negativamente.</p>
 
-Analisando a explicação sobre o índice beta fornecida acima, concluímos que devemos escolher ativos com betas superiores a 1, pois pertencem a ativos que possuem oscilações maiores do que a carteira. Tanto positivamente quanto negativamente.
+<p>O próximo passo é observar o período de análise do β. Este deve estar alinhado com a estratégia de investimento, isto é, para um investimento de médio prazo, devemos escolher o β de um período similar.</p>
 
-O próximo passo é observar o período de análise do β. Este deve estar alinhado com a estratégia de investimento, isto é, para um investimento de médio prazo, devemos escolher o β de um período similar.
+<p>Fontes:
+<a href="http://hcinvestimentos.com/2011/12/20/indice-beta/">O que é Índice Beta?</a>
+<a href="http://pt.wikipedia.org/wiki/%C3%8Dndice_beta">Wikipédia</a></p>
 
-Fontes:
-[O que é Índice Beta?](http://hcinvestimentos.com/2011/12/20/indice-beta/)
-[Wikipédia](http://pt.wikipedia.org/wiki/%C3%8Dndice_beta)
+<h2 id="vamos-a-programa%C3%A7%C3%A3o">Vamos a programação</h2>
 
-Vamos a programação
--------------------
+<p>O código a seguir usa Python3 e o <a href="http://numpy.scipy.org/">Numpy</a>, pacote para a linguagem Python que suporta arrays e matrizes multidimensionais, possuindo uma larga coleção de funções matemáticas para trabalhar com estas estruturas.</p>
 
-O código a seguir usa Python3 e o [Numpy](http://numpy.scipy.org/), pacote para a linguagem Python que suporta arrays e matrizes multidimensionais, possuindo uma larga coleção de funções matemáticas para trabalhar com estas estruturas.
-
-```python
-#!/usr/bin/python3
+<pre><code class="python">#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import numpy as np
@@ -173,7 +169,7 @@ def calc_beta(prices_stock, prices_market):
     # beta é necessário que os dados da ação e de mercado tenha a mesma
     # quantidade de registros
     smallest = market_len
-    if stock_len < market_len:
+    if stock_len &lt; market_len:
         smallest = stock_len
 
     # Cria os arrays de retornos dos preços
@@ -224,6 +220,6 @@ closing_prices_stock = get_closing_prices(stock_prices, 4)
 
 beta = calc_beta(closing_prices_stock, closing_prices_market)
 print('O beta é = ', beta)
-```
+</code></pre>
 
-O código em Pyhton acima pode ser baixado no Gist, no endereço: [https://gist.github.com/royopa/a8af15e8cead604ff6c2](https://gist.github.com/royopa/a8af15e8cead604ff6c2)
+<p>O código em Pyhton acima pode ser baixado no Gist, no endereço: <a href="https://gist.github.com/royopa/a8af15e8cead604ff6c2">https://gist.github.com/royopa/a8af15e8cead604ff6c2</a></p>
